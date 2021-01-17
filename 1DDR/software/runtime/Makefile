@@ -13,25 +13,26 @@
 # implied. See the License for the specific language governing permissions and
 # limitations under the License.
 
-INCLUDES = -I$(SDK_DIR)/userspace/include -I$(FLETCHER_AWS_DIR)/runtime/runtime/src
+INCLUDES = -I$(SDK_DIR)/userspace/include -I$(FLETCHER_AWS_DIR)/runtime/runtime/include -I$(FLETCHER_AWS_DIR)/runtime/runtime_sim/include
 
 CC = g++
 CPPFLAGS = -DCONFIG_LOGLEVEL=4 -g -Wall -Werror $(INCLUDES)
 
 #the -L library include directories are only needed if the platform libraries are not installed
-LDLIBS = -L$(FLETCHER_AWS_DIR)/runtime/runtime/build -lfpga_mgmt -lfletcher -lfletcher_aws
+#LDLIBS = -L$(FLETCHER_AWS_DIR)/runtime/runtime_sim/build -L$(FLETCHER_AWS_DIR)/runtime/runtime/build -L/home/yyunon/thesis_journals/resources/fletcher-aws/aws-fpga/sdk/userspace/lib -L$(FLETCHER_DIR)/runtime/cpp/build -lfpga_mgmt -lfletcher_aws -lfletcher_aws_sim
+LDLIBS = -L${SDK_DIR}/userspace/lib/so -lfpga_mgmt -lfletcher -L$(FLETCHER_AWS_DIR)/runtime/runtime_sim/build -L$(FLETCHER_AWS_DIR)/runtime/runtime/build
 
-SRC = sum.cpp
+SRC = tpch.cpp
 OBJ = $(SRC:.cpp=.o)
 
 
-all: sum check_env $(BIN)
+all: tpch check_env $(BIN)
 
-sum: $(OBJ)
-	$(CC) $(CFLAGS) -o sum sum.o $(LDFLAGS) $(LDLIBS)
+tpch: $(OBJ)
+	$(CC) $(CFLAGS) -o tpch tpch.o $(LDFLAGS) $(LDLIBS)
 
 clean:
-	rm -f *.o sum
+	rm -f *.o tpch
 
 check_env:
 ifndef SDK_DIR
