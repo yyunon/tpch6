@@ -21,6 +21,7 @@
 set HDK_SHELL_DIR $::env(HDK_SHELL_DIR)
 set HDK_SHELL_DESIGN_DIR $::env(HDK_SHELL_DESIGN_DIR)
 set CL_DIR $::env(CL_DIR)
+set FLETCHER_DIR $::env(FLETCHER_DIR)
 
 set TARGET_DIR $CL_DIR/build/src_post_encryption
 set UNUSED_TEMPLATES_DIR $HDK_SHELL_DESIGN_DIR/interfaces
