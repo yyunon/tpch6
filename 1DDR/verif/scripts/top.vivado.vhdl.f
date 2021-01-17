@@ -34,6 +34,7 @@ $FLETCHER_DIR/hardware/vhlib/stream/StreamFIFOCounter.vhd
 $FLETCHER_DIR/hardware/vhlib/util/UtilRam_pkg.vhd
 $FLETCHER_DIR/hardware/vhlib/stream/StreamFIFO.vhd
 $FLETCHER_DIR/hardware/vhlib/stream/StreamBuffer.vhd
+$FLETCHER_DIR/hardware/vhlib/stream/StreamElementCounter.vhd
 $FLETCHER_DIR/hardware/arrays/ArrayReaderListSyncDecoder.vhd
 $FLETCHER_DIR/hardware/arrays/ArrayReaderListSync.vhd
 $FLETCHER_DIR/hardware/arrays/ArrayReaderList.vhd
