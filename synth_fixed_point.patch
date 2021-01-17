@@ -1,0 +1,86 @@
+From 6eddca9149707b6a60e74b06f41ea8d3a1d1229a Mon Sep 17 00:00:00 2001
+From: yuksel <yonsel.yuksel@gmail.com>
+Date: Sun, 17 Jan 2021 16:37:39 +0100
+Subject: [PATCH] Change fixed pkg for synth
+
+---
+ 1DDR/design/vhdl/ALU.vhd          | 6 +++---
+ 1DDR/design/vhdl/Forecast_pkg.vhd | 6 +++---
+ 1DDR/design/vhdl/MergeOp.vhd      | 6 +++---
+ 1DDR/design/vhdl/SumOp.vhd        | 6 +++---
+ 4 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/1DDR/design/vhdl/ALU.vhd b/1DDR/design/vhdl/ALU.vhd
+index b391e94..243c062 100644
+--- a/1DDR/design/vhdl/ALU.vhd
++++ b/1DDR/design/vhdl/ALU.vhd
+@@ -3,10 +3,10 @@ library ieee;
+ use ieee.std_logic_1164.all;
+ use ieee.std_logic_misc.all;
+ use ieee.numeric_std.all;
+---use ieee.fixed_pkg.all;
++use ieee.fixed_pkg.all;
+ 
+-library ieee_proposed;
+-use ieee_proposed.fixed_pkg.all;
++--library ieee_proposed;
++--use ieee_proposed.fixed_pkg.all;
+ 
+ library work;
+ use work.Stream_pkg.all;
+diff --git a/1DDR/design/vhdl/Forecast_pkg.vhd b/1DDR/design/vhdl/Forecast_pkg.vhd
+index b2957a8..01a34d8 100644
+--- a/1DDR/design/vhdl/Forecast_pkg.vhd
++++ b/1DDR/design/vhdl/Forecast_pkg.vhd
+@@ -6,10 +6,10 @@ library ieee;
+ use ieee.std_logic_1164.all;
+ use ieee.numeric_std.all;
+ use ieee.std_logic_misc.all;
+---use ieee.fixed_pkg.all;
++use ieee.fixed_pkg.all;
+ 
+-library ieee_proposed;
+-use ieee_proposed.fixed_pkg.all;
++--library ieee_proposed;
++--use ieee_proposed.fixed_pkg.all;
+ 
+ 
+ package Forecast_pkg is 
+diff --git a/1DDR/design/vhdl/MergeOp.vhd b/1DDR/design/vhdl/MergeOp.vhd
+index 99456bb..452e931 100644
+--- a/1DDR/design/vhdl/MergeOp.vhd
++++ b/1DDR/design/vhdl/MergeOp.vhd
+@@ -21,9 +21,9 @@
+ library ieee;
+ use ieee.std_logic_1164.all;
+ use ieee.numeric_std.all;
+---use ieee.fixed_pkg.all;
+-library ieee_proposed;
+-use ieee_proposed.fixed_pkg.all;
++use ieee.fixed_pkg.all;
++--library ieee_proposed;
++--use ieee_proposed.fixed_pkg.all;
+ 
+ 
+ library work;
+diff --git a/1DDR/design/vhdl/SumOp.vhd b/1DDR/design/vhdl/SumOp.vhd
+index e89d5b0..56d9688 100644
+--- a/1DDR/design/vhdl/SumOp.vhd
++++ b/1DDR/design/vhdl/SumOp.vhd
+@@ -21,10 +21,10 @@
+ library ieee;
+ use ieee.std_logic_1164.all;
+ use ieee.numeric_std.all;
+---use ieee.fixed_pkg.all;
++use ieee.fixed_pkg.all;
+ 
+-library ieee_proposed;
+-use ieee_proposed.fixed_pkg.all;
++--library ieee_proposed;
++--use ieee_proposed.fixed_pkg.all;
+ 
+ library work;
+ use work.Stream_pkg.all;
+-- 
+2.30.0
+
