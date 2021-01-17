@@ -110,11 +110,7 @@ begin
       temp_buffer_1 := to_sfixed(op1_data,temp_buffer_1'high,temp_buffer_1'low);
       temp_buffer_2 := to_sfixed(op2_data,temp_buffer_2'high,temp_buffer_2'low);
       temp_res := temp_buffer_1 + temp_buffer_2;
-      temp_buffer <= resize( arg => temp_res,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style);
-    end process;
-    process (temp_buffer) is
-    begin
-      result <= to_slv(temp_buffer);
+      result <= to_slv(resize( arg => temp_res,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
     end process;
   end generate;
     
