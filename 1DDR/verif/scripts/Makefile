@@ -22,6 +22,9 @@ endif
 ifndef FLETCHER_AWS_DIR
 $(error Environment variable FLETCHER_AWS_DIR not set. please source fletcher-aws sourceme.sh)
 endif
+ifndef FLETCHER_AWS_SIM_BUILD_DIR
+$(error Environment variable FLETCHER_AWS_SIM_BUILD_DIR not set. Set this to where you built the simulation runtime.)
+endif
 
 export TEST ?= test_null
 export C_TEST ?= test_null
@@ -95,23 +98,14 @@ export SH_SH_DIR   = $(HDK_SHELL_DESIGN_DIR)/sh_ddr/sim
 
 SV_TEST_LIST = test_hello_world
 
-# This next line has multiple layers of ugliness;
-#  1) There is no clean way to pass arguments to the build process, we're
-#     misusing --gcc_link_options to do that here.
-#  2) fletcher_aws_sim is a library, that is loaded dynamically during runtime.
-#     However, the library needs functions from sh_dpi_tasks.c. So we're adding
-#     it as a source file as well, so the linker can find everything and we
-#     don't get any undefined symbol errors.
-#  3) We need -D_GLIBCXX_USE_CXX11_ABI=0 to get things to work on CentOS, where
-#     stuff is still built using GCC 4.8.
-C_FILES = $(C_TEST_NAME)                                      \
-	$(FLETCHER_AWS_SIM_SRC_DIR)/fletcher_aws_sim.c        \
-	$(C_SDK_USR_UTILS_DIR)/sh_dpi_tasks.c                 \
-	$(C_COMMON_DIR)/src/fpga_pci_sv.c                     \
-	--gcc_compile_options I$(FLETCHER_AWS_SIM_SRC_DIR)    \
-	--gcc_compile_options D_GLIBCXX_USE_CXX11_ABI=0       \
-	--gcc_link_options lfletcher_aws_sim                  \
-	--gcc_link_options lfletcher
+#This next line has multiple layers of ugliness; 
+# 1) There is no clean way to pass arguments to the build process, we're misusing --gcc_link_options to do that here
+# 2) fletcher_aws_sim is a library, that is loaded dynamically during runtime. 
+#    However, the library needs functions from sh_dpi_tasks.c. So we're adding it as a source file as well, so the linker
+#    can find everything and we don't get any undefined symbol errors.
+C_FILES      = $(C_TEST_NAME) $(FLETCHER_AWS_SIM_SRC_DIR)/fletcher_aws_sim.c $(C_SDK_USR_UTILS_DIR)/sh_dpi_tasks.c \
+$(C_COMMON_DIR)/src/fpga_pci_sv.c --gcc_compile_options I$(FLETCHER_AWS_SIM_SRC_DIR) --gcc_link_options \
+L$(FLETCHER_AWS_SIM_BUILD_DIR) --gcc_link_options lfletcher_aws_sim --gcc_link_options lfletcher
 
 ifeq ($(XCHK), 1)
   all:	make_sim_dir compile_chk run
@@ -120,4 +114,3 @@ else
 endif
 
 include $(HDK_COMMON_DIR)/verif/tb/scripts/Makefile.common.inc
-

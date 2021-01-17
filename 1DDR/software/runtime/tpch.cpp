@@ -50,7 +50,7 @@ extern "C" void test_main(uint32_t *exit_code) {
     return;
   }
   
-  char *argv[] = {(char*)"tpch", rb_base, (char*)"16", (char*)"16"};
+  char *argv[] = {(char*)"tpch", rb_base, (char*)"1", (char*)"0"};
   if (tpch_main(4, argv) == 0) {
     *exit_code = 1;
   } else {
