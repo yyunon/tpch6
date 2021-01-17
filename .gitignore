@@ -1,0 +1,8 @@
+#Language servers
+.hdl_checker/
+#Vivado Waveform
+*.wcfg
+*.jou
+*.log
+work/
+*.pb
