@@ -559,8 +559,8 @@ begin
 
       if state = STATE_DONE then
         result <= sum_out_data;
-        result_h <= sum_out_data(63 downto 32);
-        result_l <= sum_out_data(31 downto 0);
+        rhigh <= sum_out_data(63 downto 32);
+        rlow <= sum_out_data(31 downto 0);
       else
         result <= (63 downto state_slv'length => '0') & state_slv;
       end if;
