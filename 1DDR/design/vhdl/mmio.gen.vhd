@@ -59,6 +59,12 @@ entity mmio is
     f_l_shipdate_values_data : out std_logic_vector(63 downto 0)
         := (others => '0');
 
+    -- Interface for field rhigh: rhigh.
+    f_rhigh_write_data : in std_logic_vector(31 downto 0) := (others => '0');
+
+    -- Interface for field rlow: rlow.
+    f_rlow_write_data : in std_logic_vector(31 downto 0) := (others => '0');
+
     -- Interface for field Profile_enable: Profile_enable.
     f_Profile_enable_data : out std_logic := '0';
 
@@ -429,6 +435,30 @@ begin
     variable f_l_shipdate_values_r : f_l_shipdate_values_r_array(0 to 0)
         := (others => F_L_SHIPDATE_VALUES_R_RESET);
 
+    -- Private declarations for field rhigh: rhigh.
+    type f_rhigh_r_type is record
+      d : std_logic_vector(31 downto 0);
+      v : std_logic;
+    end record;
+    constant F_RHIGH_R_RESET : f_rhigh_r_type := (
+      d => (others => '0'),
+      v => '0'
+    );
+    type f_rhigh_r_array is array (natural range <>) of f_rhigh_r_type;
+    variable f_rhigh_r : f_rhigh_r_array(0 to 0) := (others => F_RHIGH_R_RESET);
+
+    -- Private declarations for field rlow: rlow.
+    type f_rlow_r_type is record
+      d : std_logic_vector(31 downto 0);
+      v : std_logic;
+    end record;
+    constant F_RLOW_R_RESET : f_rlow_r_type := (
+      d => (others => '0'),
+      v => '0'
+    );
+    type f_rlow_r_array is array (natural range <>) of f_rlow_r_type;
+    variable f_rlow_r : f_rlow_r_array(0 to 0) := (others => F_RLOW_R_RESET);
+
     -- Private declarations for field Profile_enable: Profile_enable.
     type f_Profile_enable_r_type is record
       d : std_logic;
@@ -609,6 +639,18 @@ begin
       f_result_r((0)).d := f_result_write_data;
       f_result_r((0)).v := '1';
 
+      -- Pre-bus logic for field rhigh: rhigh.
+
+      -- Handle hardware write for field rhigh: status.
+      f_rhigh_r((0)).d := f_rhigh_write_data;
+      f_rhigh_r((0)).v := '1';
+
+      -- Pre-bus logic for field rlow: rlow.
+
+      -- Handle hardware write for field rlow: status.
+      f_rlow_r((0)).d := f_rlow_write_data;
+      f_rlow_r((0)).v := '1';
+
       -- Pre-bus logic for field Profile_clear: Profile_clear.
 
       -- Handle post-write invalidation for field Profile_clear one cycle after
@@ -627,8 +669,8 @@ begin
       subaddr_none(0) := '0';
 
       -- Read address decoder.
-      case r_addr(5 downto 2) is
-        when "0001" =>
+      case r_addr(6 downto 2) is
+        when "00001" =>
           -- r_addr = 000000000000000000000000000001--
 
           if r_req then
@@ -695,7 +737,7 @@ begin
 
           end if;
 
-        when "0010" =>
+        when "00010" =>
           -- r_addr = 000000000000000000000000000010--
 
           if r_req then
@@ -730,7 +772,7 @@ begin
 
           end if;
 
-        when "0011" =>
+        when "00011" =>
           -- r_addr = 000000000000000000000000000011--
 
           -- Read logic for block result_reg_high: block containing bits 63..32
@@ -747,7 +789,7 @@ begin
 
           end if;
 
-        when "0100" =>
+        when "00100" =>
           -- r_addr = 000000000000000000000000000100--
 
           if r_req then
@@ -782,7 +824,7 @@ begin
 
           end if;
 
-        when "0101" =>
+        when "00101" =>
           -- r_addr = 000000000000000000000000000101--
 
           if r_req then
@@ -817,7 +859,7 @@ begin
 
           end if;
 
-        when "0110" =>
+        when "00110" =>
           -- r_addr = 000000000000000000000000000110--
 
           if r_req then
@@ -853,7 +895,7 @@ begin
 
           end if;
 
-        when "0111" =>
+        when "00111" =>
           -- r_addr = 000000000000000000000000000111--
 
           -- Read logic for block l_quantity_values_reg_high: block containing
@@ -871,7 +913,7 @@ begin
 
           end if;
 
-        when "1000" =>
+        when "01000" =>
           -- r_addr = 000000000000000000000000001000--
 
           if r_req then
@@ -908,7 +950,7 @@ begin
 
           end if;
 
-        when "1001" =>
+        when "01001" =>
           -- r_addr = 000000000000000000000000001001--
 
           -- Read logic for block l_extendedprice_values_reg_high: block
@@ -926,7 +968,7 @@ begin
 
           end if;
 
-        when "1010" =>
+        when "01010" =>
           -- r_addr = 000000000000000000000000001010--
 
           if r_req then
@@ -962,7 +1004,7 @@ begin
 
           end if;
 
-        when "1011" =>
+        when "01011" =>
           -- r_addr = 000000000000000000000000001011--
 
           -- Read logic for block l_discount_values_reg_high: block containing
@@ -980,7 +1022,7 @@ begin
 
           end if;
 
-        when "1100" =>
+        when "01100" =>
           -- r_addr = 000000000000000000000000001100--
 
           if r_req then
@@ -1016,7 +1058,7 @@ begin
 
           end if;
 
-        when "1101" =>
+        when "01101" =>
           -- r_addr = 000000000000000000000000001101--
 
           -- Read logic for block l_shipdate_values_reg_high: block containing
@@ -1034,8 +1076,78 @@ begin
 
           end if;
 
-        when others => -- "1110"
+        when "01110" =>
           -- r_addr = 000000000000000000000000001110--
+
+          if r_req then
+
+            -- Clear holding register location prior to read.
+            r_hold := (others => '0');
+
+          end if;
+
+          -- Read logic for field rhigh: rhigh.
+
+          if r_req then
+            tmp_data32 := r_hold(31 downto 0);
+          end if;
+          if r_req then
+
+            -- Regular access logic. Read mode: enabled.
+            tmp_data32 := f_rhigh_r((0)).d;
+            r_ack := true;
+
+          end if;
+          if r_req then
+            r_hold(31 downto 0) := tmp_data32;
+          end if;
+
+          -- Read logic for block rhigh_reg: block containing bits 31..0 of
+          -- register `rhigh_reg` (`RHIGH`).
+          if r_req then
+
+            r_data := r_hold(31 downto 0);
+            r_multi := '0';
+
+          end if;
+
+        when "01111" =>
+          -- r_addr = 000000000000000000000000001111--
+
+          if r_req then
+
+            -- Clear holding register location prior to read.
+            r_hold := (others => '0');
+
+          end if;
+
+          -- Read logic for field rlow: rlow.
+
+          if r_req then
+            tmp_data32 := r_hold(31 downto 0);
+          end if;
+          if r_req then
+
+            -- Regular access logic. Read mode: enabled.
+            tmp_data32 := f_rlow_r((0)).d;
+            r_ack := true;
+
+          end if;
+          if r_req then
+            r_hold(31 downto 0) := tmp_data32;
+          end if;
+
+          -- Read logic for block rlow_reg: block containing bits 31..0 of
+          -- register `rlow_reg` (`RLOW`).
+          if r_req then
+
+            r_data := r_hold(31 downto 0);
+            r_multi := '0';
+
+          end if;
+
+        when others => -- "10000"
+          -- r_addr = 000000000000000000000000010000--
 
           if r_req then
 
@@ -1079,8 +1191,8 @@ begin
       subaddr_none(0) := '0';
 
       -- Write address decoder.
-      case w_addr(5 downto 2) is
-        when "0000" =>
+      case w_addr(6 downto 2) is
+        when "00000" =>
           -- w_addr = 000000000000000000000000000000--
 
           -- Write logic for block start_reg: block containing bits 31..0 of
@@ -1142,7 +1254,7 @@ begin
 
           end if;
 
-        when "0100" =>
+        when "00100" =>
           -- w_addr = 000000000000000000000000000100--
 
           -- Write logic for block l_firstidx_reg: block containing bits 31..0
@@ -1167,7 +1279,7 @@ begin
 
           end if;
 
-        when "0101" =>
+        when "00101" =>
           -- w_addr = 000000000000000000000000000101--
 
           -- Write logic for block l_lastidx_reg: block containing bits 31..0 of
@@ -1192,7 +1304,7 @@ begin
 
           end if;
 
-        when "0110" =>
+        when "00110" =>
           -- w_addr = 000000000000000000000000000110--
 
           -- Write logic for block l_quantity_values_reg_low: block containing
@@ -1207,7 +1319,7 @@ begin
             w_ack := true;
           end if;
 
-        when "0111" =>
+        when "00111" =>
           -- w_addr = 000000000000000000000000000111--
 
           -- Write logic for block l_quantity_values_reg_high: block containing
@@ -1234,7 +1346,7 @@ begin
 
           end if;
 
-        when "1000" =>
+        when "01000" =>
           -- w_addr = 000000000000000000000000001000--
 
           -- Write logic for block l_extendedprice_values_reg_low: block
@@ -1249,7 +1361,7 @@ begin
             w_ack := true;
           end if;
 
-        when "1001" =>
+        when "01001" =>
           -- w_addr = 000000000000000000000000001001--
 
           -- Write logic for block l_extendedprice_values_reg_high: block
@@ -1277,7 +1389,7 @@ begin
 
           end if;
 
-        when "1010" =>
+        when "01010" =>
           -- w_addr = 000000000000000000000000001010--
 
           -- Write logic for block l_discount_values_reg_low: block containing
@@ -1292,7 +1404,7 @@ begin
             w_ack := true;
           end if;
 
-        when "1011" =>
+        when "01011" =>
           -- w_addr = 000000000000000000000000001011--
 
           -- Write logic for block l_discount_values_reg_high: block containing
@@ -1319,7 +1431,7 @@ begin
 
           end if;
 
-        when "1100" =>
+        when "01100" =>
           -- w_addr = 000000000000000000000000001100--
 
           -- Write logic for block l_shipdate_values_reg_low: block containing
@@ -1334,7 +1446,7 @@ begin
             w_ack := true;
           end if;
 
-        when "1101" =>
+        when "01101" =>
           -- w_addr = 000000000000000000000000001101--
 
           -- Write logic for block l_shipdate_values_reg_high: block containing
@@ -1361,8 +1473,8 @@ begin
 
           end if;
 
-        when "1110" =>
-          -- w_addr = 000000000000000000000000001110--
+        when "10000" =>
+          -- w_addr = 000000000000000000000000010000--
 
           -- Write logic for block Profile_enable_reg: block containing bits
           -- 31..0 of register `Profile_enable_reg` (`PROFILE_ENABLE`).
@@ -1386,8 +1498,8 @@ begin
 
           end if;
 
-        when others => -- "1111"
-          -- w_addr = 000000000000000000000000001111--
+        when others => -- "10001"
+          -- w_addr = 000000000000000000000000010001--
 
           -- Write logic for block Profile_clear_reg: block containing bits
           -- 31..0 of register `Profile_clear_reg` (`PROFILE_CLEAR`).

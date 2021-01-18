@@ -179,7 +179,9 @@ architecture Implementation of Forecast_Nucleus is
       done                         : out std_logic;
       result                       : out std_logic_vector(63 downto 0);
       l_firstidx                   : in  std_logic_vector(31 downto 0);
-      l_lastidx                    : in  std_logic_vector(31 downto 0)
+      l_lastidx                    : in  std_logic_vector(31 downto 0);
+      rhigh                        : out std_logic_vector(31 downto 0);
+      rlow                         : out std_logic_vector(31 downto 0)
     );
   end component;
 
@@ -256,6 +258,8 @@ architecture Implementation of Forecast_Nucleus is
   signal Forecast_inst_result                               : std_logic_vector(63 downto 0);
   signal Forecast_inst_l_firstidx                           : std_logic_vector(31 downto 0);
   signal Forecast_inst_l_lastidx                            : std_logic_vector(31 downto 0);
+  signal Forecast_inst_rhigh                                : std_logic_vector(31 downto 0);
+  signal Forecast_inst_rlow                                 : std_logic_vector(31 downto 0);
   signal mmio_inst_f_start_data                             : std_logic;
   signal mmio_inst_f_stop_data                              : std_logic;
   signal mmio_inst_f_reset_data                             : std_logic;
@@ -269,6 +273,8 @@ architecture Implementation of Forecast_Nucleus is
   signal mmio_inst_f_l_extendedprice_values_data            : std_logic_vector(63 downto 0);
   signal mmio_inst_f_l_discount_values_data                 : std_logic_vector(63 downto 0);
   signal mmio_inst_f_l_shipdate_values_data                 : std_logic_vector(63 downto 0);
+  signal mmio_inst_f_rhigh_write_data                       : std_logic_vector(31 downto 0);
+  signal mmio_inst_f_rlow_write_data                        : std_logic_vector(31 downto 0);
   signal mmio_inst_f_Profile_enable_data                    : std_logic;
   signal mmio_inst_f_Profile_clear_data                     : std_logic;
   signal mmio_inst_mmio_awvalid                             : std_logic;
@@ -415,7 +421,9 @@ begin
       done                         => Forecast_inst_done,
       result                       => Forecast_inst_result,
       l_firstidx                   => Forecast_inst_l_firstidx,
-      l_lastidx                    => Forecast_inst_l_lastidx
+      l_lastidx                    => Forecast_inst_l_lastidx,
+      rhigh                        => Forecast_inst_rhigh,
+      rlow                         => Forecast_inst_rlow
     );
 
   mmio_inst : mmio
@@ -435,6 +443,8 @@ begin
       f_l_extendedprice_values_data => mmio_inst_f_l_extendedprice_values_data,
       f_l_discount_values_data      => mmio_inst_f_l_discount_values_data,
       f_l_shipdate_values_data      => mmio_inst_f_l_shipdate_values_data,
+      f_rhigh_write_data            => mmio_inst_f_rhigh_write_data,
+      f_rlow_write_data             => mmio_inst_f_rlow_write_data,
       mmio_awvalid                  => mmio_inst_mmio_awvalid,
       mmio_awready                  => mmio_inst_mmio_awready,
       mmio_awaddr                   => mmio_inst_mmio_awaddr,
@@ -619,6 +629,8 @@ begin
   mmio_inst_f_busy_write_data                       <= Forecast_inst_busy;
   mmio_inst_f_done_write_data                       <= Forecast_inst_done;
   mmio_inst_f_result_write_data                     <= Forecast_inst_result;
+  mmio_inst_f_rhigh_write_data                      <= Forecast_inst_rhigh;
+  mmio_inst_f_rlow_write_data                       <= Forecast_inst_rlow;
   mmio_inst_mmio_awvalid                            <= mmio_awvalid;
   mmio_awready                                      <= mmio_inst_mmio_awready;
   mmio_inst_mmio_awaddr                             <= mmio_awaddr;

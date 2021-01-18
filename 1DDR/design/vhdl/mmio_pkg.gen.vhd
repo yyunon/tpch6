@@ -61,6 +61,12 @@ package mmio_pkg is
       f_l_shipdate_values_data : out std_logic_vector(63 downto 0)
           := (others => '0');
 
+      -- Interface for field rhigh: rhigh.
+      f_rhigh_write_data : in std_logic_vector(31 downto 0) := (others => '0');
+
+      -- Interface for field rlow: rlow.
+      f_rlow_write_data : in std_logic_vector(31 downto 0) := (others => '0');
+
       -- Interface for field Profile_enable: Profile_enable.
       f_Profile_enable_data : out std_logic := '0';
 

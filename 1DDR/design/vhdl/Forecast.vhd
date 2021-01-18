@@ -88,6 +88,8 @@ entity Forecast is
     busy                             : out std_logic;
     done                             : out std_logic;
     result                           : out std_logic_vector(63 downto 0);
+    rhigh                        : out std_logic_vector(31 downto 0);
+    rlow                        : out std_logic_vector(31 downto 0);
     l_firstidx                      : in  std_logic_vector(31 downto 0);
     l_lastidx                       : in  std_logic_vector(31 downto 0)
 
@@ -546,9 +548,6 @@ begin
         -- alongside the clock (kcd_reset).        
     end case;
   end process;
-
-
-
   
  -- Sequential part:
   sequential_proc: process (kcd_clk)
@@ -560,6 +559,8 @@ begin
 
       if state = STATE_DONE then
         result <= sum_out_data;
+        result_h <= sum_out_data(63 downto 32);
+        result_l <= sum_out_data(31 downto 0);
       else
         result <= (63 downto state_slv'length => '0') & state_slv;
       end if;
