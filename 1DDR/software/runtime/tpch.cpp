@@ -50,7 +50,7 @@ extern "C" void test_main(uint32_t *exit_code) {
     return;
   }
   
-  char *argv[] = {(char*)"tpch", rb_base, (char*)"1", (char*)"0"};
+  char *argv[] = {(char*)"tpch", rb_base, (char*)"1", (char*)"2"};
   if (tpch_main(4, argv) == 0) {
     *exit_code = 1;
   } else {
@@ -185,27 +185,32 @@ int main(int argc, char **argv) {
   // Obtain the return value.
   uint32_t return_value_0;
   uint32_t return_value_1;
-  uint64_t result;
   status = kernel.GetReturn(&return_value_0, &return_value_1);
-  result = return_value_1;
-  result = (result << 32) | return_value_0;
 
   if (!status.ok()) {
     std::cerr << "Could not obtain the return value." << std::endl;
     return -1;
   }
 
+
+  std::cout << "Result: \n" << std::endl;
+  uint32_t rhigh;
+  uint32_t rlow;
+  uint64_t result;
+  for (int i = 0; i < nOutputs; i++) {
+    uint64_t value;
+    uint64_t offset = FLETCHER_REG_SCHEMA + 2 * context->num_recordbatches() + 2 * context->num_buffers() + i;
+    platform->ReadMMIO64(offset, &value);
+    value &= 0xffffffff; //the count registers are 32 bits wide, not 64
+    if(i == 0)
+      rhigh = (uint32_t) value;
+    else
+      rlow = (uint32_t) value;
+  }
+  result = rhigh;
+  result = (result << 32) | rlow;
   // Print the return value.
   std::cout << "Return value: " << fixed_to_float(result) << std::endl;
-
-  std::cout << "Matches: \n" << std::endl;
-  for (int i = 0; i < nOutputs; i++) {
-	  uint64_t value;
-	  uint64_t offset = FLETCHER_REG_SCHEMA + 2 * context->num_recordbatches() + 2 * context->num_buffers() + i;
-      platform->ReadMMIO64(offset, &value);
-    value &= 0xffffffff; //the count registers are 32 bits wide, not 64
-	  std::cout << "Number of matches for regex " << i << ": " << value  << std::endl;
-    }
 
   return 0;
 }
