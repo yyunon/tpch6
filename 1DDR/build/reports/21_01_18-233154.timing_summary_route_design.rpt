@@ -1,0 +1,1768 @@
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
+| Date              : Tue Jan 19 00:59:01 2021
+| Host              : ip-172-31-27-38.ec2.internal running 64-bit CentOS Linux release 7.7.1908 (Core)
+| Command           : report_timing_summary -cell WRAPPER_INST/CL -file /home/centos/fletcher-aws/examples/tpch6/1DDR/build/scripts/../../build/reports/21_01_18-233154.timing_summary_route_design.rpt
+| Design            : top_sp
+| Device            : xcvu9p-flgb2104
+| Speed File        : -2  PRODUCTION 1.27 02-28-2020
+| Temperature Grade : I
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Summary Report
+
+------------------------------------------------------------------------------------------------
+| Timer Settings
+| --------------
+------------------------------------------------------------------------------------------------
+
+  Enable Multi Corner Analysis               :  Yes
+  Enable Pessimism Removal                   :  Yes
+  Pessimism Removal Resolution               :  Nearest Common Node
+  Enable Input Delay Default Clock           :  No
+  Enable Preset / Clear Arcs                 :  No
+  Disable Flight Delays                      :  No
+  Ignore I/O Paths                           :  No
+  Timing Early Launch at Borrowing Latches   :  No
+  Borrow Time for Max Delay Exceptions       :  Yes
+  Merge Timing Exceptions                    :  Yes
+
+  Corner  Analyze    Analyze    
+  Name    Max Paths  Min Paths  
+  ------  ---------  ---------  
+  Slow    Yes        Yes        
+  Fast    Yes        Yes        
+
+
+------------------------------------------------------------------------------------------------
+| Design Timing Summary
+| ---------------------
+------------------------------------------------------------------------------------------------
+
+    WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+    -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+      1.421        0.000                      0                94905        0.010        0.000                      0                94889        3.458        0.000                       0                 50784  
+
+
+All user specified timing constraints are met.
+
+
+------------------------------------------------------------------------------------------------
+| Clock Summary
+| -------------
+------------------------------------------------------------------------------------------------
+
+Clock                 Waveform(ns)           Period(ns)      Frequency(MHz)
+-----                 ------------           ----------      --------------
+refclk_100            {0.000 5.000}          10.000          100.000         
+  qpll1outclk_out[3]  {0.000 0.100}          0.200           5000.001        
+    txoutclk_out[15]  {0.000 1.000}          2.000           500.000         
+      clk_core        {0.000 2.000}          4.000           250.000         
+        clk_extra_a1  {0.000 8.000}          16.000          62.500          
+        clk_main_a0   {0.000 4.000}          8.000           125.000         
+        drck          {0.000 16.000}         32.000          31.250          
+        tck           {0.000 16.000}         32.000          31.250          
+
+
+------------------------------------------------------------------------------------------------
+| Intra Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+Clock                     WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+-----                     -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+        clk_extra_a1       12.339        0.000                      0                 1174        0.010        0.000                      0                 1174        7.458        0.000                       0                   922  
+        clk_main_a0         1.421        0.000                      0                92757        0.010        0.000                      0                92757        3.458        0.000                       0                 49487  
+        drck                5.708        0.000                      0                    2        3.640        0.000                      0                    2                                                                          
+        tck                30.122        0.000                      0                  716        0.013        0.000                      0                  716       15.468        0.000                       0                   375  
+
+
+------------------------------------------------------------------------------------------------
+| Inter Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+tck           clk_main_a0        31.611        0.000                      0                    8                                                                        
+tck           drck                8.376        0.000                      0                    2        2.186        0.000                      0                    2  
+clk_main_a0   tck                 7.617        0.000                      0                    8                                                                        
+drck          tck                10.620        0.000                      0                   93        0.032        0.000                      0                   93  
+
+
+------------------------------------------------------------------------------------------------
+| Other Path Groups Table
+| -----------------------
+------------------------------------------------------------------------------------------------
+
+Path Group         From Clock         To Clock               WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------         ----------         --------               -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+**async_default**  clk_main_a0        clk_main_a0              6.731        0.000                      0                  105        0.114        0.000                      0                  105  
+**async_default**  drck               tck                     25.916        0.000                      0                   10        0.167        0.000                      0                   10  
+**async_default**  tck                tck                     31.036        0.000                      0                   90        0.130        0.000                      0                   90  
+
+
+------------------------------------------------------------------------------------------------
+| Timing Details
+| --------------
+------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  clk_extra_a1
+  To Clock:  clk_extra_a1
+
+Setup :            0  Failing Endpoints,  Worst Slack       12.339ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.010ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack        7.458ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             12.339ns  (required time - arrival time)
+  Source:                 WRAPPER_INST/CL/CL_VIO/vo_tick_value_q_reg[6]/C
+                            (rising edge-triggered cell FDRE clocked by clk_extra_a1  {rise@0.000ns fall@8.000ns period=16.000ns})
+  Destination:            WRAPPER_INST/CL/CL_VIO/vi_cnt_ge_watermark_reg/D
+                            (rising edge-triggered cell FDRE clocked by clk_extra_a1  {rise@0.000ns fall@8.000ns period=16.000ns})
+  Path Group:             clk_extra_a1
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            16.000ns  (clk_extra_a1 rise@16.000ns - clk_extra_a1 rise@0.000ns)
+  Data Path Delay:        3.527ns  (logic 1.699ns (48.171%)  route 1.828ns (51.829%))
+  Logic Levels:           11  (CARRY8=5 LUT3=1 LUT4=4 LUT6=1)
+  Clock Path Skew:        -0.096ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    6.103ns = ( 22.103 - 16.000 ) 
+    Source Clock Delay      (SCD):    5.954ns
+    Clock Pessimism Removal (CPR):    -0.245ns
+  Clock Uncertainty:      0.063ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.105ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      2.985ns (routing 0.462ns, distribution 2.523ns)
+  Clock Net Delay (Destination): 2.682ns (routing 0.420ns, distribution 2.262ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+                         (clock clk_extra_a1 rise edge)
+                                                      0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.085     0.085    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.215 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.602     2.817    boundary       WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_in1
+    MMCM_X1Y7            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT1)
+                                                     -0.127     2.690 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/mmcme3_adv_inst/CLKOUT1
+                         net (fo=1, routed)           0.251     2.941    reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_out2_kernel_clks_clkwiz_sys_clk_0
+    BUFGCE_X1Y183        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     2.969 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clkout2_buf/O
+    X4Y7 (CLOCK_ROOT)    net (fo=922, routed)         2.985     5.954    boundary       WRAPPER_INST/CL/CL_VIO/clk_extra_a1
+    SLICE_X66Y328        FDRE                                         r  reconfigurable WRAPPER_INST/CL/CL_VIO/vo_tick_value_q_reg[6]/C
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X66Y328        FDRE (Prop_AFF2_SLICEM_C_Q)
+                                                      0.080     6.034 r  reconfigurable WRAPPER_INST/CL/CL_VIO/vo_tick_value_q_reg[6]/Q
+                         net (fo=5, routed)           0.540     6.574    reconfigurable WRAPPER_INST/CL/CL_VIO/vo_tick_value_q[6]
+    SLICE_X67Y330        LUT4 (Prop_D6LUT_SLICEL_I1_O)
+                                                      0.122     6.696 r  reconfigurable WRAPPER_INST/CL/CL_VIO/vi_tick_cnt_reg4_carry_i_5/O
+                         net (fo=1, routed)           0.009     6.705    reconfigurable WRAPPER_INST/CL/CL_VIO/vi_tick_cnt_reg4_carry_i_5_n_0
+    SLICE_X67Y330        CARRY8 (Prop_CARRY8_SLICEL_S[3]_CO[3])
+                                                      0.128     6.833 f  reconfigurable WRAPPER_INST/CL/CL_VIO/vi_tick_cnt_reg4_carry/CO[3]
+                         net (fo=16, routed)          0.235     7.068    reconfigurable WRAPPER_INST/CL/CL_VIO/vi_tick_cnt_reg4
+    SLICE_X68Y328        LUT6 (Prop_G6LUT_SLICEM_I2_O)
+                                                      0.150     7.218 r  reconfigurable WRAPPER_INST/CL/CL_VIO/vi_cnt_reg5_carry_i_13/O
+                         net (fo=2, routed)           0.107     7.325    reconfigurable WRAPPER_INST/CL/CL_VIO/p_0_in1_in[2]
+    SLICE_X67Y328        LUT4 (Prop_B6LUT_SLICEL_I0_O)
+                                                      0.148     7.473 r  reconfigurable WRAPPER_INST/CL/CL_VIO/vi_cnt_reg5_carry_i_7/O
+                         net (fo=1, routed)           0.009     7.482    reconfigurable WRAPPER_INST/CL/CL_VIO/vi_cnt_reg5_carry_i_7_n_0
+    SLICE_X67Y328        CARRY8 (Prop_CARRY8_SLICEL_S[1]_CO[3])
+                                                      0.187     7.669 r  reconfigurable WRAPPER_INST/CL/CL_VIO/vi_cnt_reg5_carry/CO[3]
+                         net (fo=2, routed)           0.376     8.045    reconfigurable WRAPPER_INST/CL/CL_VIO/0
+    SLICE_X64Y328        LUT3 (Prop_A6LUT_SLICEM_I0_O)
+                                                      0.150     8.195 r  reconfigurable WRAPPER_INST/CL/CL_VIO/vi_cnt[7]_i_3/O
+                         net (fo=1, routed)           0.013     8.208    reconfigurable WRAPPER_INST/CL/CL_VIO/vi_cnt[7]_i_3_n_0
+    SLICE_X64Y328        CARRY8 (Prop_CARRY8_SLICEM_S[0]_CO[7])
+                                                      0.192     8.400 r  reconfigurable WRAPPER_INST/CL/CL_VIO/vi_cnt_reg[7]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     8.426    reconfigurable WRAPPER_INST/CL/CL_VIO/vi_cnt_reg[7]_i_2_n_0
+    SLICE_X64Y329        CARRY8 (Prop_CARRY8_SLICEM_CI_O[3])
+                                                      0.082     8.508 r  reconfigurable WRAPPER_INST/CL/CL_VIO/vi_cnt_reg[15]_i_2/O[3]
+                         net (fo=2, routed)           0.296     8.804    reconfigurable WRAPPER_INST/CL/CL_VIO/vi_cnt_reg[15]_i_2_n_12
+    SLICE_X63Y325        LUT4 (Prop_H6LUT_SLICEL_I0_O)
+                                                      0.150     8.954 r  reconfigurable WRAPPER_INST/CL/CL_VIO/vi_cnt_ge_watermark_reg0_carry_i_22/O
+                         net (fo=2, routed)           0.162     9.116    reconfigurable WRAPPER_INST/CL/CL_VIO/vi_cnt_ge_watermark_reg0_carry_i_22_n_0
+    SLICE_X63Y326        LUT4 (Prop_F6LUT_SLICEL_I2_O)
+                                                      0.148     9.264 r  reconfigurable WRAPPER_INST/CL/CL_VIO/vi_cnt_ge_watermark_reg0_carry_i_11/O
+                         net (fo=1, routed)           0.011     9.275    reconfigurable WRAPPER_INST/CL/CL_VIO/vi_cnt_ge_watermark_reg0_carry_i_11_n_0
+    SLICE_X63Y326        CARRY8 (Prop_CARRY8_SLICEL_S[5]_CO[7])
+                                                      0.162     9.437 r  reconfigurable WRAPPER_INST/CL/CL_VIO/vi_cnt_ge_watermark_reg0_carry/CO[7]
+                         net (fo=1, routed)           0.044     9.481    reconfigurable WRAPPER_INST/CL/CL_VIO/p_0_in__0
+    SLICE_X63Y326        FDRE                                         r  reconfigurable WRAPPER_INST/CL/CL_VIO/vi_cnt_ge_watermark_reg/D
+  -------------------------------------------------------------------    ----------------------------------
+
+                         (clock clk_extra_a1 rise edge)
+                                                     16.000    16.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000    16.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.078    16.078    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114    16.192 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.355    18.547    boundary       WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_in1
+    MMCM_X1Y7            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT1)
+                                                      0.630    19.177 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/mmcme3_adv_inst/CLKOUT1
+                         net (fo=1, routed)           0.220    19.397    reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_out2_kernel_clks_clkwiz_sys_clk_0
+    BUFGCE_X1Y183        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024    19.421 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clkout2_buf/O
+    X4Y7 (CLOCK_ROOT)    net (fo=922, routed)         2.682    22.103    boundary       WRAPPER_INST/CL/CL_VIO/clk_extra_a1
+    SLICE_X63Y326        FDRE                                         r  reconfigurable WRAPPER_INST/CL/CL_VIO/vi_cnt_ge_watermark_reg/C
+                         clock pessimism             -0.245    21.858                     
+                         clock uncertainty           -0.063    21.795                     
+    SLICE_X63Y326        FDRE (Setup_HFF_SLICEL_C_D)
+                                                      0.025    21.820    reconfigurable   WRAPPER_INST/CL/CL_VIO/vi_cnt_ge_watermark_reg
+  -------------------------------------------------------------------
+                         required time                         21.820                     
+                         arrival time                          -9.481                     
+  -------------------------------------------------------------------
+                         slack                                 12.339                     
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.010ns  (arrival time - required time)
+  Source:                 WRAPPER_INST/CL/CL_VIO/CL_VIO_ILA/inst/ila_core_inst/u_trig/U_TM/N_DDR_MODE.G_NMU[8].U_M/allx_typeA_match_detection.ltlib_v1_0_0_allx_typeA_inst/probeDelay1_reg[3]/C
+                            (rising edge-triggered cell FDRE clocked by clk_extra_a1  {rise@0.000ns fall@8.000ns period=16.000ns})
+  Destination:            WRAPPER_INST/CL/CL_VIO/CL_VIO_ILA/inst/ila_core_inst/u_trig/U_TM/N_DDR_MODE.G_NMU[8].U_M/allx_typeA_match_detection.ltlib_v1_0_0_allx_typeA_inst/i_use_input_reg_eq1.probeDelay2_reg[3]/D
+                            (rising edge-triggered cell FDRE clocked by clk_extra_a1  {rise@0.000ns fall@8.000ns period=16.000ns})
+  Path Group:             clk_extra_a1
+  Path Type:              Hold (Min at Slow Process Corner)
+  Requirement:            0.000ns  (clk_extra_a1 rise@0.000ns - clk_extra_a1 rise@0.000ns)
+  Data Path Delay:        0.176ns  (logic 0.057ns (32.386%)  route 0.119ns (67.614%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.104ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    5.960ns
+    Source Clock Delay      (SCD):    6.101ns
+    Clock Pessimism Removal (CPR):    -0.245ns
+  Clock Net Delay (Source):      2.680ns (routing 0.420ns, distribution 2.260ns)
+  Clock Net Delay (Destination): 2.991ns (routing 0.462ns, distribution 2.529ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+                         (clock clk_extra_a1 rise edge)
+                                                      0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.078     0.078    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114     0.192 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.355     2.547    boundary       WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_in1
+    MMCM_X1Y7            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT1)
+                                                      0.630     3.177 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/mmcme3_adv_inst/CLKOUT1
+                         net (fo=1, routed)           0.220     3.397    reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_out2_kernel_clks_clkwiz_sys_clk_0
+    BUFGCE_X1Y183        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024     3.421 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clkout2_buf/O
+    X4Y7 (CLOCK_ROOT)    net (fo=922, routed)         2.680     6.101    boundary       WRAPPER_INST/CL/CL_VIO/CL_VIO_ILA/inst/ila_core_inst/u_trig/U_TM/N_DDR_MODE.G_NMU[8].U_M/allx_typeA_match_detection.ltlib_v1_0_0_allx_typeA_inst/I_IS_TERMINATION_SLICE_W_OUTPUT_REG.DOUT_O_reg
+    SLICE_X64Y337        FDRE                                         r  reconfigurable WRAPPER_INST/CL/CL_VIO/CL_VIO_ILA/inst/ila_core_inst/u_trig/U_TM/N_DDR_MODE.G_NMU[8].U_M/allx_typeA_match_detection.ltlib_v1_0_0_allx_typeA_inst/probeDelay1_reg[3]/C
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X64Y337        FDRE (Prop_FFF_SLICEM_C_Q)
+                                                      0.057     6.158 r  reconfigurable WRAPPER_INST/CL/CL_VIO/CL_VIO_ILA/inst/ila_core_inst/u_trig/U_TM/N_DDR_MODE.G_NMU[8].U_M/allx_typeA_match_detection.ltlib_v1_0_0_allx_typeA_inst/probeDelay1_reg[3]/Q
+                         net (fo=3, routed)           0.119     6.277    reconfigurable WRAPPER_INST/CL/CL_VIO/CL_VIO_ILA/inst/ila_core_inst/u_trig/U_TM/N_DDR_MODE.G_NMU[8].U_M/allx_typeA_match_detection.ltlib_v1_0_0_allx_typeA_inst/all_in[6]
+    SLICE_X63Y339        FDRE                                         r  reconfigurable WRAPPER_INST/CL/CL_VIO/CL_VIO_ILA/inst/ila_core_inst/u_trig/U_TM/N_DDR_MODE.G_NMU[8].U_M/allx_typeA_match_detection.ltlib_v1_0_0_allx_typeA_inst/i_use_input_reg_eq1.probeDelay2_reg[3]/D
+  -------------------------------------------------------------------    ----------------------------------
+
+                         (clock clk_extra_a1 rise edge)
+                                                      0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.085     0.085    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.215 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.602     2.817    boundary       WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_in1
+    MMCM_X1Y7            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT1)
+                                                     -0.127     2.690 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/mmcme3_adv_inst/CLKOUT1
+                         net (fo=1, routed)           0.251     2.941    reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_out2_kernel_clks_clkwiz_sys_clk_0
+    BUFGCE_X1Y183        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     2.969 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clkout2_buf/O
+    X4Y7 (CLOCK_ROOT)    net (fo=922, routed)         2.991     5.960    boundary       WRAPPER_INST/CL/CL_VIO/CL_VIO_ILA/inst/ila_core_inst/u_trig/U_TM/N_DDR_MODE.G_NMU[8].U_M/allx_typeA_match_detection.ltlib_v1_0_0_allx_typeA_inst/I_IS_TERMINATION_SLICE_W_OUTPUT_REG.DOUT_O_reg
+    SLICE_X63Y339        FDRE                                         r  reconfigurable WRAPPER_INST/CL/CL_VIO/CL_VIO_ILA/inst/ila_core_inst/u_trig/U_TM/N_DDR_MODE.G_NMU[8].U_M/allx_typeA_match_detection.ltlib_v1_0_0_allx_typeA_inst/i_use_input_reg_eq1.probeDelay2_reg[3]/C
+                         clock pessimism              0.245     6.205                     
+    SLICE_X63Y339        FDRE (Hold_FFF2_SLICEL_C_D)
+                                                      0.062     6.267    reconfigurable   WRAPPER_INST/CL/CL_VIO/CL_VIO_ILA/inst/ila_core_inst/u_trig/U_TM/N_DDR_MODE.G_NMU[8].U_M/allx_typeA_match_detection.ltlib_v1_0_0_allx_typeA_inst/i_use_input_reg_eq1.probeDelay2_reg[3]
+  -------------------------------------------------------------------
+                         required time                         -6.267                     
+                         arrival time                           6.277                     
+  -------------------------------------------------------------------
+                         slack                                  0.010                     
+
+
+
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         clk_extra_a1
+Waveform(ns):       { 0.000 8.000 }
+Period(ns):         16.000
+Sources:            { WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/mmcme3_adv_inst/CLKOUT1 }
+
+Check Type        Corner  Lib Pin             Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location      Pin
+Min Period        n/a     RAMB36E2/CLKARDCLK  n/a            1.355         16.000      14.645     RAMB36_X4Y67  WRAPPER_INST/CL/CL_VIO/CL_VIO_ILA/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/prim_noinit.ram/DEVICE_8SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram/CLKARDCLK
+Low Pulse Width   Fast    RAMB36E2/CLKARDCLK  n/a            0.542         8.000       7.458      RAMB36_X4Y67  WRAPPER_INST/CL/CL_VIO/CL_VIO_ILA/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/prim_noinit.ram/DEVICE_8SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram/CLKARDCLK
+High Pulse Width  Slow    RAMB36E2/CLKARDCLK  n/a            0.542         8.000       7.458      RAMB36_X4Y67  WRAPPER_INST/CL/CL_VIO/CL_VIO_ILA/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/prim_noinit.ram/DEVICE_8SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram/CLKARDCLK
+
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  clk_main_a0
+  To Clock:  clk_main_a0
+
+Setup :            0  Failing Endpoints,  Worst Slack        1.421ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.010ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack        3.458ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             1.421ns  (required time - arrival time)
+  Source:                 WRAPPER_INST/CL/CL_DMA_PCIS_SLV/AXI_CROSSBAR/axi_interconnect_0/s00_couplers/s00_regslice/inst/w.w_pipe/s_ready_i_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_main_a0  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            WRAPPER_INST/CL/CL_DMA_PCIS_SLV/PCI_AXL_REG_SLC/inst/w.w_pipe/m_payload_i_reg[449]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_main_a0  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_main_a0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            8.000ns  (clk_main_a0 rise@8.000ns - clk_main_a0 rise@0.000ns)
+  Data Path Delay:        6.042ns  (logic 0.164ns (2.714%)  route 5.878ns (97.286%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        -0.129ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    5.986ns = ( 13.986 - 8.000 ) 
+    Source Clock Delay      (SCD):    5.725ns
+    Clock Pessimism Removal (CPR):    -0.390ns
+  Clock Uncertainty:      0.058ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.092ns
+    Phase Error              (PE):    0.000ns
+  Inter-SLR Compensation: 0.289ns  ((DCD - CCD) * PF)
+    Destination Clock Delay (DCD):    5.986ns
+    Common Clock Delay      (CCD):    4.056ns
+    Prorating Factor         (PF):    0.150
+  Clock Net Delay (Source):      2.762ns (routing 0.453ns, distribution 2.309ns)
+  Clock Net Delay (Destination): 2.570ns (routing 0.412ns, distribution 2.158ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+                         (clock clk_main_a0 rise edge)
+                                                      0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.085     0.085    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.215 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.602     2.817    boundary       WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_in1
+    MMCM_X1Y7            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                     -0.127     2.690 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/mmcme3_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.245     2.935    reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_out1_kernel_clks_clkwiz_sys_clk_0
+    BUFGCE_X1Y181        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     2.963 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clkout1_buf/O
+    X4Y7 (CLOCK_ROOT)    net (fo=71113, routed)       2.762     5.725    boundary       WRAPPER_INST/CL/CL_DMA_PCIS_SLV/AXI_CROSSBAR/axi_interconnect_0/s00_couplers/s00_regslice/inst/w.w_pipe/aclk
+    SLICE_X99Y367        FDRE                                         r  reconfigurable WRAPPER_INST/CL/CL_DMA_PCIS_SLV/AXI_CROSSBAR/axi_interconnect_0/s00_couplers/s00_regslice/inst/w.w_pipe/s_ready_i_reg/C
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X99Y367        FDRE (Prop_EFF_SLICEM_C_Q)
+                                                      0.076     5.801 r  reconfigurable WRAPPER_INST/CL/CL_DMA_PCIS_SLV/AXI_CROSSBAR/axi_interconnect_0/s00_couplers/s00_regslice/inst/w.w_pipe/s_ready_i_reg/Q
+                         net (fo=1160, routed)        3.747     9.548    reconfigurable WRAPPER_INST/CL/CL_DMA_PCIS_SLV/PCI_AXL_REG_SLC/inst/w.w_pipe/m_axi_wready
+    SLR Crossing[1->0]   
+    SLICE_X104Y201       LUT2 (Prop_C6LUT_SLICEM_I0_O)
+                                                      0.088     9.636 r  reconfigurable WRAPPER_INST/CL/CL_DMA_PCIS_SLV/PCI_AXL_REG_SLC/inst/w.w_pipe/m_payload_i[511]_i_1/O
+                         net (fo=577, routed)         2.131    11.767    reconfigurable WRAPPER_INST/CL/CL_DMA_PCIS_SLV/PCI_AXL_REG_SLC/inst/w.w_pipe/p_1_in
+    SLICE_X106Y113       FDRE                                         r  reconfigurable WRAPPER_INST/CL/CL_DMA_PCIS_SLV/PCI_AXL_REG_SLC/inst/w.w_pipe/m_payload_i_reg[449]/CE
+  -------------------------------------------------------------------    ----------------------------------
+
+                         (clock clk_main_a0 rise edge)
+                                                      8.000     8.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     8.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.078     8.078    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114     8.192 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.355    10.547    boundary       WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_in1
+    MMCM_X1Y7            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                      0.630    11.177 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/mmcme3_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.215    11.392    reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_out1_kernel_clks_clkwiz_sys_clk_0
+    BUFGCE_X1Y181        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024    11.416 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clkout1_buf/O
+    X4Y7 (CLOCK_ROOT)    net (fo=71113, routed)       2.570    13.986    boundary       WRAPPER_INST/CL/CL_DMA_PCIS_SLV/PCI_AXL_REG_SLC/inst/w.w_pipe/aclk
+    SLR Crossing[1->0]   
+    SLICE_X106Y113       FDRE                                         r  reconfigurable WRAPPER_INST/CL/CL_DMA_PCIS_SLV/PCI_AXL_REG_SLC/inst/w.w_pipe/m_payload_i_reg[449]/C
+                         clock pessimism             -0.390    13.596                     
+                         inter-SLR compensation      -0.289    13.307                     
+                         clock uncertainty           -0.058    13.248                     
+    SLICE_X106Y113       FDRE (Setup_HFF2_SLICEL_C_CE)
+                                                     -0.060    13.188    reconfigurable   WRAPPER_INST/CL/CL_DMA_PCIS_SLV/PCI_AXL_REG_SLC/inst/w.w_pipe/m_payload_i_reg[449]
+  -------------------------------------------------------------------
+                         required time                         13.188                     
+                         arrival time                         -11.767                     
+  -------------------------------------------------------------------
+                         slack                                  1.421                     
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.010ns  (arrival time - required time)
+  Source:                 WRAPPER_INST/CL/FLETCHER_TOP_INST/Forecast_Mantle_inst/Forecast_l_inst/quantity_inst/arb_inst/a_inst/prim_gen.buffer_reader_inst/resp_inst/stage_c2d_buffer_inst/input_slice_gen.slice_inst/out_data_reg[9]/C
+                            (rising edge-triggered cell FDRE clocked by clk_main_a0  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            WRAPPER_INST/CL/FLETCHER_TOP_INST/Forecast_Mantle_inst/Forecast_l_inst/quantity_inst/arb_inst/a_inst/prim_gen.buffer_reader_inst/fifo_with_count_gen.fifo_inst/ram_inst/mem_reg_0_7_0_13/RAME_D1/I
+                            (rising edge-triggered cell RAMD32 clocked by clk_main_a0  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_main_a0
+  Path Type:              Hold (Min at Slow Process Corner)
+  Requirement:            0.000ns  (clk_main_a0 rise@0.000ns - clk_main_a0 rise@0.000ns)
+  Data Path Delay:        0.184ns  (logic 0.060ns (32.609%)  route 0.124ns (67.391%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.114ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    5.781ns
+    Source Clock Delay      (SCD):    5.935ns
+    Clock Pessimism Removal (CPR):    -0.268ns
+  Clock Net Delay (Source):      2.519ns (routing 0.412ns, distribution 2.107ns)
+  Clock Net Delay (Destination): 2.818ns (routing 0.453ns, distribution 2.365ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+                         (clock clk_main_a0 rise edge)
+                                                      0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.078     0.078    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114     0.192 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.355     2.547    boundary       WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_in1
+    MMCM_X1Y7            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                      0.630     3.177 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/mmcme3_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.215     3.392    reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_out1_kernel_clks_clkwiz_sys_clk_0
+    BUFGCE_X1Y181        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024     3.416 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clkout1_buf/O
+    X4Y7 (CLOCK_ROOT)    net (fo=71113, routed)       2.519     5.935    boundary       WRAPPER_INST/CL/FLETCHER_TOP_INST/Forecast_Mantle_inst/Forecast_l_inst/quantity_inst/arb_inst/a_inst/prim_gen.buffer_reader_inst/resp_inst/stage_c2d_buffer_inst/input_slice_gen.slice_inst/clk_main_a0
+    SLICE_X93Y504        FDRE                                         r  reconfigurable WRAPPER_INST/CL/FLETCHER_TOP_INST/Forecast_Mantle_inst/Forecast_l_inst/quantity_inst/arb_inst/a_inst/prim_gen.buffer_reader_inst/resp_inst/stage_c2d_buffer_inst/input_slice_gen.slice_inst/out_data_reg[9]/C
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X93Y504        FDRE (Prop_BFF2_SLICEM_C_Q)
+                                                      0.060     5.995 r  reconfigurable WRAPPER_INST/CL/FLETCHER_TOP_INST/Forecast_Mantle_inst/Forecast_l_inst/quantity_inst/arb_inst/a_inst/prim_gen.buffer_reader_inst/resp_inst/stage_c2d_buffer_inst/input_slice_gen.slice_inst/out_data_reg[9]/Q
+                         net (fo=1, routed)           0.124     6.119    reconfigurable WRAPPER_INST/CL/FLETCHER_TOP_INST/Forecast_Mantle_inst/Forecast_l_inst/quantity_inst/arb_inst/a_inst/prim_gen.buffer_reader_inst/fifo_with_count_gen.fifo_inst/ram_inst/mem_reg_0_7_0_13/DIE1
+    SLICE_X92Y505        RAMD32                                       r  reconfigurable WRAPPER_INST/CL/FLETCHER_TOP_INST/Forecast_Mantle_inst/Forecast_l_inst/quantity_inst/arb_inst/a_inst/prim_gen.buffer_reader_inst/fifo_with_count_gen.fifo_inst/ram_inst/mem_reg_0_7_0_13/RAME_D1/I
+  -------------------------------------------------------------------    ----------------------------------
+
+                         (clock clk_main_a0 rise edge)
+                                                      0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.085     0.085    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.215 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.602     2.817    boundary       WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_in1
+    MMCM_X1Y7            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                     -0.127     2.690 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/mmcme3_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.245     2.935    reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_out1_kernel_clks_clkwiz_sys_clk_0
+    BUFGCE_X1Y181        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     2.963 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clkout1_buf/O
+    X4Y7 (CLOCK_ROOT)    net (fo=71113, routed)       2.818     5.781    boundary       WRAPPER_INST/CL/FLETCHER_TOP_INST/Forecast_Mantle_inst/Forecast_l_inst/quantity_inst/arb_inst/a_inst/prim_gen.buffer_reader_inst/fifo_with_count_gen.fifo_inst/ram_inst/mem_reg_0_7_0_13/WCLK
+    SLICE_X92Y505        RAMD32                                       r  reconfigurable WRAPPER_INST/CL/FLETCHER_TOP_INST/Forecast_Mantle_inst/Forecast_l_inst/quantity_inst/arb_inst/a_inst/prim_gen.buffer_reader_inst/fifo_with_count_gen.fifo_inst/ram_inst/mem_reg_0_7_0_13/RAME_D1/CLK
+                         clock pessimism              0.268     6.049                     
+    SLICE_X92Y505        RAMD32 (Hold_E6LUT_SLICEM_CLK_I)
+                                                      0.060     6.109    reconfigurable   WRAPPER_INST/CL/FLETCHER_TOP_INST/Forecast_Mantle_inst/Forecast_l_inst/quantity_inst/arb_inst/a_inst/prim_gen.buffer_reader_inst/fifo_with_count_gen.fifo_inst/ram_inst/mem_reg_0_7_0_13/RAME_D1
+  -------------------------------------------------------------------
+                         required time                         -6.109                     
+                         arrival time                           6.119                     
+  -------------------------------------------------------------------
+                         slack                                  0.010                     
+
+
+
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         clk_main_a0
+Waveform(ns):       { 0.000 4.000 }
+Period(ns):         8.000
+Sources:            { WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/mmcme3_adv_inst/CLKOUT0 }
+
+Check Type        Corner  Lib Pin             Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location       Pin
+Min Period        n/a     RAMB36E2/CLKARDCLK  n/a            1.569         8.000       6.431      RAMB36_X5Y96   WRAPPER_INST/CL/FLETCHER_TOP_INST/Forecast_Mantle_inst/Forecast_l_inst/shipdate_inst/arb_inst/a_inst/prim_gen.buffer_reader_inst/buffer_inst/mst_rdat_buffer_inst/fifo_gen.slice_inst/ram_inst/mem_reg_0/CLKARDCLK
+Low Pulse Width   Fast    RAMB36E2/CLKBWRCLK  n/a            0.542         4.000       3.458      RAMB36_X5Y94   WRAPPER_INST/CL/FLETCHER_TOP_INST/Forecast_Mantle_inst/Forecast_l_inst/discount_inst/arb_inst/a_inst/prim_gen.buffer_reader_inst/buffer_inst/mst_rdat_buffer_inst/fifo_gen.slice_inst/ram_inst/mem_reg_0/CLKBWRCLK
+High Pulse Width  Slow    RAMB36E2/CLKARDCLK  n/a            0.542         4.000       3.458      RAMB36_X6Y103  WRAPPER_INST/CL/FLETCHER_TOP_INST/Forecast_Mantle_inst/Forecast_l_inst/shipdate_inst/arb_inst/a_inst/prim_gen.buffer_reader_inst/buffer_inst/mst_rdat_buffer_inst/fifo_gen.slice_inst/ram_inst/mem_reg_3/CLKARDCLK
+
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  drck
+  To Clock:  drck
+
+Setup :            0  Failing Endpoints,  Worst Slack        5.708ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        3.640ns,  Total Violation        0.000ns
+PW    :           NA  Failing Endpoints,  Worst Slack           NA  ,  Total Violation           NA
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             5.708ns  (required time - arrival time)
+  Source:                 static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/U_IR/REG_O_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by drck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Destination:            static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/TDO_O_reg/D
+                            (falling edge-triggered cell FDCE clocked by drck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Path Group:             drck
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            16.000ns  (drck fall@16.000ns - drck rise@0.000ns)
+  Data Path Delay:        9.882ns  (logic 0.840ns (8.500%)  route 9.042ns (91.500%))
+  Logic Levels:           8  (LUT1=1 LUT2=1 LUT3=2 LUT4=1 LUT5=1 LUT6=2)
+  Clock Path Skew:        -0.188ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.242ns = ( 19.242 - 16.000 ) 
+    Source Clock Delay      (SCD):    4.071ns
+    Clock Pessimism Removal (CPR):    0.641ns
+  Clock Uncertainty:      0.246ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE + DCD
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.060ns
+    Phase Error              (PE):    0.000ns
+    Duty Cycle Distortion   (DCD):    0.200ns
+  Clock Net Delay (Source):      1.126ns (routing 0.017ns, distribution 1.109ns)
+  Clock Net Delay (Destination): 0.631ns (routing 0.013ns, distribution 0.618ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+                         (clock drck rise edge)       0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.085     0.085    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.215 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.651     2.866    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLICE_X142Y499       FDRE (Prop_HFF_SLICEM_C_Q)
+                                                      0.079     2.945 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg_replicated/Q
+    X5Y8 (CLOCK_ROOT)    net (fo=532, routed)         1.126     4.071    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/U_IR/tck_i_reg
+    SLICE_X144Y424       FDCE                                         r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/U_IR/REG_O_reg[1]/C
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X144Y424       FDCE (Prop_EFF2_SLICEM_C_Q)
+                                                      0.079     4.150 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/U_IR/REG_O_reg[1]/Q
+                         net (fo=4, routed)           1.617     5.767    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/instr_reg[1]
+    SLICE_X144Y424       LUT6 (Prop_F6LUT_SLICEM_I3_O)
+                                                      0.148     5.915 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/user_code_sel_inferred__1/i_/O
+                         net (fo=19, routed)          0.413     6.328    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/U_TAP/REG_O_reg[5]_0
+    SLICE_X145Y420       LUT2 (Prop_G6LUT_SLICEL_I0_O)
+                                                      0.089     6.417 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/U_TAP/shift_INST_0/O
+                         net (fo=36, routed)          1.784     8.201    static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/s_bscan_shift
+    SLICE_X143Y359       LUT4 (Prop_E6LUT_SLICEL_I0_O)
+                                                      0.035     8.236 r  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/m_bscan_bscanid_en[0]_INST_0/O
+                         net (fo=69, routed)          2.372    10.608    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/bscanid_en
+    SLICE_X77Y356        LUT3 (Prop_H6LUT_SLICEL_I1_O)
+                                                      0.090    10.698 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/tdo_INST_0/O
+                         net (fo=1, routed)           0.039    10.737    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/lut_buffer/inst/tdo_i
+    SLICE_X77Y356        LUT1 (Prop_G6LUT_SLICEL_I0_O)
+                                                      0.035    10.772 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/lut_buffer/inst/u_tdo/O
+                         net (fo=2, routed)           2.456    13.228    boundary       dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/m_bscan_tdo[0]
+    SLICE_X144Y418       LUT6 (Prop_G6LUT_SLICEM_I5_O)
+                                                      0.150    13.378 r  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/s_bscan_tdo_INST_0/O
+                         net (fo=1, routed)           0.245    13.623    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/tdo
+    SLICE_X144Y424       LUT5 (Prop_E6LUT_SLICEM_I1_O)
+                                                      0.148    13.771 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/dr_tdo_inferred_i_1/O
+                         net (fo=1, routed)           0.086    13.857    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/U_TAP/sh_reg_reg[0]
+    SLICE_X144Y423       LUT3 (Prop_D5LUT_SLICEM_I2_O)
+                                                      0.066    13.923 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/U_TAP/tdo_rise_edge_inferred_i_1/O
+                         net (fo=1, routed)           0.030    13.953    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/tdo_rise_edge
+    SLICE_X144Y423       FDCE                                         r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/TDO_O_reg/D
+  -------------------------------------------------------------------    ----------------------------------
+
+                         (clock drck fall edge)      16.000    16.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000    16.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.078    16.078    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114    16.192 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.361    18.553    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLICE_X142Y499       FDRE (Prop_HFF_SLICEM_C_Q)
+                                                      0.058    18.611 f  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg_replicated/Q
+    X5Y8 (CLOCK_ROOT)    net (fo=532, routed)         0.631    19.242    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/tck_i_reg
+    SLICE_X144Y423       FDCE                                         r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/TDO_O_reg/C  (IS_INVERTED)
+                         clock pessimism              0.641    19.883                     
+                         clock uncertainty           -0.246    19.636                     
+    SLICE_X144Y423       FDCE (Setup_DFF2_SLICEM_C_D)
+                                                      0.025    19.661    static           static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/TDO_O_reg
+  -------------------------------------------------------------------
+                         required time                         19.661                     
+                         arrival time                         -13.953                     
+  -------------------------------------------------------------------
+                         slack                                  5.708                     
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             3.640ns  (arrival time - required time)
+  Source:                 dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/state_reg[2]/C
+                            (rising edge-triggered cell FDRE clocked by drck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Destination:            dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/temp_curid_reg[31]/D
+                            (rising edge-triggered cell FDRE clocked by drck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Path Group:             drck
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (drck rise@0.000ns - drck rise@0.000ns)
+  Data Path Delay:        3.842ns  (logic 0.180ns (4.685%)  route 3.662ns (95.315%))
+  Logic Levels:           4  (LUT1=1 LUT3=2 LUT4=1)
+  Clock Path Skew:        0.155ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    2.591ns
+    Source Clock Delay      (SCD):    2.135ns
+    Clock Pessimism Removal (CPR):    0.301ns
+  Clock Net Delay (Source):      0.521ns (routing 0.014ns, distribution 0.507ns)
+  Clock Net Delay (Destination): 0.776ns (routing 0.017ns, distribution 0.759ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+                         (clock drck rise edge)       0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.052     0.052    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.073     0.125 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      1.450     1.575    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLICE_X142Y499       FDRE (Prop_HFF_SLICEM_C_Q)
+                                                      0.039     1.614 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg_replicated/Q
+    X5Y8 (CLOCK_ROOT)    net (fo=532, routed)         0.521     2.135    static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/s_bscan_tck
+    SLICE_X146Y420       FDRE                                         r  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/state_reg[2]/C
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X146Y420       FDRE (Prop_EFF2_SLICEM_C_Q)
+                                                      0.039     2.174 f  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/state_reg[2]/Q
+                         net (fo=56, routed)          1.362     3.536    static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/state[2]
+    SLICE_X143Y359       LUT4 (Prop_E6LUT_SLICEL_I2_O)
+                                                      0.059     3.595 r  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/m_bscan_bscanid_en[0]_INST_0/O
+                         net (fo=69, routed)          1.218     4.813    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/bscanid_en
+    SLICE_X77Y356        LUT3 (Prop_H6LUT_SLICEL_I1_O)
+                                                      0.035     4.848 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/tdo_INST_0/O
+                         net (fo=1, routed)           0.021     4.869    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/lut_buffer/inst/tdo_i
+    SLICE_X77Y356        LUT1 (Prop_G6LUT_SLICEL_I0_O)
+                                                      0.014     4.883 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/lut_buffer/inst/u_tdo/O
+                         net (fo=2, routed)           1.055     5.938    boundary       dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/m_bscan_tdo[0]
+    SLICE_X143Y388       LUT3 (Prop_D5LUT_SLICEL_I2_O)
+                                                      0.033     5.971 r  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/temp_curid[31]_i_3/O
+                         net (fo=1, routed)           0.006     5.977    static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/temp_curid[31]_i_3_n_0
+    SLICE_X143Y388       FDRE                                         r  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/temp_curid_reg[31]/D
+  -------------------------------------------------------------------    ----------------------------------
+
+                         (clock drck rise edge)       0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.057     0.057    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.082     0.139 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      1.624     1.763    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLICE_X142Y499       FDRE (Prop_HFF_SLICEM_C_Q)
+                                                      0.052     1.815 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg_replicated/Q
+    X5Y8 (CLOCK_ROOT)    net (fo=532, routed)         0.776     2.591    static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/s_bscan_tck
+    SLICE_X143Y388       FDRE                                         r  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/temp_curid_reg[31]/C
+                         clock pessimism             -0.301     2.290                     
+    SLICE_X143Y388       FDRE (Hold_DFF2_SLICEL_C_D)
+                                                      0.047     2.337    static           dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/temp_curid_reg[31]
+  -------------------------------------------------------------------
+                         required time                         -2.337                     
+                         arrival time                           5.977                     
+  -------------------------------------------------------------------
+                         slack                                  3.640                     
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  tck
+  To Clock:  tck
+
+Setup :            0  Failing Endpoints,  Worst Slack       30.122ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.013ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack       15.468ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             30.122ns  (required time - arrival time)
+  Source:                 WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/shift_bit_count_reg[3]/C
+                            (rising edge-triggered cell FDRE clocked by tck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Destination:            WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gras.rsts/ram_empty_fb_i_reg/D
+                            (rising edge-triggered cell FDPE clocked by tck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Path Group:             tck
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            32.000ns  (tck rise@32.000ns - tck rise@0.000ns)
+  Data Path Delay:        1.771ns  (logic 0.634ns (35.799%)  route 1.137ns (64.201%))
+  Logic Levels:           4  (LUT3=1 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.085ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    6.002ns = ( 38.002 - 32.000 ) 
+    Source Clock Delay      (SCD):    6.798ns
+    Clock Pessimism Removal (CPR):    0.711ns
+  Clock Uncertainty:      0.046ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.060ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.043ns (routing 0.481ns, distribution 2.562ns)
+  Clock Net Delay (Destination): 2.754ns (routing 0.441ns, distribution 2.313ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+                         (clock tck rise edge)        0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.085     0.085    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.215 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.795     3.010    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLR Crossing[1->0]   
+    SLICE_X112Y296       FDRE (Prop_DFF2_SLICEL_C_Q)
+                                                      0.081     3.091 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg/Q
+                         net (fo=2, routed)           0.636     3.727    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/tap_tck
+    BUFGCE_X1Y119        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     3.755 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_TAP_TCKBUFG/O
+    X4Y4 (CLOCK_ROOT)    net (fo=375, routed)         3.043     6.798    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/tck
+    SLR Crossing[0->1]   
+    SLICE_X71Y309        FDRE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/shift_bit_count_reg[3]/C
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X71Y309        FDRE (Prop_CFF2_SLICEL_C_Q)
+                                                      0.080     6.878 f  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/shift_bit_count_reg[3]/Q
+                         net (fo=2, routed)           0.255     7.133    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/shift_reg_in_reg[0][3]
+    SLICE_X71Y309        LUT6 (Prop_H6LUT_SLICEL_I3_O)
+                                                      0.124     7.257 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst_i_3/O
+                         net (fo=17, routed)          0.223     7.480    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst_i_3_n_0
+    SLICE_X72Y308        LUT3 (Prop_D5LUT_SLICEM_I0_O)
+                                                      0.158     7.638 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst_i_2/O
+                         net (fo=9, routed)           0.238     7.876    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.gr1_int.rfwft/rd_en
+    SLICE_X70Y308        LUT6 (Prop_F6LUT_SLICEM_I1_O)
+                                                      0.148     8.024 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.gr1_int.rfwft/ram_empty_i_i_5/O
+                         net (fo=1, routed)           0.190     8.214    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/rpntr/ram_empty_i_reg_0
+    SLICE_X69Y305        LUT4 (Prop_A6LUT_SLICEL_I3_O)
+                                                      0.124     8.338 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/rpntr/ram_empty_i_i_1/O
+                         net (fo=2, routed)           0.231     8.569    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gras.rsts/ram_empty_i_reg_0
+    SLICE_X69Y306        FDPE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gras.rsts/ram_empty_fb_i_reg/D
+  -------------------------------------------------------------------    ----------------------------------
+
+                         (clock tck rise edge)       32.000    32.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000    32.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.078    32.078    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114    32.192 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.508    34.700    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLR Crossing[1->0]   
+    SLICE_X112Y296       FDRE (Prop_DFF2_SLICEL_C_Q)
+                                                      0.061    34.761 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg/Q
+                         net (fo=2, routed)           0.463    35.224    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/tap_tck
+    BUFGCE_X1Y119        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024    35.248 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_TAP_TCKBUFG/O
+    X4Y4 (CLOCK_ROOT)    net (fo=375, routed)         2.754    38.002    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gras.rsts/rd_clk
+    SLR Crossing[0->1]   
+    SLICE_X69Y306        FDPE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gras.rsts/ram_empty_fb_i_reg/C
+                         clock pessimism              0.711    38.713                     
+                         clock uncertainty           -0.046    38.666                     
+    SLICE_X69Y306        FDPE (Setup_EFF_SLICEL_C_D)
+                                                      0.025    38.691    reconfigurable   WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gras.rsts/ram_empty_fb_i_reg
+  -------------------------------------------------------------------
+                         required time                         38.691                     
+                         arrival time                          -8.569                     
+  -------------------------------------------------------------------
+                         slack                                 30.122                     
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.013ns  (arrival time - required time)
+  Source:                 WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/shift_reg_in_reg[15]/C
+                            (rising edge-triggered cell FDCE clocked by tck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Destination:            WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm_gen.dm/RAM_reg_0_15_14_15/RAMA/I
+                            (rising edge-triggered cell RAMD32 clocked by tck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Path Group:             tck
+  Path Type:              Hold (Min at Slow Process Corner)
+  Requirement:            0.000ns  (tck rise@0.000ns - tck rise@0.000ns)
+  Data Path Delay:        0.152ns  (logic 0.058ns (38.158%)  route 0.094ns (61.842%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.064ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    6.811ns
+    Source Clock Delay      (SCD):    5.981ns
+    Clock Pessimism Removal (CPR):    0.766ns
+  Clock Net Delay (Source):      2.733ns (routing 0.441ns, distribution 2.292ns)
+  Clock Net Delay (Destination): 3.056ns (routing 0.481ns, distribution 2.575ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+                         (clock tck rise edge)        0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.078     0.078    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114     0.192 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.508     2.700    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLR Crossing[1->0]   
+    SLICE_X112Y296       FDRE (Prop_DFF2_SLICEL_C_Q)
+                                                      0.061     2.761 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg/Q
+                         net (fo=2, routed)           0.463     3.224    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/tap_tck
+    BUFGCE_X1Y119        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024     3.248 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_TAP_TCKBUFG/O
+    X4Y4 (CLOCK_ROOT)    net (fo=375, routed)         2.733     5.981    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/tck
+    SLR Crossing[0->1]   
+    SLICE_X75Y317        FDCE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/shift_reg_in_reg[15]/C
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X75Y317        FDCE (Prop_FFF_SLICEL_C_Q)
+                                                      0.058     6.039 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/shift_reg_in_reg[15]/Q
+                         net (fo=2, routed)           0.094     6.133    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm_gen.dm/RAM_reg_0_15_14_15/DIA0
+    SLICE_X74Y317        RAMD32                                       r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm_gen.dm/RAM_reg_0_15_14_15/RAMA/I
+  -------------------------------------------------------------------    ----------------------------------
+
+                         (clock tck rise edge)        0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.085     0.085    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.215 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.795     3.010    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLR Crossing[1->0]   
+    SLICE_X112Y296       FDRE (Prop_DFF2_SLICEL_C_Q)
+                                                      0.081     3.091 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg/Q
+                         net (fo=2, routed)           0.636     3.727    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/tap_tck
+    BUFGCE_X1Y119        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     3.755 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_TAP_TCKBUFG/O
+    X4Y4 (CLOCK_ROOT)    net (fo=375, routed)         3.056     6.811    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm_gen.dm/RAM_reg_0_15_14_15/WCLK
+    SLR Crossing[0->1]   
+    SLICE_X74Y317        RAMD32                                       r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm_gen.dm/RAM_reg_0_15_14_15/RAMA/CLK
+                         clock pessimism             -0.766     6.045                     
+    SLICE_X74Y317        RAMD32 (Hold_A5LUT_SLICEM_CLK_I)
+                                                      0.075     6.120    reconfigurable   WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm_gen.dm/RAM_reg_0_15_14_15/RAMA
+  -------------------------------------------------------------------
+                         required time                         -6.120                     
+                         arrival time                           6.133                     
+  -------------------------------------------------------------------
+                         slack                                  0.013                     
+
+
+
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         tck
+Waveform(ns):       { 0.000 16.000 }
+Period(ns):         32.000
+Sources:            { static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg/Q }
+
+Check Type        Corner  Lib Pin     Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location       Pin
+Min Period        n/a     RAMD32/CLK  n/a            1.064         32.000      30.936     SLICE_X76Y317  WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm_gen.dm/RAM_reg_0_15_0_13/RAMA/CLK
+Low Pulse Width   Slow    RAMD32/CLK  n/a            0.532         16.000      15.468     SLICE_X74Y317  WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm_gen.dm/RAM_reg_0_15_14_15/RAMA/CLK
+High Pulse Width  Slow    RAMD32/CLK  n/a            0.532         16.000      15.468     SLICE_X76Y317  WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.mem/gdm.dm_gen.dm/RAM_reg_0_15_0_13/RAMA/CLK
+
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  tck
+  To Clock:  clk_main_a0
+
+Setup :            0  Failing Endpoints,  Worst Slack       31.611ns,  Total Violation        0.000ns
+Hold  :           NA  Failing Endpoints,  Worst Slack           NA  ,  Total Violation           NA
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             31.611ns  (required time - arrival time)
+  Source:                 WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.wr_pntr_gc_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by tck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Destination:            WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.gsync_stage[1].rd_stg_inst/Q_reg_reg[1]/D
+                            (rising edge-triggered cell FDCE clocked by clk_main_a0  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_main_a0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            32.000ns  (MaxDelay Path 32.000ns)
+  Data Path Delay:        0.414ns  (logic 0.080ns (19.324%)  route 0.334ns (80.676%))
+  Logic Levels:           0  
+  Timing Exception:       MaxDelay Path 32.000ns -datapath_only
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X75Y315                                     0.000     0.000 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.wr_pntr_gc_reg[1]/C
+    SLICE_X75Y315        FDCE (Prop_HFF2_SLICEL_C_Q)
+                                                      0.080     0.080 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.wr_pntr_gc_reg[1]/Q
+                         net (fo=1, routed)           0.334     0.414    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.gsync_stage[1].rd_stg_inst/Q[1]
+    SLICE_X76Y315        FDCE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.gsync_stage[1].rd_stg_inst/Q_reg_reg[1]/D
+  -------------------------------------------------------------------    ----------------------------------
+
+                         max delay                   32.000    32.000                   
+    SLICE_X76Y315        FDCE (Setup_GFF2_SLICEM_C_D)
+                                                      0.025    32.025    reconfigurable   WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.gsync_stage[1].rd_stg_inst/Q_reg_reg[1]
+  -------------------------------------------------------------------
+                         required time                         32.025                     
+                         arrival time                          -0.414                     
+  -------------------------------------------------------------------
+                         slack                                 31.611                     
+
+
+
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  tck
+  To Clock:  drck
+
+Setup :            0  Failing Endpoints,  Worst Slack        8.376ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        2.186ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             8.376ns  (required time - arrival time)
+  Source:                 WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/iTDO_reg/C
+                            (rising edge-triggered cell FDRE clocked by tck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Destination:            static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/TDO_O_reg/D
+                            (falling edge-triggered cell FDCE clocked by drck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Path Group:             drck
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            16.000ns  (drck fall@16.000ns - tck rise@0.000ns)
+  Data Path Delay:        3.799ns  (logic 0.529ns (13.925%)  route 3.270ns (86.075%))
+  Logic Levels:           5  (LUT1=1 LUT3=2 LUT5=1 LUT6=1)
+  Clock Path Skew:        -3.452ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.242ns = ( 19.242 - 16.000 ) 
+    Source Clock Delay      (SCD):    6.793ns
+    Clock Pessimism Removal (CPR):    0.099ns
+  Clock Uncertainty:      0.046ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.060ns
+    Phase Error              (PE):    0.000ns
+  Inter-SLR Compensation: 0.352ns  ((DCD - CCD) * PF)
+    Destination Clock Delay (DCD):    3.242ns
+    Common Clock Delay      (CCD):    0.896ns
+    Prorating Factor         (PF):    0.150
+  Clock Net Delay (Source):      3.038ns (routing 0.481ns, distribution 2.557ns)
+  Clock Net Delay (Destination): 0.631ns (routing 0.013ns, distribution 0.618ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+                         (clock tck rise edge)        0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.085     0.085    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.215 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.795     3.010    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLR Crossing[1->0]   
+    SLICE_X112Y296       FDRE (Prop_DFF2_SLICEL_C_Q)
+                                                      0.081     3.091 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg/Q
+                         net (fo=2, routed)           0.636     3.727    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/tap_tck
+    BUFGCE_X1Y119        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     3.755 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_TAP_TCKBUFG/O
+    X4Y4 (CLOCK_ROOT)    net (fo=375, routed)         3.038     6.793    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/tck
+    SLR Crossing[0->1]   
+    SLICE_X76Y324        FDRE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/iTDO_reg/C
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X76Y324        FDRE (Prop_HFF_SLICEM_C_Q)
+                                                      0.079     6.872 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/iTDO_reg/Q
+                         net (fo=1, routed)           0.414     7.286    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/TDO
+    SLICE_X77Y356        LUT3 (Prop_H6LUT_SLICEL_I2_O)
+                                                      0.051     7.337 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/tdo_INST_0/O
+                         net (fo=1, routed)           0.039     7.376    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/lut_buffer/inst/tdo_i
+    SLICE_X77Y356        LUT1 (Prop_G6LUT_SLICEL_I0_O)
+                                                      0.035     7.411 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/lut_buffer/inst/u_tdo/O
+                         net (fo=2, routed)           2.456     9.867    boundary       dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/m_bscan_tdo[0]
+    SLICE_X144Y418       LUT6 (Prop_G6LUT_SLICEM_I5_O)
+                                                      0.150    10.017 r  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/s_bscan_tdo_INST_0/O
+                         net (fo=1, routed)           0.245    10.262    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/tdo
+    SLICE_X144Y424       LUT5 (Prop_E6LUT_SLICEM_I1_O)
+                                                      0.148    10.410 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/dr_tdo_inferred_i_1/O
+                         net (fo=1, routed)           0.086    10.496    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/U_TAP/sh_reg_reg[0]
+    SLICE_X144Y423       LUT3 (Prop_D5LUT_SLICEM_I2_O)
+                                                      0.066    10.562 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/U_TAP/tdo_rise_edge_inferred_i_1/O
+                         net (fo=1, routed)           0.030    10.592    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/tdo_rise_edge
+    SLICE_X144Y423       FDCE                                         r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/TDO_O_reg/D
+  -------------------------------------------------------------------    ----------------------------------
+
+                         (clock drck fall edge)      16.000    16.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000    16.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.078    16.078    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114    16.192 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.361    18.553    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLICE_X142Y499       FDRE (Prop_HFF_SLICEM_C_Q)
+                                                      0.058    18.611 f  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg_replicated/Q
+    X5Y8 (CLOCK_ROOT)    net (fo=532, routed)         0.631    19.242    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/tck_i_reg
+    SLICE_X144Y423       FDCE                                         r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/TDO_O_reg/C  (IS_INVERTED)
+                         clock pessimism              0.099    19.341                     
+                         inter-SLR compensation      -0.352    18.989                     
+                         clock uncertainty           -0.046    18.943                     
+    SLICE_X144Y423       FDCE (Setup_DFF2_SLICEM_C_D)
+                                                      0.025    18.968    static           static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/TDO_O_reg
+  -------------------------------------------------------------------
+                         required time                         18.968                     
+                         arrival time                         -10.592                     
+  -------------------------------------------------------------------
+                         slack                                  8.376                     
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             2.186ns  (arrival time - required time)
+  Source:                 WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/EXT_BSCAN.bscanid_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by tck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Destination:            dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/temp_curid_reg[31]/D
+                            (rising edge-triggered cell FDRE clocked by drck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Path Group:             drck
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (drck rise@0.000ns - tck rise@0.000ns)
+  Data Path Delay:        1.389ns  (logic 0.127ns (9.143%)  route 1.262ns (90.857%))
+  Logic Levels:           3  (LUT1=1 LUT3=2)
+  Clock Path Skew:        -1.139ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    2.591ns
+    Source Clock Delay      (SCD):    3.661ns
+    Clock Pessimism Removal (CPR):    0.069ns
+  Inter-SLR Compensation: 0.295ns  ((DCD - CCD) * DF)
+    Destination Clock Delay (DCD):    2.591ns
+    Common Clock Delay      (CCD):    0.623ns
+    Derating Factor          (DF):    0.150
+  Clock Net Delay (Source):      1.596ns (routing 0.263ns, distribution 1.333ns)
+  Clock Net Delay (Destination): 0.776ns (routing 0.017ns, distribution 0.759ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+                         (clock tck rise edge)        0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.052     0.052    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.073     0.125 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      1.537     1.662    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLR Crossing[1->0]   
+    SLICE_X112Y296       FDRE (Prop_DFF2_SLICEL_C_Q)
+                                                      0.041     1.703 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg/Q
+                         net (fo=2, routed)           0.345     2.048    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/tap_tck
+    BUFGCE_X1Y119        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.017     2.065 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_TAP_TCKBUFG/O
+    X4Y4 (CLOCK_ROOT)    net (fo=375, routed)         1.596     3.661    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/tck
+    SLR Crossing[0->1]   
+    SLICE_X88Y357        FDRE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/EXT_BSCAN.bscanid_reg[0]/C
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X88Y357        FDRE (Prop_AFF2_SLICEM_C_Q)
+                                                      0.039     3.700 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/EXT_BSCAN.bscanid_reg[0]/Q
+                         net (fo=2, routed)           0.180     3.880    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/bscanid[0]
+    SLICE_X77Y356        LUT3 (Prop_H6LUT_SLICEL_I0_O)
+                                                      0.041     3.921 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/tdo_INST_0/O
+                         net (fo=1, routed)           0.021     3.942    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/lut_buffer/inst/tdo_i
+    SLICE_X77Y356        LUT1 (Prop_G6LUT_SLICEL_I0_O)
+                                                      0.014     3.956 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/lut_buffer/inst/u_tdo/O
+                         net (fo=2, routed)           1.055     5.011    boundary       dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/m_bscan_tdo[0]
+    SLICE_X143Y388       LUT3 (Prop_D5LUT_SLICEL_I2_O)
+                                                      0.033     5.044 r  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/temp_curid[31]_i_3/O
+                         net (fo=1, routed)           0.006     5.050    static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/temp_curid[31]_i_3_n_0
+    SLICE_X143Y388       FDRE                                         r  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/temp_curid_reg[31]/D
+  -------------------------------------------------------------------    ----------------------------------
+
+                         (clock drck rise edge)       0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.057     0.057    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.082     0.139 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      1.624     1.763    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLICE_X142Y499       FDRE (Prop_HFF_SLICEM_C_Q)
+                                                      0.052     1.815 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg_replicated/Q
+    X5Y8 (CLOCK_ROOT)    net (fo=532, routed)         0.776     2.591    static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/s_bscan_tck
+    SLICE_X143Y388       FDRE                                         r  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/temp_curid_reg[31]/C
+                         clock pessimism             -0.069     2.522                     
+                         inter-SLR compensation       0.295     2.817                     
+    SLICE_X143Y388       FDRE (Hold_DFF2_SLICEL_C_D)
+                                                      0.047     2.864    static           dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/temp_curid_reg[31]
+  -------------------------------------------------------------------
+                         required time                         -2.864                     
+                         arrival time                           5.050                     
+  -------------------------------------------------------------------
+                         slack                                  2.186                     
+
+
+
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  clk_main_a0
+  To Clock:  tck
+
+Setup :            0  Failing Endpoints,  Worst Slack        7.617ns,  Total Violation        0.000ns
+Hold  :           NA  Failing Endpoints,  Worst Slack           NA  ,  Total Violation           NA
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             7.617ns  (required time - arrival time)
+  Source:                 WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.rd_pntr_gc_reg[2]/C
+                            (rising edge-triggered cell FDCE clocked by clk_main_a0  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.gsync_stage[1].wr_stg_inst/Q_reg_reg[2]/D
+                            (rising edge-triggered cell FDCE clocked by tck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Path Group:             tck
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            8.000ns  (MaxDelay Path 8.000ns)
+  Data Path Delay:        0.408ns  (logic 0.079ns (19.363%)  route 0.329ns (80.637%))
+  Logic Levels:           0  
+  Timing Exception:       MaxDelay Path 8.000ns -datapath_only
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X75Y313                                     0.000     0.000 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.rd_pntr_gc_reg[2]/C
+    SLICE_X75Y313        FDCE (Prop_EFF_SLICEL_C_Q)
+                                                      0.079     0.079 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.rd_pntr_gc_reg[2]/Q
+                         net (fo=1, routed)           0.329     0.408    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.gsync_stage[1].wr_stg_inst/Q[2]
+    SLICE_X76Y313        FDCE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.gsync_stage[1].wr_stg_inst/Q_reg_reg[2]/D
+  -------------------------------------------------------------------    ----------------------------------
+
+                         max delay                    8.000     8.000                   
+    SLICE_X76Y313        FDCE (Setup_DFF2_SLICEM_C_D)
+                                                      0.025     8.025    reconfigurable   WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.gsync_stage[1].wr_stg_inst/Q_reg_reg[2]
+  -------------------------------------------------------------------
+                         required time                          8.025                     
+                         arrival time                          -0.408                     
+  -------------------------------------------------------------------
+                         slack                                  7.617                     
+
+
+
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  drck
+  To Clock:  tck
+
+Setup :            0  Failing Endpoints,  Worst Slack       10.620ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.032ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             10.620ns  (required time - arrival time)
+  Source:                 static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/U_TAP/SHIFTDR_O_reg/C
+                            (falling edge-triggered cell FDRE clocked by drck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Destination:            WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_STAT/iSTAT_CNT_reg[0]/R
+                            (rising edge-triggered cell FDRE clocked by tck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Path Group:             tck
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            16.000ns  (tck rise@32.000ns - drck fall@16.000ns)
+  Data Path Delay:        6.570ns  (logic 0.493ns (7.504%)  route 6.077ns (92.496%))
+  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        2.074ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    5.984ns = ( 37.984 - 32.000 ) 
+    Source Clock Delay      (SCD):    4.009ns = ( 20.009 - 16.000 ) 
+    Clock Pessimism Removal (CPR):    0.099ns
+  Clock Uncertainty:      0.046ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.060ns
+    Phase Error              (PE):    0.000ns
+  Inter-SLR Compensation: 0.763ns  ((DCD - CCD) * PF)
+    Destination Clock Delay (DCD):    5.984ns
+    Common Clock Delay      (CCD):    0.896ns
+    Prorating Factor         (PF):    0.150
+  Clock Net Delay (Source):      1.064ns (routing 0.017ns, distribution 1.047ns)
+  Clock Net Delay (Destination): 2.736ns (routing 0.441ns, distribution 2.295ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+                         (clock drck fall edge)      16.000    16.000 f                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000    16.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.085    16.085    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130    16.215 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.651    18.866    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLICE_X142Y499       FDRE (Prop_HFF_SLICEM_C_Q)
+                                                      0.079    18.945 f  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg_replicated/Q
+    X5Y8 (CLOCK_ROOT)    net (fo=532, routed)         1.064    20.009    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/U_TAP/tck_i_reg
+    SLICE_X144Y420       FDRE                                         r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/U_TAP/SHIFTDR_O_reg/C  (IS_INVERTED)
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X144Y420       FDRE (Prop_CFF_SLICEM_C_Q)
+                                                      0.078    20.087 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/U_TAP/SHIFTDR_O_reg/Q
+                         net (fo=2, routed)           0.112    20.199    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/U_TAP/SHIFTDR_O
+    SLICE_X145Y420       LUT2 (Prop_G6LUT_SLICEL_I1_O)
+                                                      0.149    20.348 f  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_BSCAN_TAP/U_BASETAP/U_TAP/shift_INST_0/O
+                         net (fo=36, routed)          1.711    22.059    static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/s_bscan_shift
+    SLICE_X142Y360       LUT6 (Prop_H6LUT_SLICEM_I5_O)
+                                                      0.101    22.160 f  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/m_bscan_shift[0]_INST_0/O
+                         net (fo=4, routed)           3.338    25.498    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_CMD/icn_cmd_en_reg[7]
+    SLICE_X77Y323        LUT4 (Prop_D6LUT_SLICEL_I1_O)
+                                                      0.099    25.597 f  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_CMD/iSTAT_CNT[5]_i_4/O
+                         net (fo=1, routed)           0.456    26.053    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_CMD/iSTAT_CNT[5]_i_4_n_0
+    SLICE_X76Y323        LUT5 (Prop_D5LUT_SLICEM_I4_O)
+                                                      0.066    26.119 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_CMD/iSTAT_CNT[5]_i_1/O
+                         net (fo=6, routed)           0.460    26.579    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_STAT/SR[0]
+    SLICE_X76Y324        FDRE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_STAT/iSTAT_CNT_reg[0]/R
+  -------------------------------------------------------------------    ----------------------------------
+
+                         (clock tck rise edge)       32.000    32.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000    32.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.078    32.078    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114    32.192 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.508    34.700    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLR Crossing[1->0]   
+    SLICE_X112Y296       FDRE (Prop_DFF2_SLICEL_C_Q)
+                                                      0.061    34.761 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg/Q
+                         net (fo=2, routed)           0.463    35.224    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/tap_tck
+    BUFGCE_X1Y119        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024    35.248 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_TAP_TCKBUFG/O
+    X4Y4 (CLOCK_ROOT)    net (fo=375, routed)         2.736    37.984    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_STAT/tck
+    SLR Crossing[0->1]   
+    SLICE_X76Y324        FDRE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_STAT/iSTAT_CNT_reg[0]/C
+                         clock pessimism              0.099    38.083                     
+                         inter-SLR compensation      -0.763    37.320                     
+                         clock uncertainty           -0.046    37.273                     
+    SLICE_X76Y324        FDRE (Setup_BFF2_SLICEM_C_R)
+                                                     -0.074    37.199    reconfigurable   WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_STAT/iSTAT_CNT_reg[0]
+  -------------------------------------------------------------------
+                         required time                         37.199                     
+                         arrival time                         -26.579                     
+  -------------------------------------------------------------------
+                         slack                                 10.620                     
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.032ns  (arrival time - required time)
+  Source:                 dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/portno_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by drck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Destination:            WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/iDATA_CMD_reg/D
+                            (rising edge-triggered cell FDRE clocked by tck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Path Group:             tck
+  Path Type:              Hold (Min at Slow Process Corner)
+  Requirement:            0.000ns  (tck rise@0.000ns - drck rise@0.000ns)
+  Data Path Delay:        4.499ns  (logic 0.200ns (4.445%)  route 4.299ns (95.555%))
+  Logic Levels:           2  (LUT3=1 LUT5=1)
+  Clock Path Skew:        3.372ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    6.754ns
+    Source Clock Delay      (SCD):    3.283ns
+    Clock Pessimism Removal (CPR):    0.099ns
+  Inter-SLR Compensation: 1.033ns  ((SCD + DPD - CCD) * PF)
+    Source Clock Delay      (SCD):    3.283ns
+    Data Path Delay         (DPD):    4.499ns
+    Common Clock Delay      (CCD):    0.896ns
+    Prorating Factor         (PF):    0.150
+  Clock Net Delay (Source):      0.672ns (routing 0.013ns, distribution 0.659ns)
+  Clock Net Delay (Destination): 2.999ns (routing 0.481ns, distribution 2.518ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+                         (clock drck rise edge)       0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.078     0.078    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114     0.192 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.361     2.553    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLICE_X142Y499       FDRE (Prop_HFF_SLICEM_C_Q)
+                                                      0.058     2.611 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg_replicated/Q
+    X5Y8 (CLOCK_ROOT)    net (fo=532, routed)         0.672     3.283    static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/s_bscan_tck
+    SLICE_X144Y419       FDRE                                         r  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/portno_reg[0]/C
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X144Y419       FDRE (Prop_FFF_SLICEM_C_Q)
+                                                      0.057     3.340 f  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/portno_reg[0]/Q
+                         net (fo=12, routed)          2.001     5.341    static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/portno[0]
+    SLICE_X143Y359       LUT5 (Prop_F6LUT_SLICEL_I4_O)
+                                                      0.065     5.406 r  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/m_bscan_sel[0]_INST_0/O
+                         net (fo=11, routed)          2.289     7.695    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/iTARGET_reg[6]
+    SLICE_X77Y325        LUT3 (Prop_D5LUT_SLICEL_I2_O)
+                                                      0.078     7.773 r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/iDATA_CMD_i_1/O
+                         net (fo=1, routed)           0.009     7.782    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/iDATA_CMD_i_1_n_0
+    SLICE_X77Y325        FDRE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/iDATA_CMD_reg/D
+  -------------------------------------------------------------------    ----------------------------------
+
+                         (clock tck rise edge)        0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.085     0.085    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.215 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.795     3.010    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLR Crossing[1->0]   
+    SLICE_X112Y296       FDRE (Prop_DFF2_SLICEL_C_Q)
+                                                      0.081     3.091 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg/Q
+                         net (fo=2, routed)           0.636     3.727    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/tap_tck
+    BUFGCE_X1Y119        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     3.755 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_TAP_TCKBUFG/O
+    X4Y4 (CLOCK_ROOT)    net (fo=375, routed)         2.999     6.754    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/tck
+    SLR Crossing[0->1]   
+    SLICE_X77Y325        FDRE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/iDATA_CMD_reg/C
+                         clock pessimism             -0.099     6.655                     
+                         inter-SLR compensation       1.033     7.688                     
+    SLICE_X77Y325        FDRE (Hold_DFF2_SLICEL_C_D)
+                                                      0.062     7.750    reconfigurable   WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/iDATA_CMD_reg
+  -------------------------------------------------------------------
+                         required time                         -7.750                     
+                         arrival time                           7.782                     
+  -------------------------------------------------------------------
+                         slack                                  0.032                     
+
+
+
+
+
+---------------------------------------------------------------------------------------------------
+Path Group:  **async_default**
+From Clock:  clk_main_a0
+  To Clock:  clk_main_a0
+
+Setup :            0  Failing Endpoints,  Worst Slack        6.731ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.114ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             6.731ns  (required time - arrival time)
+  Source:                 WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD1/ctl_reg_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk_main_a0  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_XSDB_BUS_CONTROLLER/timer_rst_reg/PRE
+                            (recovery check against rising-edge clock clk_main_a0  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             **async_default**
+  Path Type:              Recovery (Max at Slow Process Corner)
+  Requirement:            8.000ns  (clk_main_a0 rise@8.000ns - clk_main_a0 rise@0.000ns)
+  Data Path Delay:        1.063ns  (logic 0.078ns (7.338%)  route 0.985ns (92.662%))
+  Logic Levels:           0  
+  Clock Path Skew:        -0.082ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    6.048ns = ( 14.048 - 8.000 ) 
+    Source Clock Delay      (SCD):    5.878ns
+    Clock Pessimism Removal (CPR):    -0.252ns
+  Clock Uncertainty:      0.058ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.092ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      2.915ns (routing 0.453ns, distribution 2.462ns)
+  Clock Net Delay (Destination): 2.632ns (routing 0.412ns, distribution 2.220ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+                         (clock clk_main_a0 rise edge)
+                                                      0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.085     0.085    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.215 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.602     2.817    boundary       WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_in1
+    MMCM_X1Y7            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                     -0.127     2.690 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/mmcme3_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.245     2.935    reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_out1_kernel_clks_clkwiz_sys_clk_0
+    BUFGCE_X1Y181        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     2.963 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clkout1_buf/O
+    X4Y7 (CLOCK_ROOT)    net (fo=71113, routed)       2.915     5.878    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD1/clk
+    SLICE_X72Y317        FDRE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD1/ctl_reg_reg[0]/C
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X72Y317        FDRE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     5.956 f  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD1/ctl_reg_reg[0]/Q
+                         net (fo=174, routed)         0.985     6.941    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_XSDB_BUS_CONTROLLER/AR[0]
+    SLICE_X70Y314        FDPE                                         f  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_XSDB_BUS_CONTROLLER/timer_rst_reg/PRE
+  -------------------------------------------------------------------    ----------------------------------
+
+                         (clock clk_main_a0 rise edge)
+                                                      8.000     8.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     8.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.078     8.078    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114     8.192 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.355    10.547    boundary       WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_in1
+    MMCM_X1Y7            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                      0.630    11.177 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/mmcme3_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.215    11.392    reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_out1_kernel_clks_clkwiz_sys_clk_0
+    BUFGCE_X1Y181        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024    11.416 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clkout1_buf/O
+    X4Y7 (CLOCK_ROOT)    net (fo=71113, routed)       2.632    14.048    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_XSDB_BUS_CONTROLLER/clk
+    SLICE_X70Y314        FDPE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_XSDB_BUS_CONTROLLER/timer_rst_reg/C
+                         clock pessimism             -0.252    13.796                     
+                         clock uncertainty           -0.058    13.738                     
+    SLICE_X70Y314        FDPE (Recov_HFF_SLICEM_C_PRE)
+                                                     -0.066    13.672    reconfigurable   WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_XSDB_BUS_CONTROLLER/timer_rst_reg
+  -------------------------------------------------------------------
+                         required time                         13.672                     
+                         arrival time                          -6.941                     
+  -------------------------------------------------------------------
+                         slack                                  6.731                     
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.114ns  (arrival time - required time)
+  Source:                 WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_reg_reg[2]/C
+                            (rising edge-triggered cell FDPE clocked by clk_main_a0  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/rpntr/gc0.count_d1_reg[2]/CLR
+                            (removal check against rising-edge clock clk_main_a0  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             **async_default**
+  Path Type:              Removal (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_main_a0 rise@0.000ns - clk_main_a0 rise@0.000ns)
+  Data Path Delay:        0.141ns  (logic 0.039ns (27.660%)  route 0.102ns (72.340%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.047ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    3.386ns
+    Source Clock Delay      (SCD):    3.541ns
+    Clock Pessimism Removal (CPR):    -0.202ns
+  Clock Net Delay (Source):      1.599ns (routing 0.248ns, distribution 1.351ns)
+  Clock Net Delay (Destination): 1.779ns (routing 0.277ns, distribution 1.502ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+                         (clock clk_main_a0 rise edge)
+                                                      0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.052     0.052    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.073     0.125 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      1.424     1.549    boundary       WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_in1
+    MMCM_X1Y7            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                      0.230     1.779 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/mmcme3_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.146     1.925    reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_out1_kernel_clks_clkwiz_sys_clk_0
+    BUFGCE_X1Y181        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.017     1.942 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clkout1_buf/O
+    X4Y7 (CLOCK_ROOT)    net (fo=71113, routed)       1.599     3.541    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/rd_clk
+    SLICE_X77Y316        FDPE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_reg_reg[2]/C
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X77Y316        FDPE (Prop_FFF_SLICEL_C_Q)
+                                                      0.039     3.580 f  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_reg_reg[2]/Q
+                         net (fo=10, routed)          0.102     3.682    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/rpntr/AR[0]
+    SLICE_X75Y316        FDCE                                         f  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/rpntr/gc0.count_d1_reg[2]/CLR
+  -------------------------------------------------------------------    ----------------------------------
+
+                         (clock clk_main_a0 rise edge)
+                                                      0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.057     0.057    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.082     0.139 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      1.578     1.717    boundary       WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_in1
+    MMCM_X1Y7            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                     -0.295     1.422 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/mmcme3_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.166     1.588    reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clk_out1_kernel_clks_clkwiz_sys_clk_0
+    BUFGCE_X1Y181        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.019     1.607 r  reconfigurable WRAPPER_INST/SH/kernel_clks_i/clkwiz_sys_clk/inst/CLK_CORE_DRP_I/clk_inst/clkout1_buf/O
+    X4Y7 (CLOCK_ROOT)    net (fo=71113, routed)       1.779     3.386    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/rpntr/rd_clk
+    SLICE_X75Y316        FDCE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/rpntr/gc0.count_d1_reg[2]/C
+                         clock pessimism              0.202     3.588                     
+    SLICE_X75Y316        FDCE (Remov_EFF_SLICEL_C_CLR)
+                                                     -0.020     3.568    reconfigurable   WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/rpntr/gc0.count_d1_reg[2]
+  -------------------------------------------------------------------
+                         required time                         -3.568                     
+                         arrival time                           3.682                     
+  -------------------------------------------------------------------
+                         slack                                  0.114                     
+
+
+
+
+
+---------------------------------------------------------------------------------------------------
+Path Group:  **async_default**
+From Clock:  drck
+  To Clock:  tck
+
+Setup :            0  Failing Endpoints,  Worst Slack       25.916ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.167ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             25.916ns  (required time - arrival time)
+  Source:                 dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/portno_reg[5]/C
+                            (rising edge-triggered cell FDRE clocked by drck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Destination:            WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_CMD/iTARGET_reg[15]/CLR
+                            (recovery check against rising-edge clock tck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Path Group:             **async_default**
+  Path Type:              Recovery (Max at Slow Process Corner)
+  Requirement:            32.000ns  (tck rise@32.000ns - drck rise@0.000ns)
+  Data Path Delay:        7.217ns  (logic 0.327ns (4.531%)  route 6.890ns (95.469%))
+  Logic Levels:           2  (LUT5=2)
+  Clock Path Skew:        2.007ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    5.976ns = ( 37.976 - 32.000 ) 
+    Source Clock Delay      (SCD):    4.068ns
+    Clock Pessimism Removal (CPR):    0.099ns
+  Clock Uncertainty:      0.046ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.060ns
+    Phase Error              (PE):    0.000ns
+  Inter-SLR Compensation: 0.762ns  ((DCD - CCD) * PF)
+    Destination Clock Delay (DCD):    5.976ns
+    Common Clock Delay      (CCD):    0.896ns
+    Prorating Factor         (PF):    0.150
+  Clock Net Delay (Source):      1.123ns (routing 0.017ns, distribution 1.106ns)
+  Clock Net Delay (Destination): 2.728ns (routing 0.441ns, distribution 2.287ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+                         (clock drck rise edge)       0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.085     0.085    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.215 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.651     2.866    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLICE_X142Y499       FDRE (Prop_HFF_SLICEM_C_Q)
+                                                      0.079     2.945 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg_replicated/Q
+    X5Y8 (CLOCK_ROOT)    net (fo=532, routed)         1.123     4.068    static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/s_bscan_tck
+    SLICE_X144Y419       FDRE                                         r  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/portno_reg[5]/C
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X144Y419       FDRE (Prop_HFF_SLICEM_C_Q)
+                                                      0.079     4.147 f  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/portno_reg[5]/Q
+                         net (fo=1, routed)           1.161     5.308    static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/portno[5]
+    SLICE_X144Y419       LUT5 (Prop_H6LUT_SLICEM_I1_O)
+                                                      0.125     5.433 r  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/m_bscan_drck[1]_INST_0_i_1/O
+                         net (fo=10, routed)          2.118     7.551    static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/m_bscan_drck[1]_INST_0_i_1_n_0
+    SLICE_X143Y359       LUT5 (Prop_F6LUT_SLICEL_I0_O)
+                                                      0.123     7.674 r  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/m_bscan_sel[0]_INST_0/O
+                         net (fo=11, routed)          3.611    11.285    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_CMD/iTARGET_reg[6]_0
+    SLICE_X77Y322        FDCE                                         f  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_CMD/iTARGET_reg[15]/CLR  (IS_INVERTED)
+  -------------------------------------------------------------------    ----------------------------------
+
+                         (clock tck rise edge)       32.000    32.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000    32.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.078    32.078    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114    32.192 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.508    34.700    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLR Crossing[1->0]   
+    SLICE_X112Y296       FDRE (Prop_DFF2_SLICEL_C_Q)
+                                                      0.061    34.761 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg/Q
+                         net (fo=2, routed)           0.463    35.224    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/tap_tck
+    BUFGCE_X1Y119        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024    35.248 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_TAP_TCKBUFG/O
+    X4Y4 (CLOCK_ROOT)    net (fo=375, routed)         2.728    37.976    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_CMD/tck
+    SLR Crossing[0->1]   
+    SLICE_X77Y322        FDCE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_CMD/iTARGET_reg[15]/C
+                         clock pessimism              0.099    38.075                     
+                         inter-SLR compensation      -0.762    37.313                     
+                         clock uncertainty           -0.046    37.267                     
+    SLICE_X77Y322        FDCE (Recov_EFF_SLICEL_C_CLR)
+                                                     -0.066    37.201    reconfigurable   WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_CMD/iTARGET_reg[15]
+  -------------------------------------------------------------------
+                         required time                         37.201                     
+                         arrival time                         -11.285                     
+  -------------------------------------------------------------------
+                         slack                                 25.916                     
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.167ns  (arrival time - required time)
+  Source:                 dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/portno_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by drck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Destination:            WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_CMD/iTARGET_reg[10]/CLR
+                            (removal check against rising-edge clock tck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Path Group:             **async_default**
+  Path Type:              Removal (Min at Slow Process Corner)
+  Requirement:            0.000ns  (tck rise@0.000ns - drck rise@0.000ns)
+  Data Path Delay:        4.556ns  (logic 0.122ns (2.678%)  route 4.434ns (97.322%))
+  Logic Levels:           1  (LUT5=1)
+  Clock Path Skew:        3.380ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    6.762ns
+    Source Clock Delay      (SCD):    3.283ns
+    Clock Pessimism Removal (CPR):    0.099ns
+  Inter-SLR Compensation: 1.041ns  ((SCD + DPD - CCD) * PF)
+    Source Clock Delay      (SCD):    3.283ns
+    Data Path Delay         (DPD):    4.556ns
+    Common Clock Delay      (CCD):    0.896ns
+    Prorating Factor         (PF):    0.150
+  Clock Net Delay (Source):      0.672ns (routing 0.013ns, distribution 0.659ns)
+  Clock Net Delay (Destination): 3.007ns (routing 0.481ns, distribution 2.526ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+                         (clock drck rise edge)       0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.078     0.078    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114     0.192 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.361     2.553    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLICE_X142Y499       FDRE (Prop_HFF_SLICEM_C_Q)
+                                                      0.058     2.611 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg_replicated/Q
+    X5Y8 (CLOCK_ROOT)    net (fo=532, routed)         0.672     3.283    static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/s_bscan_tck
+    SLICE_X144Y419       FDRE                                         r  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/portno_reg[0]/C
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X144Y419       FDRE (Prop_FFF_SLICEM_C_Q)
+                                                      0.057     3.340 f  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/portno_reg[0]/Q
+                         net (fo=12, routed)          2.001     5.341    static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/portno[0]
+    SLICE_X143Y359       LUT5 (Prop_F6LUT_SLICEL_I4_O)
+                                                      0.065     5.406 r  static         dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_EXT_BSCAN.bscan_switch/m_bscan_sel[0]_INST_0/O
+                         net (fo=11, routed)          2.433     7.839    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_CMD/iTARGET_reg[6]_0
+    SLICE_X77Y323        FDCE                                         f  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_CMD/iTARGET_reg[10]/CLR  (IS_INVERTED)
+  -------------------------------------------------------------------    ----------------------------------
+
+                         (clock tck rise edge)        0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.085     0.085    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.215 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.795     3.010    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLR Crossing[1->0]   
+    SLICE_X112Y296       FDRE (Prop_DFF2_SLICEL_C_Q)
+                                                      0.081     3.091 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg/Q
+                         net (fo=2, routed)           0.636     3.727    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/tap_tck
+    BUFGCE_X1Y119        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     3.755 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_TAP_TCKBUFG/O
+    X4Y4 (CLOCK_ROOT)    net (fo=375, routed)         3.007     6.762    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_CMD/tck
+    SLR Crossing[0->1]   
+    SLICE_X77Y323        FDCE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_CMD/iTARGET_reg[10]/C
+                         clock pessimism             -0.099     6.663                     
+                         inter-SLR compensation       1.041     7.704                     
+    SLICE_X77Y323        FDCE (Remov_EFF_SLICEL_C_CLR)
+                                                     -0.032     7.672    reconfigurable   WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.U_ICON/U_CMD/iTARGET_reg[10]
+  -------------------------------------------------------------------
+                         required time                         -7.672                     
+                         arrival time                           7.839                     
+  -------------------------------------------------------------------
+                         slack                                  0.167                     
+
+
+
+
+
+---------------------------------------------------------------------------------------------------
+Path Group:  **async_default**
+From Clock:  tck
+  To Clock:  tck
+
+Setup :            0  Failing Endpoints,  Worst Slack       31.036ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.130ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             31.036ns  (required time - arrival time)
+  Source:                 WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.wr_rst_reg_reg[0]/C
+                            (rising edge-triggered cell FDPE clocked by tck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Destination:            WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.gsync_stage[1].wr_stg_inst/Q_reg_reg[2]/CLR
+                            (recovery check against rising-edge clock tck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Path Group:             **async_default**
+  Path Type:              Recovery (Max at Slow Process Corner)
+  Requirement:            32.000ns  (tck rise@32.000ns - tck rise@0.000ns)
+  Data Path Delay:        0.759ns  (logic 0.079ns (10.408%)  route 0.680ns (89.592%))
+  Logic Levels:           0  
+  Clock Path Skew:        -0.092ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    5.981ns = ( 37.981 - 32.000 ) 
+    Source Clock Delay      (SCD):    6.784ns
+    Clock Pessimism Removal (CPR):    0.711ns
+  Clock Uncertainty:      0.046ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.060ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.029ns (routing 0.481ns, distribution 2.548ns)
+  Clock Net Delay (Destination): 2.733ns (routing 0.441ns, distribution 2.292ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+                         (clock tck rise edge)        0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.085     0.085    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.215 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.795     3.010    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLR Crossing[1->0]   
+    SLICE_X112Y296       FDRE (Prop_DFF2_SLICEL_C_Q)
+                                                      0.081     3.091 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg/Q
+                         net (fo=2, routed)           0.636     3.727    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/tap_tck
+    BUFGCE_X1Y119        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     3.755 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_TAP_TCKBUFG/O
+    X4Y4 (CLOCK_ROOT)    net (fo=375, routed)         3.029     6.784    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/wr_clk
+    SLR Crossing[0->1]   
+    SLICE_X75Y318        FDPE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.wr_rst_reg_reg[0]/C
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X75Y318        FDPE (Prop_EFF_SLICEL_C_Q)
+                                                      0.079     6.863 f  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.wr_rst_reg_reg[0]/Q
+                         net (fo=18, routed)          0.680     7.543    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.gsync_stage[1].wr_stg_inst/AR[0]
+    SLICE_X76Y313        FDCE                                         f  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.gsync_stage[1].wr_stg_inst/Q_reg_reg[2]/CLR
+  -------------------------------------------------------------------    ----------------------------------
+
+                         (clock tck rise edge)       32.000    32.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000    32.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.078    32.078    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114    32.192 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      2.508    34.700    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLR Crossing[1->0]   
+    SLICE_X112Y296       FDRE (Prop_DFF2_SLICEL_C_Q)
+                                                      0.061    34.761 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg/Q
+                         net (fo=2, routed)           0.463    35.224    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/tap_tck
+    BUFGCE_X1Y119        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024    35.248 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_TAP_TCKBUFG/O
+    X4Y4 (CLOCK_ROOT)    net (fo=375, routed)         2.733    37.981    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.gsync_stage[1].wr_stg_inst/wr_clk
+    SLR Crossing[0->1]   
+    SLICE_X76Y313        FDCE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.gsync_stage[1].wr_stg_inst/Q_reg_reg[2]/C
+                         clock pessimism              0.711    38.692                     
+                         clock uncertainty           -0.046    38.645                     
+    SLICE_X76Y313        FDCE (Recov_DFF2_SLICEM_C_CLR)
+                                                     -0.066    38.579    reconfigurable   WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.gsync_stage[1].wr_stg_inst/Q_reg_reg[2]
+  -------------------------------------------------------------------
+                         required time                         38.580                     
+                         arrival time                          -7.543                     
+  -------------------------------------------------------------------
+                         slack                                 31.036                     
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.130ns  (arrival time - required time)
+  Source:                 WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rst_rd_reg2_reg/C
+                            (rising edge-triggered cell FDPE clocked by tck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Destination:            WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_asreg_reg/PRE
+                            (removal check against rising-edge clock tck  {rise@0.000ns fall@16.000ns period=32.000ns})
+  Path Group:             **async_default**
+  Path Type:              Removal (Min at Fast Process Corner)
+  Requirement:            0.000ns  (tck rise@0.000ns - tck rise@0.000ns)
+  Data Path Delay:        0.130ns  (logic 0.040ns (30.769%)  route 0.090ns (69.231%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.020ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    4.232ns
+    Source Clock Delay      (SCD):    3.737ns
+    Clock Pessimism Removal (CPR):    0.475ns
+  Clock Net Delay (Source):      1.672ns (routing 0.263ns, distribution 1.409ns)
+  Clock Net Delay (Destination): 1.852ns (routing 0.291ns, distribution 1.561ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Partition      Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------
+                         (clock tck rise edge)        0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.052     0.052    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.073     0.125 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      1.537     1.662    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLR Crossing[1->0]   
+    SLICE_X112Y296       FDRE (Prop_DFF2_SLICEL_C_Q)
+                                                      0.041     1.703 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg/Q
+                         net (fo=2, routed)           0.345     2.048    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/tap_tck
+    BUFGCE_X1Y119        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.017     2.065 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_TAP_TCKBUFG/O
+    X4Y4 (CLOCK_ROOT)    net (fo=375, routed)         1.672     3.737    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/rd_clk
+    SLR Crossing[0->1]   
+    SLICE_X71Y305        FDPE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rst_rd_reg2_reg/C
+  -------------------------------------------------------------------    ----------------------------------
+    SLICE_X71Y305        FDPE (Prop_AFF2_SLICEL_C_Q)
+                                                      0.040     3.777 f  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rst_rd_reg2_reg/Q
+                         net (fo=1, routed)           0.090     3.867    reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/rst_rd_reg2
+    SLICE_X71Y304        FDPE                                         f  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_asreg_reg/PRE
+  -------------------------------------------------------------------    ----------------------------------
+
+                         (clock tck rise edge)        0.000     0.000 r                 
+    GTYE4_CHANNEL_X1Y35  GTYE4_CHANNEL                0.000     0.000 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/gt_wizard.gtwizard_top_i/xdma_0_pcie4_ip_gt_i/inst/gen_gtwizard_gtye4_top.xdma_0_pcie4_ip_gt_gtwizard_gtye4_inst/gen_gtwizard_gtye4.gen_channel_container[32].gen_enabled_channel.gtye4_channel_wrapper_inst/channel_inst/gtye4_channel_gen.gen_gtye4_channel_inst[3].GTYE4_CHANNEL_PRIM_INST/TXOUTCLK
+                         net (fo=8, routed)           0.057     0.057    static         static_sh/pcie_inst/inst/gt_txoutclk[0]
+    BUFG_GT_X1Y212       BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.082     0.139 r  static         static_sh/pcie_inst/inst/gt_top_i/diablo_gt.diablo_gt_phy_wrapper/phy_clk_i/bufg_gt_userclk/O
+                         net (fo=149525, routed)      1.719     1.858    static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/s_axi_aclk
+    SLR Crossing[1->0]   
+    SLICE_X112Y296       FDRE (Prop_DFF2_SLICEL_C_Q)
+                                                      0.055     1.913 r  static         static_sh/SH_DEBUG_BRIDGE/inst/axi_jtag/inst/u_jtag_proc/tck_i_reg/Q
+                         net (fo=2, routed)           0.448     2.361    static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/tap_tck
+    BUFGCE_X1Y119        BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.019     2.380 r  static         static_sh/SH_DEBUG_BRIDGE/inst/bsip/inst/USE_SOFTBSCAN.U_TAP_TCKBUFG/O
+    X4Y4 (CLOCK_ROOT)    net (fo=375, routed)         1.852     4.232    boundary       WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/rd_clk
+    SLR Crossing[0->1]   
+    SLICE_X71Y304        FDPE                                         r  reconfigurable WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_asreg_reg/C
+                         clock pessimism             -0.475     3.757                     
+    SLICE_X71Y304        FDPE (Remov_HFF2_SLICEL_C_PRE)
+                                                     -0.020     3.737    reconfigurable   WRAPPER_INST/CL/CL_ILA/CL_DEBUG_BRIDGE/inst/xsdbm/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_asreg_reg
+  -------------------------------------------------------------------
+                         required time                         -3.737                     
+                         arrival time                           3.867                     
+  -------------------------------------------------------------------
+                         slack                                  0.130                     
+
+
+
+
+

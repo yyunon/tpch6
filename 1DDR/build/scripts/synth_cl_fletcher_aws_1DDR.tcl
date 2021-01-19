@@ -41,8 +41,8 @@ puts "AWS FPGA: ([clock format [clock seconds] -format %T]) Reading developer's 
 
 # Reading the .sv and .v files, as proper designs would not require
 # reading .v, .vh, nor .inc files
-
-set_property library ieee [get_files ../../../fixed_pkg_2008.vhd]
+add_files -norecurse $CL_DIR/build/scripts/fixed_pkg_2008.vhd
+set_property library ieee [get_files $CL_DIR/build/scripts/fixed_pkg_2008.vhd]
 read_verilog -sv [glob $ENC_SRC_DIR/*.?v]
 read_vhdl -vhdl2008 [ glob $ENC_SRC_DIR/*.vhd ]
 

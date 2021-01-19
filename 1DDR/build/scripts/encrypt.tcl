@@ -21,6 +21,7 @@
 set HDK_SHELL_DIR $::env(HDK_SHELL_DIR)
 set HDK_SHELL_DESIGN_DIR $::env(HDK_SHELL_DESIGN_DIR)
 set CL_DIR $::env(CL_DIR)
+set FLETCHER_DIR $::env(FLETCHER_DIR)
 
 set TARGET_DIR $CL_DIR/build/src_post_encryption
 set UNUSED_TEMPLATES_DIR $HDK_SHELL_DESIGN_DIR/interfaces
@@ -52,16 +53,6 @@ file copy -force $FLETCHER_DIR/hardware/vhlib/stream/Stream_pkg.vhd $TARGET_DIR
 file copy -force $FLETCHER_DIR/hardware/interconnect/Interconnect_pkg.vhd $TARGET_DIR
 file copy -force $FLETCHER_DIR/hardware/axi/AxiReadConverter.vhd $TARGET_DIR
 file copy -force $FLETCHER_DIR/hardware/arrays/ArrayCmdCtrlMerger.vhd $TARGET_DIR
-file copy -force $CL_DIR/design/vhdl/vhdmmio_pkg.gen.vhd $TARGET_DIR
-file copy -force $CL_DIR/design/vhdl/mmio_pkg.gen.vhd $TARGET_DIR
-file copy -force $CL_DIR/design/vhdl/mmio.gen.vhd $TARGET_DIR
-file copy -force $CL_DIR/design/vhdl/Forecast_pkg.vhd $TARGET_DIR
-file copy -force $CL_DIR/design/vhdl/Forecast.vhd $TARGET_DIR
-file copy -force $CL_DIR/design/vhdl/SumOp.vhd $TARGET_DIR
-file copy -force $CL_DIR/design/vhdl/MergeOp.vhd $TARGET_DIR
-file copy -force $CL_DIR/design/vhdl/ALU.vhd $TARGET_DIR
-file copy -force $CL_DIR/design/vhdl/ReduceStage.vhd $TARGET_DIR
-file copy -force $CL_DIR/design/vhdl/Forecast_Nucleus.gen.vhd $TARGET_DIR
 file copy -force $FLETCHER_DIR/hardware/arrays/ArrayConfigParse_pkg.vhd $TARGET_DIR
 file copy -force $FLETCHER_DIR/hardware/arrays/ArrayConfig_pkg.vhd $TARGET_DIR
 file copy -force $FLETCHER_DIR/hardware/arrays/Array_pkg.vhd $TARGET_DIR
@@ -98,11 +89,29 @@ file copy -force $FLETCHER_DIR/hardware/arrays/ArrayReaderList.vhd $TARGET_DIR
 file copy -force $FLETCHER_DIR/hardware/arrays/ArrayReaderLevel.vhd $TARGET_DIR
 file copy -force $FLETCHER_DIR/hardware/arrays/ArrayReaderArb.vhd $TARGET_DIR
 file copy -force $FLETCHER_DIR/hardware/arrays/ArrayReader.vhd $TARGET_DIR
+file copy -force $FLETCHER_DIR/hardware/axi/Axi_pkg.vhd $TARGET_DIR
+file copy -force $FLETCHER_DIR/hardware/parallel_patterns/ParallelPatterns_pkg.vhd $TARGET_DIR
+file copy -force $FLETCHER_DIR/hardware/parallel_patterns/FilterStream.vhd $TARGET_DIR
+file copy -force $FLETCHER_DIR/hardware/parallel_patterns/MapStream.vhd $TARGET_DIR
+file copy -force $FLETCHER_DIR/hardware/parallel_patterns/ReduceStream.vhd $TARGET_DIR
+file copy -force $FLETCHER_DIR/hardware/parallel_patterns/SequenceStream.vhd $TARGET_DIR
+file copy -force $FLETCHER_DIR/hardware/parallel_patterns/StreamAccumulator.vhd $TARGET_DIR
+file copy -force $FLETCHER_DIR/hardware/parallel_patterns/StreamSliceArray.vhd $TARGET_DIR
+
 file copy -force $CL_DIR/design/vhdl/Forecast_l.gen.vhd $TARGET_DIR
 file copy -force $CL_DIR/design/vhdl/Forecast_Mantle.gen.vhd $TARGET_DIR
-file copy -force $FLETCHER_DIR/hardware/axi/Axi_pkg.vhd $TARGET_DIR
 file copy -force $CL_DIR/design/vhdl/AxiTop.gen.vhd $TARGET_DIR
 
+file copy -force $CL_DIR/design/vhdl/vhdmmio_pkg.gen.vhd $TARGET_DIR
+file copy -force $CL_DIR/design/vhdl/mmio_pkg.gen.vhd $TARGET_DIR
+file copy -force $CL_DIR/design/vhdl/mmio.gen.vhd $TARGET_DIR
+file copy -force $CL_DIR/design/vhdl/Forecast_pkg.vhd $TARGET_DIR
+file copy -force $CL_DIR/design/vhdl/Forecast.vhd $TARGET_DIR
+file copy -force $CL_DIR/design/vhdl/SumOp.vhd $TARGET_DIR
+file copy -force $CL_DIR/design/vhdl/MergeOp.vhd $TARGET_DIR
+file copy -force $CL_DIR/design/vhdl/ALU.vhd $TARGET_DIR
+file copy -force $CL_DIR/design/vhdl/ReduceStage.vhd $TARGET_DIR
+file copy -force $CL_DIR/design/vhdl/Forecast_Nucleus.gen.vhd $TARGET_DIR
 
 
 #---- End of section replaced by Developr ---
