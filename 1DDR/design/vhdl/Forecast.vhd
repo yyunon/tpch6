@@ -168,7 +168,48 @@ architecture Implementation of Forecast is
 
   signal out_predicate     : std_logic;
 
+  COMPONENT ila_0
+  PORT (
+    clk : IN STD_LOGIC;
+    probe0 : IN STD_LOGIC_VECTOR(32 DOWNTO 0); 
+    probe1 : IN STD_LOGIC_VECTOR(32 DOWNTO 0); 
+    probe2 : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
+    probe3 : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
+    probe4 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe5 : IN STD_LOGIC_VECTOR(32 DOWNTO 0);
+    probe6 : IN STD_LOGIC_VECTOR(32 DOWNTO 0);
+    probe7 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe8 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe9 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe10 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe11 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe12 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe13 : IN STD_LOGIC_VECTOR(0 DOWNTO 0)
+  );
+  END COMPONENT  ;
+
 begin
+
+  -- Integrated Logic Analyzers (ILA)
+  CL_ILA_0 : ila_0
+  PORT MAP (
+    clk : kcd_clk,
+    probe0  : rhigh, 
+    probe1  : rlow, 
+    probe2  : sync_1_data, 
+    probe3  : sync_2_data, 
+    probe4  : sync_3_data,
+    probe5  : reduce_in_data(63 downto 32),
+    probe6  : reduce_in_data(31 downto 0),
+    probe7  : reduce_in_valid,
+    probe8  : reduce_in_ready,
+    probe9  : sum_out_valid,
+    probe10 : filter_out_strb,
+    probe11 : reduce_in_valid,
+    probe12 : reduce_in_ready,
+    probe13 : filter_out_last
+  );
+
   discount_sync: StreamSync
     generic map (
       NUM_INPUTS                => 1,
