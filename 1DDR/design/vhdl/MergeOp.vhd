@@ -105,7 +105,6 @@ architecture Behavioral of MergeOp is
   --signal temp1                 : std_logic_vector(63 downto 0);
   --signal temp2                 : std_logic_vector(63 downto 0);
   --signal temp3                 : std_logic_vector(127 downto 0);
-  signal temp_res              : sfixed(2*FIXED_LEFT_INDEX + 1 downto 2*FIXED_RIGHT_INDEX);
 
 begin
 
@@ -169,7 +168,6 @@ begin
 
   ops_last <= op1_last and op2_last;
   ops_dvalid <= op1_dvalid and op2_dvalid;
-  ops_data <= to_slv(resize( arg => temp_res,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
   
   mult_process:
   process(op1_data, op2_data,ops_valid,out_s_ready) is 
@@ -177,6 +175,7 @@ begin
     variable temp_float_2: float(11 downto -52);
     variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     variable temp_buffer_2: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
+    variable temp_res     : sfixed(2*FIXED_LEFT_INDEX + 1 downto 2*FIXED_RIGHT_INDEX);
   begin
     out_s_valid <= '0';
     ops_ready <= '0';
@@ -187,7 +186,8 @@ begin
       temp_float_2 := float(op2_data);
       temp_buffer_1 := float_to_sfixed(temp_float_1,temp_buffer_1'high,temp_buffer_1'low);
       temp_buffer_2 := float_to_sfixed(temp_float_2,temp_buffer_2'high,temp_buffer_2'low);
-      temp_res <= temp_buffer_1 * temp_buffer_2;
+      temp_res := temp_buffer_1 * temp_buffer_2;
+      ops_data <= to_slv(resize( arg => temp_res,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
     end if;
   end process;
 
