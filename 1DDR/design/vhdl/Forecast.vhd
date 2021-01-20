@@ -168,82 +168,107 @@ architecture Implementation of Forecast is
 
   signal out_predicate     : std_logic;
 
-  COMPONENT ila_0
-  PORT (
-    clk : IN STD_LOGIC;
-    probe0  : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
-    probe1  : IN STD_LOGIC_VECTOR(63 DOWNTO 0); 
-    probe2  : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
-    probe3  : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
-    probe4  : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
-    probe5  : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe6  : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe7  : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe8  : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe9  : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe10 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe11 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe12 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe13 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe14 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe15 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe16 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe17 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe18 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe19 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe20 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe21 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe22 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe23 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe24 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe25 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe26 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe27 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe28 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe29 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe30 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe31 : IN STD_LOGIC_VECTOR(0 DOWNTO 0)
+  component ila_1 
+  port(
+	clk     : in std_logic;
+	probe0  : in std_logic_vector(0 downto 0);
+	probe1  : in std_logic_vector(63 downto 0);
+	probe2  : in std_logic_vector(1 downto 0);
+	probe3  : in std_logic_vector(0 downto 0);
+	probe4  : in std_logic_vector(0 downto 0);
+	probe5  : in std_logic_vector(63 downto 0);
+	probe6  : in std_logic_vector(0 downto 0);
+	probe7  : in std_logic_vector(0 downto 0);
+	probe8  : in std_logic_vector(0 downto 0);
+	probe9  : in std_logic_vector(0 downto 0);
+	probe10 : in std_logic_vector(511 downto 0);
+	probe11 : in std_logic_vector(0 downto 0);
+	probe12 : in std_logic_vector(0 downto 0);
+	probe13 : in std_logic_vector(1 downto 0);
+	probe14 : in std_logic_vector(511 downto 0);
+	probe15 : in std_logic_vector(63 downto 0);
+	probe16 : in std_logic_vector(0 downto 0);
+	probe17 : in std_logic_vector(2 downto 0);
+	probe18 : in std_logic_vector(2 downto 0);
+	probe19 : in std_logic_vector(4 downto 0);
+	probe20 : in std_logic_vector(4 downto 0);
+	probe21 : in std_logic_vector(7 downto 0);
+	probe22 : in std_logic_vector(0 downto 0);
+	probe23 : in std_logic_vector(2 downto 0);
+	probe24 : in std_logic_vector(1 downto 0);
+	probe25 : in std_logic_vector(4 downto 0);
+	probe26 : in std_logic_vector(0 downto 0);
+	probe27 : in std_logic_vector(7 downto 0);
+	probe28 : in std_logic_vector(2 downto 0);
+	probe29 : in std_logic_vector(1 downto 0);
+	probe30 : in std_logic_vector(0 downto 0);
+	probe31 : in std_logic_vector(3 downto 0);
+	probe32 : in std_logic_vector(3 downto 0);
+	probe33 : in std_logic_vector(3 downto 0);
+	probe34 : in std_logic_vector(3 downto 0);
+	probe35 : in std_logic_vector(0 downto 0);
+	probe36 : in std_logic_vector(3 downto 0);
+	probe37 : in std_logic_vector(3 downto 0);
+	probe38 : in std_logic_vector(4 downto 0);
+	probe39 : in std_logic_vector(0 downto 0);
+	probe40 : in std_logic_vector(0 downto 0);
+	probe41 : in std_logic_vector(0 downto 0);
+	probe42 : in std_logic_vector(0 downto 0); 
+	probe43 : in std_logic_vector(0 downto 0)
   );
-  END COMPONENT  ;
+  end component;
+  constant ZERO : std_logic_vector(3 downto 0) := (others => '0');
 
 begin
 
   -- Integrated Logic Analyzers (ILA)
-  CL_ILA_0 : ila_0
+  CL_ILA_0 : ila_1
   PORT MAP (
-    clk => kcd_clk,
-    probe0(0)  => sum_out_valid, 
-    probe1  => sum_out_data, 
-    probe2(0)  => filter_out_strb, 
-    probe3(0)  => filter_out_valid, 
-    probe4  => reduce_in_data,
-    probe5(0)  => l_discount_valid,
-    probe6(0)  => l_extendedprice_valid,
-    probe7(0)  => l_quantity_valid,
-    probe8(0)  => l_shipdate_valid,
-    probe9(0)  => sync_1_data,
-    probe10(0) => sync_2_data,
-    probe11(0) => sync_3_data,
-    probe12(0) => l_discount_ready,
-    probe13(0) => l_extendedprice_ready,
-    probe14(0) => l_quantity_ready,
-    probe15(0) => l_shipdate_ready,
-    probe16(0) => l_firstidx,
-    probe17(0) => l_lastidx,
-    probe18(0) => state(0),
-    probe19(0) => state(1),
-    probe20(0) => state(2),
-    probe21(0) => reduce_in_valid,
-    probe22(0) => filter_out_ready,
-    probe23(0) => sum_out_valid,
-    probe24(0) => sum_out_ready,
-    probe25(0) => done,
-    probe26(0) => start,
-    probe27(0) => busy,
-    probe28(0) => l_discount_last,
-    probe29(0) => l_extendedprice_last,
-    probe30(0) => l_quantity_last,
-    probe31(0) => l_shipdate_last
+	clk     => kcd_clk,
+	probe0(0)  => sum_out_valid,
+	probe1  => sum_out_data,
+	probe2  => (others => '0'),
+	probe3(0)  => filter_out_strb,
+	probe4(0)  => reduce_in_valid,
+	probe5  => reduce_in_data,
+	probe6(0)  => l_discount_ready,
+	probe7(0)  => l_extendedprice_ready,
+	probe8(0)  => l_quantity_ready,
+	probe9(0)  => l_shipdate_ready,
+	probe10(511 downto 0) => l_discount & l_extendedprice & l_quantity & l_shipdate,
+	probe11(0) => sync_1_data,
+	probe12(0) => sync_2_data,
+	probe13 => (others => '0'),
+	probe14 => (others => '0'),
+	probe15 => result,
+	probe16(0) => sync_3_data,
+	probe17 => (others => '0'),
+	probe18 => (others => '0'),
+	probe19 => (others => '0'),
+	probe20 => (others => '0'),
+	probe21 => (others => '0'),
+	probe22(0) => filter_out_ready,
+	probe23 => (others => '0'),
+	probe24 => (others => '0'),
+	probe25 => (others => '0'),
+	probe26(0) => filter_out_valid,
+	probe27 => (others => '0'),
+	probe28 => state_slv,
+	probe29 => '0' & l_discount_last,
+	probe30(0) => l_extendedprice_last,
+	probe31 => ZERO(3 downto 1) & l_quantity_last,
+	probe32 => ZERO(3 downto 1)& l_shipdate_last,
+	probe33 => ZERO(3 downto 1)& l_discount_valid,
+	probe34 => ZERO(3 downto 1)& l_extendedprice_valid,
+	probe35(0) => l_quantity_valid,
+	probe36 => ZERO(3 downto 1) & l_shipdate_valid,
+	probe37 => (others => '0'),
+	probe38 => (others => '0'),
+	probe39(0) => idle,
+	probe40(0) => start,
+	probe41(0) => busy,
+	probe42(0) => done,
+	probe43(0) => reduce_in_valid
   );
 
   discount_sync: StreamSync
