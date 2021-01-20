@@ -171,20 +171,38 @@ architecture Implementation of Forecast is
   COMPONENT ila_0
   PORT (
     clk : IN STD_LOGIC;
-    probe0 : IN STD_LOGIC_VECTOR(32 DOWNTO 0); 
-    probe1 : IN STD_LOGIC_VECTOR(32 DOWNTO 0); 
-    probe2 : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
-    probe3 : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
-    probe4 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe5 : IN STD_LOGIC_VECTOR(32 DOWNTO 0);
-    probe6 : IN STD_LOGIC_VECTOR(32 DOWNTO 0);
-    probe7 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe8 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe9 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe0  : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
+    probe1  : IN STD_LOGIC_VECTOR(63 DOWNTO 0); 
+    probe2  : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
+    probe3  : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
+    probe4  : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
+    probe5  : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe6  : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe7  : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe8  : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe9  : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     probe10 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     probe11 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     probe12 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe13 : IN STD_LOGIC_VECTOR(0 DOWNTO 0)
+    probe13 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe14 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe15 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe16 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe17 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe18 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe19 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe20 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe21 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe22 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe23 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe24 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe25 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe26 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe27 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe28 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe29 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe30 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe31 : IN STD_LOGIC_VECTOR(0 DOWNTO 0)
   );
   END COMPONENT  ;
 
@@ -193,21 +211,39 @@ begin
   -- Integrated Logic Analyzers (ILA)
   CL_ILA_0 : ila_0
   PORT MAP (
-    clk : kcd_clk,
-    probe0  : rhigh, 
-    probe1  : rlow, 
-    probe2  : sync_1_data, 
-    probe3  : sync_2_data, 
-    probe4  : sync_3_data,
-    probe5  : reduce_in_data(63 downto 32),
-    probe6  : reduce_in_data(31 downto 0),
-    probe7  : reduce_in_valid,
-    probe8  : reduce_in_ready,
-    probe9  : sum_out_valid,
-    probe10 : filter_out_strb,
-    probe11 : reduce_in_valid,
-    probe12 : reduce_in_ready,
-    probe13 : filter_out_last
+    clk => kcd_clk,
+    probe0(0)  => sum_out_valid, 
+    probe1  => sum_out_data, 
+    probe2(0)  => filter_out_strb, 
+    probe3(0)  => filter_out_valid, 
+    probe4  => reduce_in_data,
+    probe5(0)  => l_discount_valid,
+    probe6(0)  => l_extendedprice_valid,
+    probe7(0)  => l_quantity_valid,
+    probe8(0)  => l_shipdate_valid,
+    probe9(0)  => sync_1_data,
+    probe10(0) => sync_2_data,
+    probe11(0) => sync_3_data,
+    probe12(0) => l_discount_ready,
+    probe13(0) => l_extendedprice_ready,
+    probe14(0) => l_quantity_ready,
+    probe15(0) => l_shipdate_ready,
+    probe16(0) => l_firstidx,
+    probe17(0) => l_lastidx,
+    probe18(0) => state(0),
+    probe19(0) => state(1),
+    probe20(0) => state(2),
+    probe21(0) => reduce_in_valid,
+    probe22(0) => filter_out_ready,
+    probe23(0) => sum_out_valid,
+    probe24(0) => sum_out_ready,
+    probe25(0) => done,
+    probe26(0) => start,
+    probe27(0) => busy,
+    probe28(0) => l_discount_last,
+    probe29(0) => l_extendedprice_last,
+    probe30(0) => l_quantity_last,
+    probe31(0) => l_shipdate_last
   );
 
   discount_sync: StreamSync
