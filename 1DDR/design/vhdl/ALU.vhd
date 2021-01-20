@@ -3,14 +3,11 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_misc.all;
 use ieee.numeric_std.all;
-use ieee.fixed_pkg.all;
-
---library ieee_proposed;
---use ieee_proposed.fixed_pkg.all;
 
 library work;
 use work.Stream_pkg.all;
 use work.Forecast_pkg.all;
+use work.fixed_pkg.all;
 
 -- In the first prototype generate different hws for each op.
 entity ALU is
