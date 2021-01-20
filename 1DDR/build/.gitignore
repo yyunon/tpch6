@@ -1,1 +1,3 @@
-src_post_encryption
+src_post_encryption/
+reports/
+*.nohup.out
