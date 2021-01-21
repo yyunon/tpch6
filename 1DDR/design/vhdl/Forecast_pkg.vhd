@@ -9,6 +9,8 @@ use ieee.std_logic_misc.all;
 
 library work;
 use work.fixed_generic_pkg_mod.all;
+--library ieee_proposed;
+--use ieee_proposed.fixed_pkg.all;
 
 package Forecast_pkg is 
   

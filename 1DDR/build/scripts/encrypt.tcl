@@ -83,7 +83,7 @@ file copy -force $CL_DIR/design/vhdl/hardware/parallel_patterns/StreamAccumulato
 file copy -force $CL_DIR/design/vhdl/hardware/parallel_patterns/SequenceStream.vhd $TARGET_DIR
 file copy -force $CL_DIR/design/vhdl/hardware/parallel_patterns/ParallelPatterns_pkg.vhd $TARGET_DIR
 file copy -force $CL_DIR/design/vhdl/hardware/parallel_patterns/ReduceStream.vhd $TARGET_DIR
-file copy -force $CL_DIR/design/vhdl/hardware/fixed_pkg_2008.vhd $TARGET_DIR
+file copy -force $CL_DIR/design/vhdl/hardware/fixed_generic_pkg_mod.vhd $TARGET_DIR
 file copy -force $CL_DIR/design/vhdl/Forecast_pkg.vhd $TARGET_DIR
 file copy -force $CL_DIR/design/vhdl/SumOp.vhd $TARGET_DIR
 file copy -force $CL_DIR/design/vhdl/ReduceStage.vhd $TARGET_DIR

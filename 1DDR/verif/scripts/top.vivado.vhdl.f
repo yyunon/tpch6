@@ -43,7 +43,6 @@ ${CL_ROOT}/design/vhdl/hardware/parallel_patterns/StreamAccumulator.vhd
 ${CL_ROOT}/design/vhdl/hardware/parallel_patterns/SequenceStream.vhd
 ${CL_ROOT}/design/vhdl/hardware/parallel_patterns/ParallelPatterns_pkg.vhd
 ${CL_ROOT}/design/vhdl/hardware/parallel_patterns/ReduceStream.vhd
-${CL_ROOT}/design/vhdl/hardware/fixed_pkg_2008.vhd
 ${CL_ROOT}/design/vhdl/Forecast_pkg.vhd
 ${CL_ROOT}/design/vhdl/SumOp.vhd
 ${CL_ROOT}/design/vhdl/ReduceStage.vhd
