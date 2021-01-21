@@ -235,7 +235,7 @@ begin
 	probe7(0)  => l_extendedprice_ready,
 	probe8(0)  => l_quantity_ready,
 	probe9(0)  => l_shipdate_ready,
-	probe10(511 downto 0) => l_discount & l_extendedprice & l_quantity & l_shipdate,
+	probe10(511 downto 0) => (512 downto 256 => '0') & l_discount & l_extendedprice & l_quantity & l_shipdate,
 	probe11(0) => sync_1_data,
 	probe12(0) => sync_2_data,
 	probe13 => (others => '0'),
