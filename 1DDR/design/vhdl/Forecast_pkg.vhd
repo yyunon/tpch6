@@ -8,7 +8,7 @@ use ieee.numeric_std.all;
 use ieee.std_logic_misc.all;
 
 library work;
-use work.fixed_pkg.all;
+use work.fixed_generic_pkg_mod.all;
 
 package Forecast_pkg is 
   
@@ -188,32 +188,24 @@ end Forecast_pkg;
 
 package body Forecast_pkg is 
 
-    -- purpose: Removes meta-logical values from FP string
   -- purpose: Removes meta-logical values from FP string
   function to_01 (
     arg  : float;                       -- floating point input
     XMAP : STD_LOGIC := '0')
     return float is
     variable BAD_ELEMENT : BOOLEAN := false;
-    variable RESULT      : float (arg'range);
+    variable result      : float (arg'range);
   begin  -- function to_01
     if (arg'length < 1) then
+      -- pragma translate_off
       assert NO_WARNING
         report "FLOAT_GENERIC_PKG.TO_01: null detected, returning NAFP"
         severity warning;
+      -- pragma translate_on
       return NAFP;
     end if;
-    for I in RESULT'range loop
-      case arg(I) is
-        when '0' | 'L' => RESULT(I)   := '0';
-        when '1' | 'H' => RESULT(I)   := '1';
-        when others    => BAD_ELEMENT := true;
-      end case;
-    end loop;
-    if BAD_ELEMENT then
-      RESULT := (others => XMAP);
-    end if;
-    return RESULT;
+    result :=  float(std_logic_vector(to_01(unsigned(std_logic_vector(arg)), XMAP)));
+    return result;
   end function to_01;
 
   -- Returns the class which X falls into
@@ -227,9 +219,11 @@ package body Forecast_pkg is
   begin  -- class
     if (arg'length < 1 or fraction_width < 3 or exponent_width < 3
         or x'left < x'right) then
+      -- pragma translate_off
       report "FLOAT_GENERIC_PKG.CLASS: " &
         "Floating point number detected with a bad range"
         severity error;
+      -- pragma translate_on
       return isx;
     end if;
     -- Check for "X".
@@ -369,8 +363,10 @@ package body Forecast_pkg is
     return INTEGER is
   begin  -- function minimum
     if (L = INTEGER'low or R = INTEGER'low) then
+      -- pragma translate_off
       report "FLOAT_GENERIC_PKG: Unbounded number passed, was a literal used?"
         severity error;
+      -- pragma translate_on
       return 0;
     end if;
     if L > R then return R;
