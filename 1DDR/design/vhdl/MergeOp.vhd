@@ -22,13 +22,13 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
---library ieee_proposed;
---use ieee_proposed.fixed_pkg.all;
+library ieee_proposed;
+use ieee_proposed.fixed_pkg.all;
 
 library work;
 use work.Stream_pkg.all;
 use work.Forecast_pkg.all;
-use work.fixed_generic_pkg_mod.all;
+--use work.fixed_generic_pkg_mod.all;
 
 
 entity MergeOp is
@@ -180,8 +180,8 @@ begin
 
   seq_process:
   process (clk) is
-    variable temp_float_1: float(11 downto -52);
-    variable temp_float_2: float(11 downto -52);
+    --variable temp_float_1: float(11 downto -52);
+    --variable temp_float_2: float(11 downto -52);
     variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     variable temp_buffer_2: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     variable temp_res     : sfixed(2*FIXED_LEFT_INDEX + 1 downto 2*FIXED_RIGHT_INDEX);
@@ -192,10 +192,10 @@ begin
       if ops_valid = '1' and out_s_ready = '1' then 
         out_s_valid <= '1'; 
         ops_ready <= '1';
-        temp_float_1 := float(op1_data);
-        temp_float_2 := float(op2_data);
-        temp_buffer_1 := float_to_sfixed(temp_float_1,temp_buffer_1'high,temp_buffer_1'low);
-        temp_buffer_2 := float_to_sfixed(temp_float_2,temp_buffer_2'high,temp_buffer_2'low);
+        --temp_float_1 := float(op1_data);
+        --temp_float_2 := float(op2_data);
+        temp_buffer_1 := to_sfixed(op1_data,temp_buffer_1'high,temp_buffer_1'low);
+        temp_buffer_2 := to_sfixed(op2_data,temp_buffer_2'high,temp_buffer_2'low);
         temp_res := temp_buffer_1 * temp_buffer_2;
         ops_data <= to_slv(resize( arg => temp_res,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
       end if;
