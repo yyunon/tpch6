@@ -10,7 +10,7 @@ use ieee.numeric_std.all;
 library work;
 use work.Stream_pkg.all;
 use work.Forecast_pkg.all;
-use work.fixed_generic_pkg_mod.all;
+use work.fixed_pkg.all;
 
 
 -- In the first prototype generate different hws for each op.
