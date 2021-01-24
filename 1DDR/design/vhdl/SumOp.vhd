@@ -25,7 +25,7 @@ use ieee.numeric_std.all;
 library work;
 use work.Stream_pkg.all;
 use work.Forecast_pkg.all;
-use work.fixed_pkg.all;
+use work.fixed_generic_pkg_mod.all;
 
 --library ieee_proposed;
 --use ieee_proposed.fixed_pkg.all;

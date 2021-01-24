@@ -268,7 +268,7 @@ begin
 	probe40(0) => start,
 	probe41(0) => busy,
 	probe42(0) => done,
-	probe43(0) => reduce_in_valid
+	probe43(0) => reduce_in_ready
   );
 
   discount_sync: StreamSync
@@ -452,36 +452,6 @@ begin
       out_valid(0)              => filter_out_valid,
       out_ready(0)              => filter_out_ready
     );
-
-  --filter_stage: FilterStream
-  --generic map(
-  --  LANE_COUNT                  => 3,
-  --  INDEX_WIDTH                 => INDEX_WIDTH-1,
-  --  DIMENSIONALITY              => 1,
-  --  MIN_BUFFER_DEPTH            => 16
-  --)
-  --port map(
-  --  
-  --  clk                         => kcd_clk,
-  --  reset                       => kcd_reset or reset,
-  --  in_valid                    => reduce_in_valid,
-  --  in_ready                    => reduce_in_ready,
-  --  in_last(0)                  => reduce_in_last,
-  --                              
-  --  pred_in_valid               => matcher_out_s_valid,
-  --  pred_in_ready               => matcher_out_s_ready,
-  --  pred_in_data(0)             => sync_1_data,
-  --  pred_in_data(1)             => sync_2_data,
-  --  pred_in_data(2)             => sync_3_data,
-  --                              
-  --  out_valid                   => filter_out_valid,
-  --  out_ready                   => filter_out_ready,
-  --  out_strb                    => filter_out_strb,
-  --  out_last(0)                 => filter_out_last
-  --);
-
-  -- filter_out_valid <= matcher_out_s_valid;
-  -- filter_out_ready <= matcher_out_s_ready;
   filter_out_strb <= sync_1_data and sync_2_data and sync_3_data;
   filter_out_last <= reduce_in_last;
 
@@ -659,7 +629,7 @@ begin
       -- Register the next state.
       state <= state_next;        
 
-      if state = STATE_DONE then
+      if sum_out_valid = '1' then
         result <= sum_out_data;
         rhigh <= sum_out_data(63 downto 32);
         rlow <= sum_out_data(31 downto 0);
@@ -670,6 +640,8 @@ begin
       if kcd_reset = '1' or reset = '1' then
         state <= STATE_IDLE;
         result <= (others => '0');
+        rhigh <= (others => '0');
+        rlow <= (others => '0');
       end if;
     end if;
   end process;
