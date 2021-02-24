@@ -85,7 +85,7 @@ begin
       variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     begin
       --temp_float_1 := float(ops_data);
-      temp_buffer_1 := to_sfixed(ops_data,temp_buffer_1'high, temp_buffer_1'low);
+      temp_buffer_1 := float_to_sfixed(float(ops_data),temp_buffer_1'high, temp_buffer_1'low);
       temp_buffer <= temp_buffer_1;
     end process;
     process(temp_buffer,ops_valid,out_ready, ops_ready) is
@@ -110,7 +110,7 @@ begin
       variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     begin
       --temp_float_1 := float(ops_data);
-      temp_buffer_1 := to_sfixed(ops_data,temp_buffer_1'high,temp_buffer_1'low);
+      temp_buffer_1 := float_to_sfixed(float(ops_data),temp_buffer_1'high,temp_buffer_1'low);
       temp_buffer <= temp_buffer_1;
     end process;
     process(temp_buffer,ops_valid,ops_ready,out_ready) is

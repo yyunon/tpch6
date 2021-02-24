@@ -191,8 +191,8 @@ begin
     if ops_valid = '1' and out_s_ready = '1' then 
       out_s_valid <= '1'; 
       ops_ready <= '1';
-      temp_buffer_1 := to_sfixed(op1_data,temp_buffer_1'high,temp_buffer_1'low);
-      temp_buffer_2 := to_sfixed(op2_data,temp_buffer_2'high,temp_buffer_2'low);
+      temp_buffer_1 := float_to_sfixed(float(op1_data),temp_buffer_1'high,temp_buffer_1'low);
+      temp_buffer_2 := float_to_sfixed(float(op2_data),temp_buffer_2'high,temp_buffer_2'low);
       temp_res := temp_buffer_1 * temp_buffer_2;
       ops_data <= to_slv(resize( arg => temp_res,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
     end if;
