@@ -12,7 +12,7 @@ use work.Stream_pkg.all;
 use work.Forecast_pkg.all;
 
 --use work.fixed_generic_pkg_mod.all;
-use work.float_pkg.all;
+use work.float_pkg_mod.all;
 
 
 -- In the first prototype generate different hws for each op.
@@ -86,8 +86,7 @@ begin
       variable temp_float_1 : float64; -- float(11 downto -52);
       variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     begin
-      temp_float_1 := to_float64(u_float64(ops_data));
-      temp_buffer_1 := to_sfixed(temp_float_1,temp_buffer_1'high, temp_buffer_1'low);
+      temp_buffer_1 := float_to_sfixed(u_float64(ops_data),temp_buffer_1'high, temp_buffer_1'low);
       temp_buffer <= temp_buffer_1;
     end process;
     process(temp_buffer,ops_valid,out_ready, ops_ready) is
@@ -111,8 +110,7 @@ begin
       variable temp_float_1 : float64; -- float(11 downto -52);
       variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     begin
-      temp_float_1 := to_float64(u_float64(ops_data));
-      temp_buffer_1 := to_sfixed(temp_float_1,temp_buffer_1'high,temp_buffer_1'low);
+      temp_buffer_1 := float_to_sfixed(u_float64(ops_data),temp_buffer_1'high,temp_buffer_1'low);
       temp_buffer <= temp_buffer_1;
     end process;
     process(temp_buffer,ops_valid,ops_ready,out_ready) is
