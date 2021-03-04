@@ -4,14 +4,14 @@ use ieee.std_logic_1164.all;
 use ieee.std_logic_misc.all;
 use ieee.numeric_std.all;
 
-library ieee_proposed;
-use ieee_proposed.fixed_pkg.all;
+--library ieee_proposed;
+--use ieee_proposed.fixed_pkg.all;
 
 library work;
 use work.Stream_pkg.all;
 use work.Forecast_pkg.all;
 
---use work.fixed_generic_pkg_mod.all;
+use work.fixed_generic_pkg_mod.all;
 use work.float_pkg_mod.all;
 
 
@@ -86,7 +86,7 @@ begin
       variable temp_float_1 : float64; -- float(11 downto -52);
       variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     begin
-      temp_buffer_1 := float_to_sfixed(u_float64(ops_data),temp_buffer_1'high, temp_buffer_1'low);
+      temp_buffer_1 := to_sfixed(u_float64(ops_data),temp_buffer_1'high, temp_buffer_1'low);
       temp_buffer <= temp_buffer_1;
     end process;
     process(temp_buffer,ops_valid,out_ready, ops_ready) is
@@ -110,7 +110,7 @@ begin
       variable temp_float_1 : float64; -- float(11 downto -52);
       variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     begin
-      temp_buffer_1 := float_to_sfixed(u_float64(ops_data),temp_buffer_1'high,temp_buffer_1'low);
+      temp_buffer_1 := to_sfixed(u_float64(ops_data),temp_buffer_1'high,temp_buffer_1'low);
       temp_buffer <= temp_buffer_1;
     end process;
     process(temp_buffer,ops_valid,ops_ready,out_ready) is
@@ -135,8 +135,8 @@ begin
   if ALUTYPE="DATE"  generate
     process(ops_data,ops_valid,out_ready, ops_ready) is
     --Dates are encoded as 1000*year + 100*month + 10*day conventions
-      constant DATE_LOW: integer := 19940101;
-      constant DATE_HIGH: integer := 19950101;
+      constant DATE_LOW: integer := 8766;
+      constant DATE_HIGH: integer := 9131;
     begin 
       out_valid_s <= '0';
       result(0) <= '0';
