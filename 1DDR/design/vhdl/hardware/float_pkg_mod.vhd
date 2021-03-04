@@ -10,7 +10,7 @@
 --
 --  Created for VHDL-200X par, David Bishop (dbishop@vhdl.org)
 ------------------------------------------------------------------------------
-library ieee, ieee_proposed;
+library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.fixed_generic_pkg_mod.all;
