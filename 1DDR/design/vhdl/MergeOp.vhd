@@ -170,8 +170,8 @@ begin
   ops_dvalid <= op1_dvalid and op2_dvalid;
   mult_process:
   process(op1_data, op2_data,ops_valid,out_s_ready) is 
-    variable temp_float_1:  float64; -- float(11 downto -52);
-    variable temp_float_2:  float64; -- float(11 downto -52);
+    --variable temp_float_1:  float64; -- float(11 downto -52);
+    --variable temp_float_2:  float64; -- float(11 downto -52);
     variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     variable temp_buffer_2: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     variable temp_res     : sfixed(2*FIXED_LEFT_INDEX + 1 downto 2*FIXED_RIGHT_INDEX);
@@ -181,8 +181,8 @@ begin
     if ops_valid = '1' and out_s_ready = '1' then 
       out_s_valid <= '1'; 
       ops_ready <= '1';
-      temp_buffer_1 := to_sfixed(u_float64(op1_data),temp_buffer_1'high,temp_buffer_1'low);
-      temp_buffer_2 := to_sfixed(u_float64(op2_data),temp_buffer_2'high,temp_buffer_2'low);
+      temp_buffer_1 := float_to_sfixed(u_float64(op1_data),temp_buffer_1'high,temp_buffer_1'low);
+      temp_buffer_2 := float_to_sfixed(u_float64(op2_data),temp_buffer_2'high,temp_buffer_2'low);
       temp_res := temp_buffer_1 * temp_buffer_2;
       ops_data <= to_slv(resize( arg => temp_res,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
     end if;

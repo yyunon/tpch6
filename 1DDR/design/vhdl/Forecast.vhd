@@ -221,7 +221,7 @@ architecture Implementation of Forecast is
 
 begin
 
-   Integrated Logic Analyzers (ILA)
+  --Integrated Logic Analyzers (ILA)
   CL_ILA_0 : ila_1
   PORT MAP (
         clk     => kcd_clk,
