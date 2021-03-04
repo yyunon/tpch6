@@ -83,10 +83,10 @@ begin
   quantity_proc: 
   if ALUTYPE="LESSTHAN"  generate
     process(ops_data) is 
-      variable temp_float_1 : float64; -- float(11 downto -52);
+      --variable temp_float_1 : float64; -- float(11 downto -52);
       variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     begin
-      temp_buffer_1 := to_sfixed(u_float64(ops_data),temp_buffer_1'high, temp_buffer_1'low);
+      temp_buffer_1 := float_to_sfixed(u_float64(ops_data),temp_buffer_1'high, temp_buffer_1'low);
       temp_buffer <= temp_buffer_1;
     end process;
     process(temp_buffer,ops_valid,out_ready, ops_ready) is
@@ -107,10 +107,10 @@ begin
   discount_proc: 
   if ALUTYPE="BETWEEN" generate
     process(ops_data) is 
-      variable temp_float_1 : float64; -- float(11 downto -52);
+      --variable temp_float_1 : float64; -- float(11 downto -52);
       variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     begin
-      temp_buffer_1 := to_sfixed(u_float64(ops_data),temp_buffer_1'high,temp_buffer_1'low);
+      temp_buffer_1 := float_to_sfixed(u_float64(ops_data),temp_buffer_1'high,temp_buffer_1'low);
       temp_buffer <= temp_buffer_1;
     end process;
     process(temp_buffer,ops_valid,ops_ready,out_ready) is
