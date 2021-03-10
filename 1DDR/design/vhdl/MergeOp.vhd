@@ -22,14 +22,14 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
---library ieee_proposed;
---use ieee_proposed.fixed_pkg.all;
+library ieee_proposed;
+use ieee_proposed.fixed_pkg.all;
 
 library work;
 use work.Stream_pkg.all;
+use work.ParallelPatterns_pkg.all; 
 use work.Forecast_pkg.all;
-use work.fixed_generic_pkg_mod.all;
-use work.float_pkg_mod.all;
+--use work.fixed_generic_pkg_mod.all;
 
 
 entity MergeOp is
@@ -76,7 +76,16 @@ end MergeOp;
 
 architecture Behavioral of MergeOp is
 
-  --subtype float64 is float(11 downto -52);
+  constant COUNT_MAX : integer := 6;
+
+-- Define the actual counter signal
+
+  constant dn: positive := 6;
+  signal delay: std_ulogic_vector(0 to dn - 1);
+
+  signal initial_count : integer range 0 to COUNT_MAX-1 := 0;
+  signal i_count : integer range 0 to COUNT_MAX-1 := 0;
+  signal start_count: std_logic;
 
   signal out_s_valid                : std_logic;
   signal out_s_dvalid               : std_logic;
@@ -86,47 +95,45 @@ architecture Behavioral of MergeOp is
 
   signal ops_valid                : std_logic;
   signal ops_dvalid               : std_logic;
-  signal ops_last                 : std_logic;
+  signal ops_last                 : std_logic := '0';
   signal ops_ready                : std_logic;
   signal ops_data                 : std_logic_vector(DATA_WIDTH-1 downto 0);
 
+  signal ops_last_s                 : std_logic;
   -- Emulate sync bbehaviour with only one stream
-  signal done                     : std_logic;
-  signal accepted                 : std_logic;
-  signal ready                    : std_logic;
-  signal valid                    : std_logic;
+  signal conv_op1_valid                : std_logic;
+  signal conv_op1_dvalid               : std_logic;
+  signal conv_op1_last                 : std_logic;
+  signal conv_op1_ready                : std_logic;
+  signal conv_op1_data                 : std_logic_vector(DATA_WIDTH-1 downto 0);
 
-  signal op2_d_valid                : std_logic;
-  signal op2_d_dvalid               : std_logic;
-  signal op2_d_last                 : std_logic;
-  signal op2_d_ready                : std_logic;
-  signal op2_d_data                 : std_logic_vector(DATA_WIDTH-1 downto 0);
+  signal conv_op2_valid                : std_logic;
+  signal conv_op2_dvalid               : std_logic;
+  signal conv_op2_last                 : std_logic;
+  signal conv_op2_ready                : std_logic;
+  signal conv_op2_data                 : std_logic_vector(DATA_WIDTH-1 downto 0);
 
-  --signal temp1                 : std_logic_vector(63 downto 0);
-  --signal temp2                 : std_logic_vector(63 downto 0);
-  --signal temp3                 : std_logic_vector(127 downto 0);
+  signal rd_en_d1                : std_logic;
+  signal rd_en_d2                : std_logic;
+  signal rd_en_d3                : std_logic;
+  signal rd_en_d4                : std_logic;
+  signal rd_en_d5                : std_logic;
+  signal rd_en_d6                : std_logic;
+
+  COMPONENT floating_point_0
+    PORT (
+      aclk : IN STD_LOGIC;
+      s_axis_a_tvalid : IN STD_LOGIC;
+      s_axis_a_tdata : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
+      s_axis_a_tlast : IN STD_LOGIC;
+      m_axis_result_tvalid : OUT STD_LOGIC;
+      m_axis_result_tdata : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
+      m_axis_result_tlast : OUT STD_LOGIC
+    );
+  END COMPONENT;
 
 begin
 
-  --in_buf: StreamBuffer
-    --generic map (
-    -- DATA_WIDTH                => DATA_WIDTH + 2,
-    -- MIN_DEPTH                 => MIN_DEPTH
-    --)
-    --port map (
-    --  clk                               => clk,
-    --  reset                             => reset,
-    --  in_valid                          => op2_valid,
-    --  in_ready                          => op2_ready,
-    --  in_data(65)                       => op2_last,
-    --  in_data(64)                       => op2_dvalid,
-    --  in_data(63 downto 0)              => op2_data,
-    --  out_valid                         => op2_d_valid,
-    --  out_ready                         => op2_d_ready,
-    --  out_data(65)                      => op2_d_last,
-    --  out_data(64)                      => op2_d_dvalid,
-    --  out_data(63 downto 0)             => op2_d_data
-    --);
 
   out_buf: StreamBuffer
     generic map (
@@ -156,8 +163,8 @@ begin
       clk                       => clk,
       reset                     => reset,
 
-      in_valid(0)               => op1_valid,
-      in_valid(1)               => op2_valid,
+      in_valid(0)               => conv_op1_valid,
+      in_valid(1)               => conv_op2_valid,
       in_ready(0)               => op1_ready,
       in_ready(1)               => op2_ready,
 
@@ -166,60 +173,58 @@ begin
       out_ready(0)              => ops_ready
     );
 
-  ops_last <= op1_last and op2_last;
-  ops_dvalid <= op1_dvalid and op2_dvalid;
+
+   inp1_converter: floating_point_0
+    PORT MAP (
+      aclk => clk,
+      s_axis_a_tvalid => op1_valid,
+      s_axis_a_tdata => op1_data,
+      s_axis_a_tlast => op1_last,
+      m_axis_result_tvalid => conv_op1_valid,
+      m_axis_result_tdata => conv_op1_data,
+      m_axis_result_tlast => conv_op1_last
+    );
+
+   inp2_converter: floating_point_0
+    PORT MAP (
+      aclk => clk,
+      s_axis_a_tvalid => op2_valid,
+      s_axis_a_tdata => op2_data,
+      s_axis_a_tlast => op2_last,
+      m_axis_result_tvalid => conv_op2_valid,
+      m_axis_result_tdata => conv_op2_data,
+      m_axis_result_tlast => conv_op2_last
+    );
+
   mult_process:
-  process(op1_data, op2_data,ops_valid,out_s_ready) is 
-    --variable temp_float_1:  float64; -- float(11 downto -52);
-    --variable temp_float_2:  float64; -- float(11 downto -52);
+  process(conv_op1_data, conv_op2_data,ops_valid,out_s_ready) is 
     variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     variable temp_buffer_2: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     variable temp_res     : sfixed(2*FIXED_LEFT_INDEX + 1 downto 2*FIXED_RIGHT_INDEX);
   begin
     out_s_valid <= '0';
     ops_ready <= '0';
+    ops_dvalid <= '0';
+    --ops_last_s <= '0';
     if ops_valid = '1' and out_s_ready = '1' then 
+      ops_dvalid <= op1_dvalid and op2_dvalid;
       out_s_valid <= '1'; 
       ops_ready <= '1';
-      temp_buffer_1 := float_to_sfixed(u_float64(op1_data),temp_buffer_1'high,temp_buffer_1'low);
-      temp_buffer_2 := float_to_sfixed(u_float64(op2_data),temp_buffer_2'high,temp_buffer_2'low);
+      temp_buffer_1 := to_sfixed(conv_op1_data,temp_buffer_1'high,temp_buffer_1'low);
+      temp_buffer_2 := to_sfixed(conv_op2_data,temp_buffer_2'high,temp_buffer_2'low);
       temp_res := temp_buffer_1 * temp_buffer_2;
       ops_data <= to_slv(resize( arg => temp_res,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
     end if;
   end process;
- 
-  --mult_process:
-  --process(op1_data, op2_data,ops_valid,out_s_ready) is 
-  --  variable temp_float_1: float(11 downto -52);
-  --  variable temp_float_2: float(11 downto -52);
-  --  variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
-  --  variable temp_buffer_2: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
-  --  variable temp_res     : sfixed(2*FIXED_LEFT_INDEX + 1 downto 2*FIXED_RIGHT_INDEX);
+  ops_last <= conv_op1_last and conv_op2_last;
+  --ops_last <= ops_last_s;
+  -- There exists a 6 clk cycles difference between converted data and normal stream. The last signal sohuld be lagged for that amount. Add 6 flip flops. 
+  --process (clk)
   --begin
-  --end process;
-
-  --seq_process:
-  --process (clk) is
-  --  variable temp_float_1:float64; -- float(11 downto -52);
-  --  variable temp_float_2:float64; -- float(11 downto -52);
-  --  variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
-  --  variable temp_buffer_2: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
-  --  variable temp_res     : sfixed(2*FIXED_LEFT_INDEX + 1 downto 2*FIXED_RIGHT_INDEX);
-  --begin
-  --  if falling_edge(clk) then
-  --    out_s_valid <= '0';
-  --    ops_ready <= '0';
-  --    if ops_valid = '1' and out_s_ready = '1' then 
-  --      out_s_valid <= '1'; 
-  --      ops_ready <= '1';
-  --      temp_float_1 := to_float64(u_float64(op1_data));
-  --      temp_float_2 := to_float64(u_float64(op2_data));
-  --      temp_buffer_1 := to_sfixed(temp_float_1,temp_buffer_1'high,temp_buffer_1'low);
-  --      temp_buffer_2 := to_sfixed(temp_float_2,temp_buffer_2'high,temp_buffer_2'low);
-  --      temp_res := temp_buffer_1 * temp_buffer_2;
-  --      ops_data <= to_slv(resize( arg => temp_res,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
-  --    end if;
+  --  if rising_edge(clk) then
+  --    delay <= ops_last_s & delay(0 to dn - 2);
   --  end if;
   --end process;
+  --ops_last <= delay(dn-1);
 
 end Behavioral;

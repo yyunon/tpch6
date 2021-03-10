@@ -4,15 +4,15 @@ use ieee.std_logic_1164.all;
 use ieee.std_logic_misc.all;
 use ieee.numeric_std.all;
 
---library ieee_proposed;
---use ieee_proposed.fixed_pkg.all;
+library ieee_proposed;
+use ieee_proposed.fixed_pkg.all;
 
 library work;
 use work.Stream_pkg.all;
+use work.ParallelPatterns_pkg.all; 
 use work.Forecast_pkg.all;
 
-use work.fixed_generic_pkg_mod.all;
-use work.float_pkg_mod.all;
+--use work.fixed_generic_pkg_mod.all;
 
 
 -- In the first prototype generate different hws for each op.
@@ -47,21 +47,39 @@ end ALU;
 architecture Behavioral of ALU is
 
   signal temp_buffer              : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
+  signal temp_buffer_int          : integer;
   signal ops_valid                : std_logic;
   signal ops_ready                : std_logic;
+  signal ops_last                : std_logic;
   signal ops_data                 : std_logic_vector(DATA_WIDTH - 1 downto 0);
+
+  signal unconv_ops_valid                : std_logic;
+  signal unconv_ops_last                : std_logic;
+  signal unconv_ops_data                 : std_logic_vector(DATA_WIDTH - 1 downto 0);
 
   signal result                   : std_logic_vector(DATA_WIDTH - 1 downto 0) := (others => '0');
   signal ops_ready_s              : std_logic;
   signal out_valid_s              : std_logic;
+
+  COMPONENT floating_point_0
+    PORT (
+      aclk : IN STD_LOGIC;
+      s_axis_a_tvalid : IN STD_LOGIC;
+      s_axis_a_tdata : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
+      s_axis_a_tlast : IN STD_LOGIC;
+      m_axis_result_tvalid : OUT STD_LOGIC;
+      m_axis_result_tdata : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
+      m_axis_result_tlast : OUT STD_LOGIC
+    );
+  END COMPONENT;
 
 begin
 
    -- Synchronize the operand stream
  op_in_sync: StreamSlice
     generic map (
-        DATA_WIDTH => DATA_WIDTH
-        --MIN_DEPTH => 64
+        DATA_WIDTH => DATA_WIDTH + 1
+        --MIN_DEPTH => 1
     )
     port map (
       clk                       => clk,
@@ -69,11 +87,13 @@ begin
 
       in_valid                  => in_valid,
       in_ready                  => in_ready,
-      in_data                   => in_data,
+      in_data(64)               => in_last,
+      in_data(63 downto 0)      => in_data,
 
-      out_valid                 => ops_valid,
+      out_valid                 => unconv_ops_valid,
       out_ready                 => ops_ready,
-      out_data                  => ops_data
+      out_data(64)              => unconv_ops_last,
+      out_data(63 downto 0)     => unconv_ops_data
     );   
 
   ops_ready <= out_ready;
@@ -82,12 +102,22 @@ begin
 
   quantity_proc: 
   if ALUTYPE="LESSTHAN"  generate
+   quantity_converter: floating_point_0
+    PORT MAP (
+      aclk => clk,
+      s_axis_a_tvalid => unconv_ops_valid,
+      s_axis_a_tdata => unconv_ops_data,
+      s_axis_a_tlast => unconv_ops_last,
+      m_axis_result_tvalid => ops_valid,
+      m_axis_result_tdata => ops_data, 
+      m_axis_result_tlast => ops_last
+    );
     process(ops_data) is 
       --variable temp_float_1 : float64; -- float(11 downto -52);
       variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     begin
-      temp_buffer_1 := float_to_sfixed(u_float64(ops_data),temp_buffer_1'high, temp_buffer_1'low);
-      temp_buffer <= temp_buffer_1;
+      temp_buffer <= to_sfixed(ops_data,temp_buffer_1'high, temp_buffer_1'low);
+      --temp_buffer <= temp_buffer_1;
     end process;
     process(temp_buffer,ops_valid,out_ready, ops_ready) is
       -- Comparison constants
@@ -106,12 +136,22 @@ begin
 
   discount_proc: 
   if ALUTYPE="BETWEEN" generate
+   discount_converter: floating_point_0
+    PORT MAP (
+      aclk => clk,
+      s_axis_a_tvalid => unconv_ops_valid,
+      s_axis_a_tdata => unconv_ops_data,
+      s_axis_a_tlast => unconv_ops_last,
+      m_axis_result_tvalid => ops_valid,
+      m_axis_result_tdata => ops_data,
+      m_axis_result_tlast => ops_last
+    );
     process(ops_data) is 
       --variable temp_float_1 : float64; -- float(11 downto -52);
       variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     begin
-      temp_buffer_1 := float_to_sfixed(u_float64(ops_data),temp_buffer_1'high,temp_buffer_1'low);
-      temp_buffer <= temp_buffer_1;
+      temp_buffer <= to_sfixed(ops_data,temp_buffer_1'high,temp_buffer_1'low);
+      --temp_buffer <= temp_buffer_1;
     end process;
     process(temp_buffer,ops_valid,ops_ready,out_ready) is
 
@@ -133,17 +173,23 @@ begin
 
   shipdate_proc: 
   if ALUTYPE="DATE"  generate
-    process(ops_data,ops_valid,out_ready, ops_ready) is
+    process(unconv_ops_data) is 
+      --variable temp_float_1 : float64; -- float(11 downto -52);
+      variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
+    begin
+      temp_buffer_int <= to_integer(unsigned(unconv_ops_data));
+    end process;
+    process(temp_buffer_int,ops_valid,out_ready, ops_ready) is
     --Dates are encoded as 1000*year + 100*month + 10*day conventions
       constant DATE_LOW: integer := 8766;
       constant DATE_HIGH: integer := 9131;
     begin 
       out_valid_s <= '0';
       result(0) <= '0';
-      if ops_valid = '1' and ops_ready = '1' then
+      if unconv_ops_valid = '1' and ops_ready = '1' then
         ops_ready_s <= out_ready;
         out_valid_s <= '1';
-        if (to_integer(unsigned(ops_data)) >= DATE_LOW) and (to_integer(unsigned(ops_data)) < DATE_HIGH)  then
+        if ( temp_buffer_int >= DATE_LOW) and (temp_buffer_int < DATE_HIGH)  then
             result(0) <= '1';
         end if;
       end if;

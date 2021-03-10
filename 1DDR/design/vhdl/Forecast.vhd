@@ -97,6 +97,7 @@ entity Forecast is
 end entity;
 
 architecture Implementation of Forecast is 
+
   constant DATA_WIDTH                  : integer := 64;
   constant FIXED_LEFT_INDEX            : integer := 45;
   constant FIXED_RIGHT_INDEX           : integer := FIXED_LEFT_INDEX - (DATA_WIDTH-1);
@@ -114,6 +115,12 @@ architecture Implementation of Forecast is
   
   -- Current state register and next state signal.
   signal state, state_next : state_t;
+
+  signal delayed_l_shipdate_valid        : std_logic;
+  signal delayed_l_shipdate_ready        : std_logic;
+  signal delayed_l_shipdate_dvalid       : std_logic;
+  signal delayed_l_shipdate_last         : std_logic;
+  signal delayed_l_shipdate              : std_logic_vector(63 downto 0);
 
   -- Input filter stream 
   signal filter_in_ready        : std_logic;
@@ -168,108 +175,130 @@ architecture Implementation of Forecast is
 
   signal out_predicate     : std_logic;
 
-  component ila_1 
-  port(
-        clk     : in std_logic;
-        probe0  : in std_logic_vector(0 downto 0);
-        probe1  : in std_logic_vector(63 downto 0);
-        probe2  : in std_logic_vector(1 downto 0);
-        probe3  : in std_logic_vector(0 downto 0);
-        probe4  : in std_logic_vector(0 downto 0);
-        probe5  : in std_logic_vector(63 downto 0);
-        probe6  : in std_logic_vector(0 downto 0);
-        probe7  : in std_logic_vector(0 downto 0);
-        probe8  : in std_logic_vector(0 downto 0);
-        probe9  : in std_logic_vector(0 downto 0);
-        probe10 : in std_logic_vector(511 downto 0);
-        probe11 : in std_logic_vector(0 downto 0);
-        probe12 : in std_logic_vector(0 downto 0);
-        probe13 : in std_logic_vector(1 downto 0);
-        probe14 : in std_logic_vector(511 downto 0);
-        probe15 : in std_logic_vector(63 downto 0);
-        probe16 : in std_logic_vector(0 downto 0);
-        probe17 : in std_logic_vector(2 downto 0);
-        probe18 : in std_logic_vector(2 downto 0);
-        probe19 : in std_logic_vector(4 downto 0);
-        probe20 : in std_logic_vector(4 downto 0);
-        probe21 : in std_logic_vector(7 downto 0);
-        probe22 : in std_logic_vector(0 downto 0);
-        probe23 : in std_logic_vector(2 downto 0);
-        probe24 : in std_logic_vector(1 downto 0);
-        probe25 : in std_logic_vector(4 downto 0);
-        probe26 : in std_logic_vector(0 downto 0);
-        probe27 : in std_logic_vector(7 downto 0);
-        probe28 : in std_logic_vector(2 downto 0);
-        probe29 : in std_logic_vector(1 downto 0);
-        probe30 : in std_logic_vector(0 downto 0);
-        probe31 : in std_logic_vector(3 downto 0);
-        probe32 : in std_logic_vector(3 downto 0);
-        probe33 : in std_logic_vector(3 downto 0);
-        probe34 : in std_logic_vector(3 downto 0);
-        probe35 : in std_logic_vector(0 downto 0);
-        probe36 : in std_logic_vector(3 downto 0);
-        probe37 : in std_logic_vector(3 downto 0);
-        probe38 : in std_logic_vector(4 downto 0);
-        probe39 : in std_logic_vector(0 downto 0);
-        probe40 : in std_logic_vector(0 downto 0);
-        probe41 : in std_logic_vector(0 downto 0);
-        probe42 : in std_logic_vector(0 downto 0); 
-        probe43 : in std_logic_vector(0 downto 0)
-  );
-  end component;
-  constant ZERO : std_logic_vector(3 downto 0) := (others => '0');
+  --component ila_1 
+  --port(
+  --      clk     : in std_logic;
+  --      probe0  : in std_logic_vector(0 downto 0);
+  --      probe1  : in std_logic_vector(63 downto 0);
+  --      probe2  : in std_logic_vector(1 downto 0);
+  --      probe3  : in std_logic_vector(0 downto 0);
+  --      probe4  : in std_logic_vector(0 downto 0);
+  --      probe5  : in std_logic_vector(63 downto 0);
+  --      probe6  : in std_logic_vector(0 downto 0);
+  --      probe7  : in std_logic_vector(0 downto 0);
+  --      probe8  : in std_logic_vector(0 downto 0);
+  --      probe9  : in std_logic_vector(0 downto 0);
+  --      probe10 : in std_logic_vector(511 downto 0);
+  --      probe11 : in std_logic_vector(0 downto 0);
+  --      probe12 : in std_logic_vector(0 downto 0);
+  --      probe13 : in std_logic_vector(1 downto 0);
+  --      probe14 : in std_logic_vector(511 downto 0);
+  --      probe15 : in std_logic_vector(63 downto 0);
+  --      probe16 : in std_logic_vector(0 downto 0);
+  --      probe17 : in std_logic_vector(2 downto 0);
+  --      probe18 : in std_logic_vector(2 downto 0);
+  --      probe19 : in std_logic_vector(4 downto 0);
+  --      probe20 : in std_logic_vector(4 downto 0);
+  --      probe21 : in std_logic_vector(7 downto 0);
+  --      probe22 : in std_logic_vector(0 downto 0);
+  --      probe23 : in std_logic_vector(2 downto 0);
+  --      probe24 : in std_logic_vector(1 downto 0);
+  --      probe25 : in std_logic_vector(4 downto 0);
+  --      probe26 : in std_logic_vector(0 downto 0);
+  --      probe27 : in std_logic_vector(7 downto 0);
+  --      probe28 : in std_logic_vector(2 downto 0);
+  --      probe29 : in std_logic_vector(1 downto 0);
+  --      probe30 : in std_logic_vector(0 downto 0);
+  --      probe31 : in std_logic_vector(3 downto 0);
+  --      probe32 : in std_logic_vector(3 downto 0);
+  --      probe33 : in std_logic_vector(3 downto 0);
+  --      probe34 : in std_logic_vector(3 downto 0);
+  --      probe35 : in std_logic_vector(0 downto 0);
+  --      probe36 : in std_logic_vector(3 downto 0);
+  --      probe37 : in std_logic_vector(3 downto 0);
+  --      probe38 : in std_logic_vector(4 downto 0);
+  --      probe39 : in std_logic_vector(0 downto 0);
+  --      probe40 : in std_logic_vector(0 downto 0);
+  --      probe41 : in std_logic_vector(0 downto 0);
+  --      probe42 : in std_logic_vector(0 downto 0); 
+  --      probe43 : in std_logic_vector(0 downto 0)
+  --);
+  --end component;
+  --constant ZERO : std_logic_vector(3 downto 0) := (others => '0');
 
 begin
 
   --Integrated Logic Analyzers (ILA)
-  CL_ILA_0 : ila_1
-  PORT MAP (
-        clk     => kcd_clk,
-        probe0(0)  => sum_out_valid,
-        probe1  => sum_out_data,
-        probe2  => (others => '0'),
-        probe3(0)  => filter_out_strb,
-        probe4(0)  => reduce_in_valid,
-        probe5  => reduce_in_data,
-        probe6(0)  => l_discount_ready,
-        probe7(0)  => l_extendedprice_ready,
-        probe8(0)  => l_quantity_ready,
-        probe9(0)  => l_shipdate_ready,
-        probe10(511 downto 0) => (512 downto 256 => '0') & l_discount & l_extendedprice & l_quantity & l_shipdate,
-        probe11(0) => sync_1_data,
-        probe12(0) => sync_2_data,
-        probe13 => (others => '0'),
-        probe14 => (others => '0'),
-        probe15 => result,
-        probe16(0) => sync_3_data,
-        probe17 => (others => '0'),
-        probe18 => (others => '0'),
-        probe19 => (others => '0'),
-        probe20 => (others => '0'),
-        probe21 => (others => '0'),
-        probe22(0) => filter_out_ready,
-        probe23 => (others => '0'),
-        probe24 => (others => '0'),
-        probe25 => (others => '0'),
-        probe26(0) => filter_out_valid,
-        probe27 => (others => '0'),
-        probe28 => state_slv,
-        probe29 => '0' & l_discount_last,
-        probe30(0) => l_extendedprice_last,
-        probe31 => ZERO(3 downto 1) & l_quantity_last,
-        probe32 => ZERO(3 downto 1)& l_shipdate_last,
-        probe33 => ZERO(3 downto 1)& l_discount_valid,
-        probe34 => ZERO(3 downto 1)& l_extendedprice_valid,
-        probe35(0) => l_quantity_valid,
-        probe36 => ZERO(3 downto 1) & l_shipdate_valid,
-        probe37 => (others => '0'),
-        probe38 => (others => '0'),
-        probe39(0) => idle,
-        probe40(0) => start,
-        probe41(0) => busy,
-        probe42(0) => done,
-        probe43(0) => reduce_in_valid
-  );
+  --CL_ILA_0 : ila_1
+  --PORT MAP (
+  --      clk     => kcd_clk,
+  --      probe0(0)  => sum_out_valid,
+  --      probe1  => sum_out_data,
+  --      probe2  => (others => '0'),
+  --      probe3(0)  => filter_out_strb,
+  --      probe4(0)  => reduce_in_valid,
+  --      probe5  => reduce_in_data,
+  --      probe6(0)  => l_discount_ready,
+  --      probe7(0)  => l_extendedprice_ready,
+  --      probe8(0)  => l_quantity_ready,
+  --      probe9(0)  => l_shipdate_ready,
+  --      probe10(511 downto 0) => (512 downto 256 => '0') & l_discount & l_extendedprice & l_quantity & l_shipdate,
+  --      probe11(0) => sync_1_data,
+  --      probe12(0) => sync_2_data,
+  --      probe13 => (others => '0'),
+  --      probe14 => (others => '0'),
+  --      probe15 => result,
+  --      probe16(0) => sync_3_data,
+  --      probe17 => (others => '0'),
+  --      probe18 => (others => '0'),
+  --      probe19 => (others => '0'),
+  --      probe20 => (others => '0'),
+  --      probe21 => (others => '0'),
+  --      probe22(0) => filter_out_ready,
+  --      probe23 => (others => '0'),
+  --      probe24 => (others => '0'),
+  --      probe25 => (others => '0'),
+  --      probe26(0) => filter_out_valid,
+  --      probe27 => (others => '0'),
+  --      probe28 => state_slv,
+  --      probe29 => '0' & l_discount_last,
+  --      probe30(0) => l_extendedprice_last,
+  --      probe31 => ZERO(3 downto 1) & l_quantity_last,
+  --      probe32 => ZERO(3 downto 1)& l_shipdate_last,
+  --      probe33 => ZERO(3 downto 1)& l_discount_valid,
+  --      probe34 => ZERO(3 downto 1)& l_extendedprice_valid,
+  --      probe35(0) => l_quantity_valid,
+  --      probe36 => ZERO(3 downto 1) & l_shipdate_valid,
+  --      probe37 => (others => '0'),
+  --      probe38 => (others => '0'),
+  --      probe39(0) => idle,
+  --      probe40(0) => start,
+  --      probe41(0) => busy,
+  --      probe42(0) => done,
+  --      probe43(0) => reduce_in_valid
+  --);
+  date_dly: StreamSliceArray
+    generic map (
+      DATA_WIDTH                 => 66,
+      DEPTH                      => 6
+    )
+    port map (
+      clk                       => kcd_clk,
+      reset                     => kcd_reset or reset,
+
+      in_valid                  => l_shipdate_valid,
+      in_ready                  => l_shipdate_ready,
+      in_data(65)               => l_shipdate_last,
+      in_data(64)               => l_shipdate_dvalid,
+      in_data(63 downto 0)      => l_shipdate,
+
+      out_valid                 => delayed_l_shipdate_valid,
+      out_ready                 => delayed_l_shipdate_ready,
+      out_data(65)              => delayed_l_shipdate_last,
+      out_data(64)              => delayed_l_shipdate_dvalid,
+      out_data(63 downto 0)     => delayed_l_shipdate
+
+    );
 
   discount_sync: StreamSync
     generic map (
@@ -343,11 +372,11 @@ begin
       clk                       => kcd_clk,
       reset                     => kcd_reset or reset,
 
-      in_valid                  => l_shipdate_valid,
-      in_dvalid                 => l_shipdate_dvalid,
-      in_ready                  => l_shipdate_ready,
-      in_last                   => l_shipdate_last,
-      in_data                   => l_shipdate,
+      in_valid                  => delayed_l_shipdate_valid,
+      in_dvalid                 => delayed_l_shipdate_dvalid,
+      in_ready                  => delayed_l_shipdate_ready,
+      in_last                   => delayed_l_shipdate_last,
+      in_data                   => delayed_l_shipdate,
       
       out_valid                 => date_engine_out_valid,
       out_ready                 => date_engine_out_ready,
@@ -403,7 +432,7 @@ begin
      FIXED_LEFT_INDEX          => FIXED_LEFT_INDEX,
      FIXED_RIGHT_INDEX         => FIXED_RIGHT_INDEX,
      DATA_WIDTH                 => 64,
-     MIN_DEPTH                  => 32,
+     MIN_DEPTH                  => 64,
      DATA_TYPE                  => "FLOAT64"
    )
    port map (
