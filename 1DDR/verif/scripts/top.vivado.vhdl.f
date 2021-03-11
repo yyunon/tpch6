@@ -1,3 +1,4 @@
+${CL_ROOT}/design/vhdl/hardware/float_pkg_mod.vhd
 ${CL_ROOT}/design/vhdl/hardware/vhlib/util/UtilMisc_pkg.vhd
 ${CL_ROOT}/design/vhdl/hardware/vhlib/util/UtilInt_pkg.vhd
 ${CL_ROOT}/design/vhdl/hardware/vhlib/util/UtilConv_pkg.vhd

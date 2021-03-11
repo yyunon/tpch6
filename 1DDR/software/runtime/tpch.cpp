@@ -193,7 +193,6 @@ int main(int argc, char **argv) {
   }
 
 
-  std::cout << "Result: \n" << std::endl;
   uint32_t rhigh;
   uint32_t rlow;
   uint64_t result;
