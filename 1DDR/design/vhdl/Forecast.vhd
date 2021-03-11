@@ -320,7 +320,7 @@ begin
    discount_converter: Float_to_Fixed
     GENERIC MAP (
         DATA_WIDTH => 64,
-        MIN_DEPTH => 16
+        MIN_DEPTH => 32
     )
     PORT MAP (
       clk                         => kcd_clk,
@@ -341,7 +341,7 @@ begin
    quantity_converter: Float_to_Fixed
     GENERIC MAP (
         DATA_WIDTH => 64,
-        MIN_DEPTH => 16
+        MIN_DEPTH => 32
     )
     PORT MAP (
       clk                         => kcd_clk,
@@ -362,7 +362,7 @@ begin
    extendedprice_converter: Float_to_Fixed
     GENERIC MAP (
         DATA_WIDTH => 64,
-        MIN_DEPTH => 16
+        MIN_DEPTH => 32
     )
     PORT MAP (
       clk                         => kcd_clk,

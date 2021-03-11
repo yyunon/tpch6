@@ -1,4 +1,5 @@
-${CL_ROOT}/design/vhdl/hardware/float_pkg_mod.vhd
+${CL_ROOT}/ip/floating_point_0/sim/floating_point_0.vhd
+
 ${CL_ROOT}/design/vhdl/hardware/vhlib/util/UtilMisc_pkg.vhd
 ${CL_ROOT}/design/vhdl/hardware/vhlib/util/UtilInt_pkg.vhd
 ${CL_ROOT}/design/vhdl/hardware/vhlib/util/UtilConv_pkg.vhd
@@ -55,6 +56,7 @@ ${CL_ROOT}/design/vhdl/hardware/vhlib/stream/StreamFIFO.vhd
 ${CL_ROOT}/design/vhdl/hardware/vhlib/stream/StreamBuffer.vhd
 ${CL_ROOT}/design/vhdl/MergeOp.vhd
 ${CL_ROOT}/design/vhdl/hardware/vhlib/stream/StreamSlice.vhd
+${CL_ROOT}/design/vhdl/Float_to_Fixed.vhd
 ${CL_ROOT}/design/vhdl/ALU.vhd
 ${CL_ROOT}/design/vhdl/Forecast.vhd
 ${CL_ROOT}/design/vhdl/Forecast_Nucleus.gen.vhd
