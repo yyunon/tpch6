@@ -120,18 +120,6 @@ architecture Behavioral of MergeOp is
   signal rd_en_d5                : std_logic;
   signal rd_en_d6                : std_logic;
 
-  COMPONENT floating_point_0
-    PORT (
-      aclk : IN STD_LOGIC;
-      s_axis_a_tvalid : IN STD_LOGIC;
-      s_axis_a_tdata : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
-      s_axis_a_tlast : IN STD_LOGIC;
-      m_axis_result_tvalid : OUT STD_LOGIC;
-      m_axis_result_tdata : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
-      m_axis_result_tlast : OUT STD_LOGIC
-    );
-  END COMPONENT;
-
 begin
 
 
@@ -163,8 +151,8 @@ begin
       clk                       => clk,
       reset                     => reset,
 
-      in_valid(0)               => conv_op1_valid,
-      in_valid(1)               => conv_op2_valid,
+      in_valid(0)               => op1_valid,
+      in_valid(1)               => op2_valid,
       in_ready(0)               => op1_ready,
       in_ready(1)               => op2_ready,
 
@@ -173,31 +161,8 @@ begin
       out_ready(0)              => ops_ready
     );
 
-
-   inp1_converter: floating_point_0
-    PORT MAP (
-      aclk => clk,
-      s_axis_a_tvalid => op1_valid,
-      s_axis_a_tdata => op1_data,
-      s_axis_a_tlast => op1_last,
-      m_axis_result_tvalid => conv_op1_valid,
-      m_axis_result_tdata => conv_op1_data,
-      m_axis_result_tlast => conv_op1_last
-    );
-
-   inp2_converter: floating_point_0
-    PORT MAP (
-      aclk => clk,
-      s_axis_a_tvalid => op2_valid,
-      s_axis_a_tdata => op2_data,
-      s_axis_a_tlast => op2_last,
-      m_axis_result_tvalid => conv_op2_valid,
-      m_axis_result_tdata => conv_op2_data,
-      m_axis_result_tlast => conv_op2_last
-    );
-
   mult_process:
-  process(conv_op1_data, conv_op2_data,ops_valid,out_s_ready) is 
+  process(op1_data, op2_data,ops_valid,out_s_ready) is 
     variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     variable temp_buffer_2: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     variable temp_res     : sfixed(2*FIXED_LEFT_INDEX + 1 downto 2*FIXED_RIGHT_INDEX);
@@ -210,21 +175,12 @@ begin
       ops_dvalid <= op1_dvalid and op2_dvalid;
       out_s_valid <= '1'; 
       ops_ready <= '1';
-      temp_buffer_1 := to_sfixed(conv_op1_data,temp_buffer_1'high,temp_buffer_1'low);
-      temp_buffer_2 := to_sfixed(conv_op2_data,temp_buffer_2'high,temp_buffer_2'low);
+      temp_buffer_1 := to_sfixed(op1_data,temp_buffer_1'high,temp_buffer_1'low);
+      temp_buffer_2 := to_sfixed(op2_data,temp_buffer_2'high,temp_buffer_2'low);
       temp_res := temp_buffer_1 * temp_buffer_2;
       ops_data <= to_slv(resize( arg => temp_res,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
     end if;
   end process;
-  ops_last <= conv_op1_last and conv_op2_last;
-  --ops_last <= ops_last_s;
-  -- There exists a 6 clk cycles difference between converted data and normal stream. The last signal sohuld be lagged for that amount. Add 6 flip flops. 
-  --process (clk)
-  --begin
-  --  if rising_edge(clk) then
-  --    delay <= ops_last_s & delay(0 to dn - 2);
-  --  end if;
-  --end process;
-  --ops_last <= delay(dn-1);
+  ops_last <= op1_last and op2_last;
 
 end Behavioral;

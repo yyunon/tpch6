@@ -9,6 +9,32 @@ use ieee.std_logic_misc.all;
 
 package Forecast_pkg is 
   
+  component Float_to_Fixed is 
+    generic (
+
+      DATA_WIDTH                  : natural;
+      MIN_DEPTH                   : natural
+
+    );
+    port (
+      clk                         : in  std_logic;
+      reset                       : in  std_logic;
+
+      in_valid                    : in  std_logic;
+      in_dvalid                   : in  std_logic := '1';
+      in_ready                    : out std_logic;
+      in_last                     : in  std_logic;
+      in_data                     : in  std_logic_vector(DATA_WIDTH - 1 downto 0);
+
+      out_valid                   : out  std_logic;
+      out_dvalid                  : out  std_logic := '1';
+      out_ready                   : in std_logic;
+      out_last                    : out  std_logic;
+      out_data                    : out  std_logic_vector(DATA_WIDTH - 1 downto 0)
+
+    );
+  end component;
+
   component ALU is
     generic (
 

@@ -61,9 +61,11 @@ ENTITY floating_point_0 IS
     aclk : IN STD_LOGIC;
     s_axis_a_tvalid : IN STD_LOGIC;
     s_axis_a_tdata : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
+    s_axis_a_tuser : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
     s_axis_a_tlast : IN STD_LOGIC;
     m_axis_result_tvalid : OUT STD_LOGIC;
     m_axis_result_tdata : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
+    m_axis_result_tuser : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
     m_axis_result_tlast : OUT STD_LOGIC
   );
 END floating_point_0;
@@ -158,7 +160,7 @@ ARCHITECTURE floating_point_0_arch OF floating_point_0 IS
       s_axis_a_tvalid : IN STD_LOGIC;
       s_axis_a_tready : OUT STD_LOGIC;
       s_axis_a_tdata : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
-      s_axis_a_tuser : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      s_axis_a_tuser : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
       s_axis_a_tlast : IN STD_LOGIC;
       s_axis_b_tvalid : IN STD_LOGIC;
       s_axis_b_tready : OUT STD_LOGIC;
@@ -178,19 +180,21 @@ ARCHITECTURE floating_point_0_arch OF floating_point_0 IS
       m_axis_result_tvalid : OUT STD_LOGIC;
       m_axis_result_tready : IN STD_LOGIC;
       m_axis_result_tdata : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
-      m_axis_result_tuser : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+      m_axis_result_tuser : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
       m_axis_result_tlast : OUT STD_LOGIC
     );
   END COMPONENT floating_point_v7_1_10;
   ATTRIBUTE X_INTERFACE_INFO : STRING;
   ATTRIBUTE X_INTERFACE_PARAMETER : STRING;
   ATTRIBUTE X_INTERFACE_INFO OF m_axis_result_tlast: SIGNAL IS "xilinx.com:interface:axis:1.0 M_AXIS_RESULT TLAST";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axis_result_tuser: SIGNAL IS "xilinx.com:interface:axis:1.0 M_AXIS_RESULT TUSER";
   ATTRIBUTE X_INTERFACE_INFO OF m_axis_result_tdata: SIGNAL IS "xilinx.com:interface:axis:1.0 M_AXIS_RESULT TDATA";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF m_axis_result_tvalid: SIGNAL IS "XIL_INTERFACENAME M_AXIS_RESULT, TDATA_NUM_BYTES 8, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 0, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.000, LAYERED_METADATA undef, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF m_axis_result_tvalid: SIGNAL IS "XIL_INTERFACENAME M_AXIS_RESULT, TDATA_NUM_BYTES 8, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 2, HAS_TREADY 0, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.000, LAYERED_METADATA undef, INSERT_VIP 0";
   ATTRIBUTE X_INTERFACE_INFO OF m_axis_result_tvalid: SIGNAL IS "xilinx.com:interface:axis:1.0 M_AXIS_RESULT TVALID";
   ATTRIBUTE X_INTERFACE_INFO OF s_axis_a_tlast: SIGNAL IS "xilinx.com:interface:axis:1.0 S_AXIS_A TLAST";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axis_a_tuser: SIGNAL IS "xilinx.com:interface:axis:1.0 S_AXIS_A TUSER";
   ATTRIBUTE X_INTERFACE_INFO OF s_axis_a_tdata: SIGNAL IS "xilinx.com:interface:axis:1.0 S_AXIS_A TDATA";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF s_axis_a_tvalid: SIGNAL IS "XIL_INTERFACENAME S_AXIS_A, TDATA_NUM_BYTES 8, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 0, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.000, LAYERED_METADATA undef, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF s_axis_a_tvalid: SIGNAL IS "XIL_INTERFACENAME S_AXIS_A, TDATA_NUM_BYTES 8, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 2, HAS_TREADY 0, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.000, LAYERED_METADATA undef, INSERT_VIP 0";
   ATTRIBUTE X_INTERFACE_INFO OF s_axis_a_tvalid: SIGNAL IS "xilinx.com:interface:axis:1.0 S_AXIS_A TVALID";
   ATTRIBUTE X_INTERFACE_PARAMETER OF aclk: SIGNAL IS "XIL_INTERFACENAME aclk_intf, ASSOCIATED_BUSIF S_AXIS_OPERATION:M_AXIS_RESULT:S_AXIS_C:S_AXIS_B:S_AXIS_A, ASSOCIATED_RESET aresetn, ASSOCIATED_CLKEN aclken, FREQ_HZ 10000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, INSERT_VIP 0";
   ATTRIBUTE X_INTERFACE_INFO OF aclk: SIGNAL IS "xilinx.com:signal:clock:1.0 aclk_intf CLK";
@@ -249,7 +253,7 @@ BEGIN
       C_HAS_ACLKEN => 0,
       C_HAS_ARESETN => 0,
       C_THROTTLE_SCHEME => 3,
-      C_HAS_A_TUSER => 0,
+      C_HAS_A_TUSER => 1,
       C_HAS_A_TLAST => 1,
       C_HAS_B => 0,
       C_HAS_B_TUSER => 0,
@@ -260,11 +264,11 @@ BEGIN
       C_HAS_OPERATION => 0,
       C_HAS_OPERATION_TUSER => 0,
       C_HAS_OPERATION_TLAST => 0,
-      C_HAS_RESULT_TUSER => 0,
+      C_HAS_RESULT_TUSER => 1,
       C_HAS_RESULT_TLAST => 1,
       C_TLAST_RESOLUTION => 1,
       C_A_TDATA_WIDTH => 64,
-      C_A_TUSER_WIDTH => 1,
+      C_A_TUSER_WIDTH => 2,
       C_B_TDATA_WIDTH => 64,
       C_B_TUSER_WIDTH => 1,
       C_C_TDATA_WIDTH => 64,
@@ -272,7 +276,7 @@ BEGIN
       C_OPERATION_TDATA_WIDTH => 8,
       C_OPERATION_TUSER_WIDTH => 1,
       C_RESULT_TDATA_WIDTH => 64,
-      C_RESULT_TUSER_WIDTH => 1,
+      C_RESULT_TUSER_WIDTH => 2,
       C_FIXED_DATA_UNSIGNED => 0
     )
     PORT MAP (
@@ -281,7 +285,7 @@ BEGIN
       aresetn => '1',
       s_axis_a_tvalid => s_axis_a_tvalid,
       s_axis_a_tdata => s_axis_a_tdata,
-      s_axis_a_tuser => STD_LOGIC_VECTOR(TO_UNSIGNED(0, 1)),
+      s_axis_a_tuser => s_axis_a_tuser,
       s_axis_a_tlast => s_axis_a_tlast,
       s_axis_b_tvalid => '0',
       s_axis_b_tdata => STD_LOGIC_VECTOR(TO_UNSIGNED(0, 64)),
@@ -298,6 +302,7 @@ BEGIN
       m_axis_result_tvalid => m_axis_result_tvalid,
       m_axis_result_tready => '0',
       m_axis_result_tdata => m_axis_result_tdata,
+      m_axis_result_tuser => m_axis_result_tuser,
       m_axis_result_tlast => m_axis_result_tlast
     );
 END floating_point_0_arch;

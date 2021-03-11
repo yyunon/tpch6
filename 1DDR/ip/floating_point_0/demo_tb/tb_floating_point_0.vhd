@@ -366,11 +366,13 @@ architecture tb of tb_floating_point_0 is
   -- A operand slave channel signals
   signal s_axis_a_tvalid         : std_logic := '0';  -- payload is valid
   signal s_axis_a_tdata          : std_logic_vector(63 downto 0) := (others => '0');  -- data payload
+  signal s_axis_a_tuser          : std_logic_vector(1 downto 0) := (others => '0');  -- user-defined payload
   signal s_axis_a_tlast          : std_logic := '0';  -- indicates end of packet
 
   -- Result master channel signals
   signal m_axis_result_tvalid    : std_logic := '0';
   signal m_axis_result_tdata     : std_logic_vector(63 downto 0) := (others => '0');  -- data payload
+  signal m_axis_result_tuser     : std_logic_vector(1 downto 0) := (others => '0');  -- exceptions and user-defined payload
   signal m_axis_result_tlast     : std_logic := '0';  -- indicates end of packet
 
   -----------------------------------------------------------------------
@@ -393,6 +395,7 @@ architecture tb of tb_floating_point_0 is
   signal m_axis_result_tdata_real     : real := 0.0;  -- fixed-point value using VHDL 'real' data type
   signal m_axis_result_tdata_int      : std_logic_vector(45 downto 0) := (others => '0');  -- integer part (including sign bit)
   signal m_axis_result_tdata_fract    : std_logic_vector(17 downto 0) := (others => '0');  -- fractional part
+  signal m_axis_result_tuser_a              : std_logic_vector(1 downto 0) := (others => '0');  -- A user-defined payload
 
 begin
 
@@ -407,10 +410,12 @@ begin
     -- AXI4-Stream slave channel for operand A
       s_axis_a_tvalid         => s_axis_a_tvalid,
       s_axis_a_tdata          => s_axis_a_tdata,
+      s_axis_a_tuser          => s_axis_a_tuser,
       s_axis_a_tlast          => s_axis_a_tlast,
       -- AXI4-Stream master channel for output result
       m_axis_result_tvalid    => m_axis_result_tvalid,
       m_axis_result_tdata     => m_axis_result_tdata,
+      m_axis_result_tuser     => m_axis_result_tuser,
       m_axis_result_tlast     => m_axis_result_tlast
       );
 
@@ -479,12 +484,14 @@ begin
 
     -- Procedure to drive a single transaction on the A channel
     procedure drive_a_single(tdata : std_logic_vector(63 downto 0);
+                             tuser : std_logic_vector(1 downto 0);
                              tlast : std_logic;
                              variable abort : out boolean) is
     begin
       -- Drive AXI signals
       s_axis_a_tvalid <= '1';
       s_axis_a_tdata  <= tdata;
+      s_axis_a_tuser  <= tuser;
       s_axis_a_tlast  <= tlast;
       abort := false;
       wait until rising_edge(aclk);
@@ -504,6 +511,7 @@ begin
       variable value     : real := data;
       variable value_slv : std_logic_vector(63 downto 0);
       variable tdata     : std_logic_vector(63 downto 0);
+      variable tuser     : std_logic_vector(1 downto 0);
       variable tlast     : std_logic;
       variable ip_count  : natural := 0;
       variable abort     : boolean;
@@ -513,6 +521,7 @@ begin
         value_slv := real_to_flt(value, special, 64, 53);
         -- Set up AXI signals
         tdata := value_slv;
+        tuser := std_logic_vector(to_unsigned(ip_count, 2));  -- transaction number in this procedure call
         if ip_count = count - 1 then
           tlast := '1';  -- TLAST indicates the last transaction in this procedure call
         else
@@ -520,6 +529,7 @@ begin
         end if;
         -- Drive AXI transaction
         drive_a_single(tdata => tdata,
+                       tuser => tuser,
                        tlast => tlast,
                        abort => abort);
 
@@ -535,6 +545,7 @@ begin
 
 
     variable tdata : std_logic_vector(63 downto 0) := (others => '0');
+    variable tuser : std_logic_vector(1 downto 0) := (others => '0');
     variable tlast : std_logic := '1';
     variable abort : boolean;
 
@@ -591,12 +602,12 @@ begin
     tdata(63) := '0';  -- sign bit
     tdata(62 downto 52) := std_logic_vector(to_unsigned(2046, 11));  -- biased exponent = largest
     tdata(51 downto 0) := (others => '1');  -- mantissa without hidden bit = largest
-    drive_a_single(tdata, tlast, abort);
+    drive_a_single(tdata, tuser, tlast, abort);
     -- flt_to_fix(-(very large number)) : overflow, result = largest negative fixed point number available
     tdata(63) := '1';  -- sign bit
     tdata(62 downto 52) := std_logic_vector(to_unsigned(2046, 11));  -- biased exponent = largest
     tdata(51 downto 0) := (others => '1');  -- mantissa without hidden bit = largest
-    drive_a_single(tdata, tlast, abort);
+    drive_a_single(tdata, tuser, tlast, abort);
     -- flt_to_fix(Not a Number) : invalid operation, result = largest negative fixed point number available
     drive_a(0.0, nan);
     -- End of test
@@ -629,6 +640,10 @@ begin
         report "ERROR: m_axis_result_tdata is invalid when m_axis_result_tvalid is high" severity error;
         check_ok := false;
       end if;
+      if is_x(m_axis_result_tuser) then
+        report "ERROR: m_axis_result_tuser is invalid when m_axis_result_tvalid is high" severity error;
+        check_ok := false;
+      end if;
       if is_x(m_axis_result_tlast) then
         report "ERROR: m_axis_result_tlast is invalid when m_axis_result_tvalid is high" severity error;
         check_ok := false;
@@ -657,6 +672,11 @@ begin
   m_axis_result_tdata_real     <= fix_to_real(m_axis_result_tdata(63 downto 0), 64, 18) when m_axis_result_tvalid = '1';
   m_axis_result_tdata_int      <= m_axis_result_tdata(63 downto 18) when m_axis_result_tvalid = '1';
   m_axis_result_tdata_fract    <= m_axis_result_tdata(17 downto 0) when m_axis_result_tvalid = '1';
+
+  m_axis_result_tuser_a              <= m_axis_result_tuser(1 downto 0) when m_axis_result_tvalid = '1';
+
+
+
 
 end tb;
 

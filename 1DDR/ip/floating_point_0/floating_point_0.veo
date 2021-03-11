@@ -58,9 +58,11 @@ floating_point_0 your_instance_name (
   .aclk(aclk),                                  // input wire aclk
   .s_axis_a_tvalid(s_axis_a_tvalid),            // input wire s_axis_a_tvalid
   .s_axis_a_tdata(s_axis_a_tdata),              // input wire [63 : 0] s_axis_a_tdata
+  .s_axis_a_tuser(s_axis_a_tuser),              // input wire [1 : 0] s_axis_a_tuser
   .s_axis_a_tlast(s_axis_a_tlast),              // input wire s_axis_a_tlast
   .m_axis_result_tvalid(m_axis_result_tvalid),  // output wire m_axis_result_tvalid
   .m_axis_result_tdata(m_axis_result_tdata),    // output wire [63 : 0] m_axis_result_tdata
+  .m_axis_result_tuser(m_axis_result_tuser),    // output wire [1 : 0] m_axis_result_tuser
   .m_axis_result_tlast(m_axis_result_tlast)    // output wire m_axis_result_tlast
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------

@@ -116,62 +116,80 @@ architecture Implementation of Forecast is
   -- Current state register and next state signal.
   signal state, state_next : state_t;
 
-  signal delayed_l_shipdate_valid        : std_logic;
-  signal delayed_l_shipdate_ready        : std_logic;
-  signal delayed_l_shipdate_dvalid       : std_logic;
-  signal delayed_l_shipdate_last         : std_logic;
-  signal delayed_l_shipdate              : std_logic_vector(63 downto 0);
+  signal delayed_l_shipdate_valid        : std_logic :='0';
+  signal delayed_l_shipdate_ready        : std_logic :='0';
+  signal delayed_l_shipdate_dvalid       : std_logic :='0';
+  signal delayed_l_shipdate_last         : std_logic :='0';
+  signal delayed_l_shipdate              : std_logic_vector(63 downto 0) := (others => '0');
+
+  signal conv_l_discount_valid        : std_logic :='0';
+  signal conv_l_discount_ready        : std_logic :='0';
+  signal conv_l_discount_dvalid        : std_logic :='0';
+  signal conv_l_discount_last         : std_logic :='0';
+  signal conv_l_discount              : std_logic_vector(63 downto 0) := (others => '0');
+
+  signal conv_l_extendedprice_valid        : std_logic :='0';
+  signal conv_l_extendedprice_ready        : std_logic :='0';
+  signal conv_l_extendedprice_dvalid        : std_logic :='0';
+  signal conv_l_extendedprice_last         : std_logic :='0';
+  signal conv_l_extendedprice              : std_logic_vector(63 downto 0) := (others => '0');
+
+  signal conv_l_quantity_valid        : std_logic :='0';
+  signal conv_l_quantity_ready        : std_logic :='0';
+  signal conv_l_quantity_dvalid        : std_logic :='0';
+  signal conv_l_quantity_last         : std_logic :='0';
+  signal conv_l_quantity              : std_logic_vector(63 downto 0) := (others => '0');
 
   -- Input filter stream 
   signal filter_in_ready        : std_logic;
 
   -- Output of filter stage
-  signal filter_out_valid       : std_logic;
-  signal filter_out_ready       : std_logic;
+  signal filter_out_valid       : std_logic :='0';
+  signal filter_out_ready       : std_logic :='0';
   signal filter_out_last        : std_logic;
   signal filter_out_strb        : std_logic;
   -- signal filter_out_strb        : std_logic;
 
   -- Sum output stream.
-  signal sum_out_valid          : std_logic;
-  signal sum_out_ready          : std_logic;
+  signal sum_out_valid          : std_logic :='0';
+  signal sum_out_ready          : std_logic :='0';
   signal sum_out_data           : std_logic_vector(63 downto 0);
 
   -- Sync inputs 
-  signal sync_1_valid          : std_logic;
-  signal sync_1_ready          : std_logic;
+  signal sync_1_valid          : std_logic :='0';
+  signal sync_1_ready          : std_logic :='0';
   signal sync_1_data           : std_logic;
-  signal sync_2_valid          : std_logic;
-  signal sync_2_ready          : std_logic;
+  signal sync_2_valid          : std_logic :='0';
+  signal sync_2_ready          : std_logic :='0';
   signal sync_2_data           : std_logic;
-  signal sync_3_valid          : std_logic;
-  signal sync_3_ready          : std_logic;
+  signal sync_3_valid          : std_logic :='0';
+  signal sync_3_ready          : std_logic :='0';
   signal sync_3_data           : std_logic;
 
 -- Outputs of operators
-  signal lessthan_out_ready          : std_logic;
-  signal lessthan_out_valid           : std_logic;
+  signal lessthan_out_ready          : std_logic :='0';
+  signal lessthan_out_valid           : std_logic :='0';
   signal lessthan_out_data           : std_logic_vector(63 downto 0);
 
-  signal between_out_ready          : std_logic;
-  signal between_out_valid           : std_logic;
+  signal between_out_ready          : std_logic :='0';
+  signal between_out_valid           : std_logic :='0';
   signal between_out_data           : std_logic_vector(63 downto 0);
 
-  signal date_engine_out_ready          : std_logic;
-  signal date_engine_out_valid           : std_logic;
+  signal date_engine_out_ready          : std_logic :='0';
+  signal date_engine_out_valid           : std_logic :='0';
   signal date_engine_out_data           : std_logic_vector(63 downto 0);
 --
-  signal reduce_in_ready          : std_logic;
-  signal reduce_in_valid           : std_logic;
+  signal reduce_in_ready          : std_logic :='0';
+  signal reduce_in_valid           : std_logic :='0';
   signal reduce_in_last            : std_logic;
   signal reduce_in_dvalid           : std_logic;
   signal reduce_in_data           : std_logic_vector(63 downto 0);
 
-  signal between_in_valid          : std_logic;
-  signal between_in_ready          : std_logic;
+  signal between_in_valid          : std_logic :='0';
+  signal between_in_ready          : std_logic :='0';
 
-  signal merge_discount_in_valid          : std_logic;
-  signal merge_discount_in_ready          : std_logic;
+  signal merge_discount_in_valid          : std_logic :='0';
+  signal merge_discount_in_ready          : std_logic :='0';
 
   signal out_predicate     : std_logic;
 
@@ -277,10 +295,97 @@ begin
   --      probe42(0) => done,
   --      probe43(0) => reduce_in_valid
   --);
+  --discount_in_buffer: StreamBuffer
+  --  generic map (
+  --    DATA_WIDTH                 => 66,
+  --    DEPTH                      => 64
+  --  )
+  --  port map (
+  --    clk                       => kcd_clk,
+  --    reset                     => kcd_reset or reset,
+
+  --    in_valid                  => l_discount_valid,
+  --    in_ready                  => l_discount_ready,
+  --    in_data(65)               => l_discount_last,
+  --    in_data(64)               => l_discount_dvalid,
+  --    in_data(63 downto 0)      => l_discount,
+
+  --    out_valid                 => conv_in_l_discount_valid,
+  --    out_ready                 => conv_in_l_discount_ready,
+  --    out_data(65)              => conv_in_l_discount_last,
+  --    out_data(64)              => conv_in_l_discount_dvalid,
+  --    out_data(63 downto 0)     => conv_in_l_discount
+
+  --  );
+   discount_converter: Float_to_Fixed
+    GENERIC MAP (
+        DATA_WIDTH => 64,
+        MIN_DEPTH => 16
+    )
+    PORT MAP (
+      clk                         => kcd_clk,
+      reset                       => kcd_reset or reset,
+
+      in_valid                    => l_discount_valid,
+      in_dvalid                   => l_discount_dvalid,
+      in_ready                    => l_discount_ready,
+      in_last                     => l_discount_last,
+      in_data                     => l_discount,
+
+      out_valid                   => conv_l_discount_valid,
+      out_dvalid                  => conv_l_discount_dvalid,
+      out_ready                   => conv_l_discount_ready,
+      out_last                    => conv_l_discount_last,
+      out_data                    => conv_l_discount
+    );
+   quantity_converter: Float_to_Fixed
+    GENERIC MAP (
+        DATA_WIDTH => 64,
+        MIN_DEPTH => 16
+    )
+    PORT MAP (
+      clk                         => kcd_clk,
+      reset                       => kcd_reset or reset,
+
+      in_valid                    => l_quantity_valid,
+      in_dvalid                   => l_quantity_dvalid,
+      in_ready                    => l_quantity_ready,
+      in_last                     => l_quantity_last,
+      in_data                     => l_quantity,
+
+      out_valid                   => conv_l_quantity_valid,
+      out_dvalid                  => conv_l_quantity_dvalid,
+      out_ready                   => conv_l_quantity_ready,
+      out_last                    => conv_l_quantity_last,
+      out_data                    => conv_l_quantity
+    );
+   extendedprice_converter: Float_to_Fixed
+    GENERIC MAP (
+        DATA_WIDTH => 64,
+        MIN_DEPTH => 16
+    )
+    PORT MAP (
+      clk                         => kcd_clk,
+      reset                       => kcd_reset or reset,
+
+      in_valid                    => l_extendedprice_valid,
+      in_dvalid                   => l_extendedprice_dvalid,
+      in_ready                    => l_extendedprice_ready,
+      in_last                     => l_extendedprice_last,
+      in_data                     => l_extendedprice,
+
+      out_valid                   => conv_l_extendedprice_valid,
+      out_dvalid                  => conv_l_extendedprice_dvalid,
+      out_ready                   => conv_l_extendedprice_ready,
+      out_last                    => conv_l_extendedprice_last,
+      out_data                    => conv_l_extendedprice
+    );
+
+  -- Delay the other input 
   date_dly: StreamSliceArray
     generic map (
       DATA_WIDTH                 => 66,
-      DEPTH                      => 6
+      DEPTH                      => 1
     )
     port map (
       clk                       => kcd_clk,
@@ -309,8 +414,8 @@ begin
       clk                       => kcd_clk,
       reset                     => kcd_reset or reset,
 
-      in_valid(0)               => l_discount_valid,
-      in_ready(0)               => l_discount_ready,
+      in_valid(0)               => conv_l_discount_valid,
+      in_ready(0)               => conv_l_discount_ready,
 
 
       out_valid(0)              => between_in_valid,
@@ -330,11 +435,11 @@ begin
       clk                       => kcd_clk,
       reset                     => kcd_reset or reset,
 
-      in_valid                  => l_quantity_valid,
-      in_dvalid                 => l_quantity_dvalid,
-      in_ready                  => l_quantity_ready,
-      in_last                   => l_quantity_last,
-      in_data                   => l_quantity,
+      in_valid                  => conv_l_quantity_valid,
+      in_dvalid                 => conv_l_quantity_dvalid,
+      in_ready                  => conv_l_quantity_ready,
+      in_last                   => conv_l_quantity_last,
+      in_data                   => conv_l_quantity,
       
       out_valid                 => lessthan_out_valid,
       out_ready                 => lessthan_out_ready,
@@ -352,10 +457,10 @@ begin
       reset                     => kcd_reset or reset,
 
       in_valid                  => between_in_valid,
-      in_dvalid                 => l_discount_dvalid,
+      in_dvalid                 => conv_l_discount_dvalid,
       in_ready                  => between_in_ready,
-      in_last                   => l_discount_last,
-      in_data                   => l_discount,
+      in_last                   => conv_l_discount_last,
+      in_data                   => conv_l_discount,
       
       out_valid                 => between_out_valid,
       out_ready                 => between_out_ready,
@@ -432,7 +537,7 @@ begin
      FIXED_LEFT_INDEX          => FIXED_LEFT_INDEX,
      FIXED_RIGHT_INDEX         => FIXED_RIGHT_INDEX,
      DATA_WIDTH                 => 64,
-     MIN_DEPTH                  => 64,
+     MIN_DEPTH                  => 16,
      DATA_TYPE                  => "FLOAT64"
    )
    port map (
@@ -440,16 +545,16 @@ begin
      reset                     => kcd_reset or reset,
      
      op1_valid                 => merge_discount_in_valid,
-     op1_last                  => l_discount_last,
+     op1_last                  => conv_l_discount_last,
      op1_ready                 => merge_discount_in_ready,
-     op1_dvalid                => l_discount_dvalid,
-     op1_data                  => l_discount,
+     op1_dvalid                => conv_l_discount_dvalid,
+     op1_data                  => conv_l_discount,
      
-     op2_valid                 => l_extendedprice_valid,
-     op2_last                  => l_extendedprice_last,
-     op2_ready                 => l_extendedprice_ready,
-     op2_dvalid                => l_extendedprice_dvalid,
-     op2_data                  => l_extendedprice,
+     op2_valid                 => conv_l_extendedprice_valid,
+     op2_last                  => conv_l_extendedprice_last,
+     op2_ready                 => conv_l_extendedprice_ready,
+     op2_dvalid                => conv_l_extendedprice_dvalid,
+     op2_data                  => conv_l_extendedprice,
      
      out_valid                 => reduce_in_valid,
      out_last                  => reduce_in_last,
