@@ -65,6 +65,11 @@ read_verilog -sv [ list \
 
 puts "AWS FPGA: Reading IP blocks";
 
+#Read FLOATING IP
+read_ip [ list \
+  $CL_DIR/ip/floating_point_0/floating_point_0.xci
+]
+
 #Read DDR IP
 read_ip [ list \
   $HDK_SHELL_DESIGN_DIR/ip/ddr4_core/ddr4_core.xci 
