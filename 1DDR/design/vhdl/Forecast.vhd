@@ -382,28 +382,28 @@ begin
     );
 
   -- Delay the other input 
-  date_dly: StreamSliceArray
-    generic map (
-      DATA_WIDTH                 => 66,
-      DEPTH                      => 1
-    )
-    port map (
-      clk                       => kcd_clk,
-      reset                     => kcd_reset or reset,
+  --date_dly: StreamSliceArray
+  --  generic map (
+  --    DATA_WIDTH                 => 66,
+  --    DEPTH                      => 1
+  --  )
+  --  port map (
+  --    clk                       => kcd_clk,
+  --    reset                     => kcd_reset or reset,
 
-      in_valid                  => l_shipdate_valid,
-      in_ready                  => l_shipdate_ready,
-      in_data(65)               => l_shipdate_last,
-      in_data(64)               => l_shipdate_dvalid,
-      in_data(63 downto 0)      => l_shipdate,
+  --    in_valid                  => l_shipdate_valid,
+  --    in_ready                  => l_shipdate_ready,
+  --    in_data(65)               => l_shipdate_last,
+  --    in_data(64)               => l_shipdate_dvalid,
+  --    in_data(63 downto 0)      => l_shipdate,
 
-      out_valid                 => delayed_l_shipdate_valid,
-      out_ready                 => delayed_l_shipdate_ready,
-      out_data(65)              => delayed_l_shipdate_last,
-      out_data(64)              => delayed_l_shipdate_dvalid,
-      out_data(63 downto 0)     => delayed_l_shipdate
+  --    out_valid                 => delayed_l_shipdate_valid,
+  --    out_ready                 => delayed_l_shipdate_ready,
+  --    out_data(65)              => delayed_l_shipdate_last,
+  --    out_data(64)              => delayed_l_shipdate_dvalid,
+  --    out_data(63 downto 0)     => delayed_l_shipdate
 
-    );
+  --  );
 
   discount_sync: StreamSync
     generic map (
@@ -477,11 +477,11 @@ begin
       clk                       => kcd_clk,
       reset                     => kcd_reset or reset,
 
-      in_valid                  => delayed_l_shipdate_valid,
-      in_dvalid                 => delayed_l_shipdate_dvalid,
-      in_ready                  => delayed_l_shipdate_ready,
-      in_last                   => delayed_l_shipdate_last,
-      in_data                   => delayed_l_shipdate,
+      in_valid                  => l_shipdate_valid,
+      in_dvalid                 => l_shipdate_dvalid,
+      in_ready                  => l_shipdate_ready,
+      in_last                   => l_shipdate_last,
+      in_data                   => l_shipdate,
       
       out_valid                 => date_engine_out_valid,
       out_ready                 => date_engine_out_ready,
