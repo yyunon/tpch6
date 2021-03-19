@@ -48,6 +48,8 @@ ${CL_ROOT}/design/vhdl/hardware/parallel_patterns/ReduceStream.vhd
 ${CL_ROOT}/design/vhdl/Forecast_pkg.vhd
 ${CL_ROOT}/design/vhdl/SumOp.vhd
 ${CL_ROOT}/design/vhdl/ReduceStage.vhd
+${CL_ROOT}/design/vhdl/PU.vhd
+${CL_ROOT}/design/vhdl/ReduceMultiStreams.vhd
 ${CL_ROOT}/design/vhdl/hardware/vhlib/stream/StreamSync.vhd
 ${CL_ROOT}/design/vhdl/hardware/vhlib/util/UtilRam1R1W.vhd
 ${CL_ROOT}/design/vhdl/hardware/vhlib/stream/StreamFIFOCounter.vhd
