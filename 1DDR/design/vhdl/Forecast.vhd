@@ -184,6 +184,25 @@ architecture Implementation of Forecast is
   signal dec_l_quantity_dvalid      : std_logic;
   signal dec_l_quantity_last        : std_logic;
   signal dec_l_quantity             : std_logic_vector(DATA_WIDTH * EPC - 1 downto 0);
+
+  signal dec_l_quantity_dvalid_0        : std_logic;
+  signal dec_l_quantity_dvalid_1        : std_logic;
+  signal dec_l_quantity_dvalid_2        : std_logic;
+  signal dec_l_quantity_dvalid_3        : std_logic;
+  signal dec_l_quantity_dvalid_4        : std_logic;
+  signal dec_l_quantity_dvalid_5        : std_logic;
+  signal dec_l_quantity_dvalid_6        : std_logic;
+  signal dec_l_quantity_dvalid_7        : std_logic;
+
+  signal dec_l_quantity_last_0        : std_logic;
+  signal dec_l_quantity_last_1        : std_logic;
+  signal dec_l_quantity_last_2        : std_logic;
+  signal dec_l_quantity_last_3        : std_logic;
+  signal dec_l_quantity_last_4        : std_logic;
+  signal dec_l_quantity_last_5        : std_logic;
+  signal dec_l_quantity_last_6        : std_logic;
+  signal dec_l_quantity_last_7        : std_logic;
+
   signal dec_l_quantity_0             : std_logic_vector(DATA_WIDTH - 1 downto 0);
   signal dec_l_quantity_1             : std_logic_vector(DATA_WIDTH - 1 downto 0);
   signal dec_l_quantity_2            : std_logic_vector(DATA_WIDTH - 1 downto 0);
@@ -198,6 +217,25 @@ architecture Implementation of Forecast is
   signal dec_l_discount_dvalid      : std_logic;
   signal dec_l_discount_last        : std_logic;
   signal dec_l_discount             : std_logic_vector(DATA_WIDTH * EPC - 1 downto 0);
+
+  signal dec_l_discount_dvalid_0        : std_logic;
+  signal dec_l_discount_dvalid_1        : std_logic;
+  signal dec_l_discount_dvalid_2        : std_logic;
+  signal dec_l_discount_dvalid_3        : std_logic;
+  signal dec_l_discount_dvalid_4        : std_logic;
+  signal dec_l_discount_dvalid_5        : std_logic;
+  signal dec_l_discount_dvalid_6        : std_logic;
+  signal dec_l_discount_dvalid_7        : std_logic;
+
+  signal dec_l_discount_last_0        : std_logic;
+  signal dec_l_discount_last_1        : std_logic;
+  signal dec_l_discount_last_2        : std_logic;
+  signal dec_l_discount_last_3        : std_logic;
+  signal dec_l_discount_last_4        : std_logic;
+  signal dec_l_discount_last_5        : std_logic;
+  signal dec_l_discount_last_6        : std_logic;
+  signal dec_l_discount_last_7        : std_logic;
+
   signal dec_l_discount_0             : std_logic_vector(DATA_WIDTH - 1 downto 0);
   signal dec_l_discount_1             : std_logic_vector(DATA_WIDTH - 1 downto 0);
   signal dec_l_discount_2            : std_logic_vector(DATA_WIDTH - 1 downto 0);
@@ -212,6 +250,26 @@ architecture Implementation of Forecast is
   signal dec_l_extendedprice_dvalid : std_logic;
   signal dec_l_extendedprice_last   : std_logic;
   signal dec_l_extendedprice        : std_logic_vector(DATA_WIDTH * EPC - 1 downto 0);
+
+
+  signal dec_l_extendedprice_dvalid_0        : std_logic;
+  signal dec_l_extendedprice_dvalid_1        : std_logic;
+  signal dec_l_extendedprice_dvalid_2        : std_logic;
+  signal dec_l_extendedprice_dvalid_3        : std_logic;
+  signal dec_l_extendedprice_dvalid_4        : std_logic;
+  signal dec_l_extendedprice_dvalid_5        : std_logic;
+  signal dec_l_extendedprice_dvalid_6        : std_logic;
+  signal dec_l_extendedprice_dvalid_7        : std_logic;
+
+  signal dec_l_extendedprice_last_0        : std_logic;
+  signal dec_l_extendedprice_last_1        : std_logic;
+  signal dec_l_extendedprice_last_2        : std_logic;
+  signal dec_l_extendedprice_last_3        : std_logic;
+  signal dec_l_extendedprice_last_4        : std_logic;
+  signal dec_l_extendedprice_last_5        : std_logic;
+  signal dec_l_extendedprice_last_6        : std_logic;
+  signal dec_l_extendedprice_last_7        : std_logic;
+
   signal dec_l_extendedprice_0             : std_logic_vector(DATA_WIDTH - 1 downto 0);
   signal dec_l_extendedprice_1             : std_logic_vector(DATA_WIDTH - 1 downto 0);
   signal dec_l_extendedprice_2            : std_logic_vector(DATA_WIDTH - 1 downto 0);
@@ -226,6 +284,25 @@ architecture Implementation of Forecast is
   signal dec_l_shipdate_dvalid      : std_logic;
   signal dec_l_shipdate_last        : std_logic;
   signal dec_l_shipdate             : std_logic_vector(DATA_WIDTH * EPC - 1 downto 0);
+
+  signal dec_l_shipdate_dvalid_0        : std_logic;
+  signal dec_l_shipdate_dvalid_1        : std_logic;
+  signal dec_l_shipdate_dvalid_2        : std_logic;
+  signal dec_l_shipdate_dvalid_3        : std_logic;
+  signal dec_l_shipdate_dvalid_4        : std_logic;
+  signal dec_l_shipdate_dvalid_5        : std_logic;
+  signal dec_l_shipdate_dvalid_6        : std_logic;
+  signal dec_l_shipdate_dvalid_7        : std_logic;
+
+  signal dec_l_shipdate_last_0        : std_logic;
+  signal dec_l_shipdate_last_1        : std_logic;
+  signal dec_l_shipdate_last_2        : std_logic;
+  signal dec_l_shipdate_last_3        : std_logic;
+  signal dec_l_shipdate_last_4        : std_logic;
+  signal dec_l_shipdate_last_5        : std_logic;
+  signal dec_l_shipdate_last_6        : std_logic;
+  signal dec_l_shipdate_last_7        : std_logic;
+
   signal dec_l_shipdate_0             : std_logic_vector(DATA_WIDTH - 1 downto 0);
   signal dec_l_shipdate_1             : std_logic_vector(DATA_WIDTH - 1 downto 0);
   signal dec_l_shipdate_2            : std_logic_vector(DATA_WIDTH - 1 downto 0);
@@ -537,8 +614,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_discount_0,
         out_valid                        => dec_l_discount_valid(0),
         out_ready                        => dec_l_discount_ready(0),
-        out_data(DATA_WIDTH + 1)         => dec_l_discount_last,
-        out_data(DATA_WIDTH)             => dec_l_discount_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_discount_last_0,
+        out_data(DATA_WIDTH)             => dec_l_discount_dvalid_0,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_discount_0
       );
     quantity_buffer_pu_0: StreamBuffer
@@ -556,8 +633,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_quantity_0,
         out_valid                        => dec_l_quantity_valid(0),
         out_ready                        => dec_l_quantity_ready(0),
-        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last,
-        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last_0,
+        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid_0,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_quantity_0
       );
     extendedprice_buffer_pu_0: StreamBuffer
@@ -575,8 +652,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_extendedprice_0,
         out_valid                        => dec_l_extendedprice_valid(0),
         out_ready                        => dec_l_extendedprice_ready(0),
-        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last,
-        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last_0,
+        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid_0,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_extendedprice_0
       );
     shipdate_buffer_pu_0: StreamBuffer
@@ -594,8 +671,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_shipdate_0,
         out_valid                        => dec_l_shipdate_valid(0),
         out_ready                        => dec_l_shipdate_ready(0),
-        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last,
-        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last_0,
+        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid_0,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_shipdate_0
       );
     processing_unit_0: PU
@@ -618,20 +695,20 @@ begin
 
         l_extendedprice_valid        => dec_l_extendedprice_valid(0), 
         l_extendedprice_ready        => dec_l_extendedprice_ready(0),
-        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid,
-        l_extendedprice_last         => dec_l_extendedprice_last,
+        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid_0,
+        l_extendedprice_last         => dec_l_extendedprice_last_0,
         l_extendedprice              => dec_l_extendedprice_0,
 
         l_discount_valid             => dec_l_discount_valid(0), 
         l_discount_ready             => dec_l_discount_ready(0),
-        l_discount_dvalid            => dec_l_discount_dvalid,
-        l_discount_last              => dec_l_discount_last,
+        l_discount_dvalid            => dec_l_discount_dvalid_0,
+        l_discount_last              => dec_l_discount_last_0,
         l_discount                   => dec_l_discount_0,
 
         l_shipdate_valid             => dec_l_shipdate_valid(0), 
         l_shipdate_ready             => dec_l_shipdate_ready(0),
-        l_shipdate_dvalid            => dec_l_shipdate_dvalid,
-        l_shipdate_last              => dec_l_shipdate_last,
+        l_shipdate_dvalid            => dec_l_shipdate_dvalid_0,
+        l_shipdate_last              => dec_l_shipdate_last_0,
         l_shipdate                   => dec_l_shipdate_0,
 
         sum_out_valid                => sum_out_valid_stages(0),
@@ -657,8 +734,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_discount_1,
         out_valid                        => dec_l_discount_valid(1),
         out_ready                        => dec_l_discount_ready(1),
-        out_data(DATA_WIDTH + 1)         => dec_l_discount_last,
-        out_data(DATA_WIDTH)             => dec_l_discount_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_discount_last_1,
+        out_data(DATA_WIDTH)             => dec_l_discount_dvalid_1,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_discount_1
       );
     quantity_buffer_pu_1: StreamBuffer
@@ -676,8 +753,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_quantity_1,
         out_valid                        => dec_l_quantity_valid(1),
         out_ready                        => dec_l_quantity_ready(1),
-        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last,
-        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last_1,
+        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid_1,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_quantity_1
       );
     extendedprice_buffer_pu_1: StreamBuffer
@@ -695,8 +772,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_extendedprice_1,
         out_valid                        => dec_l_extendedprice_valid(1),
         out_ready                        => dec_l_extendedprice_ready(1),
-        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last,
-        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last_1,
+        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid_1,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_extendedprice_1
       );
     shipdate_buffer_pu_1: StreamBuffer
@@ -714,8 +791,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_shipdate_1,
         out_valid                        => dec_l_shipdate_valid(1),
         out_ready                        => dec_l_shipdate_ready(1),
-        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last,
-        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last_1,
+        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid_1,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_shipdate_1
       );
     processing_unit_1: PU
@@ -732,26 +809,26 @@ begin
         
         l_quantity_valid             => dec_l_quantity_valid(1), 
         l_quantity_ready             => dec_l_quantity_ready(1),
-        l_quantity_dvalid            => dec_l_quantity_dvalid,
-        l_quantity_last              => dec_l_quantity_last,
+        l_quantity_dvalid            => dec_l_quantity_dvalid_1,
+        l_quantity_last              => dec_l_quantity_last_1,
         l_quantity                   => dec_l_quantity_1,
 
         l_extendedprice_valid        => dec_l_extendedprice_valid(1), 
         l_extendedprice_ready        => dec_l_extendedprice_ready(1),
-        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid,
-        l_extendedprice_last         => dec_l_extendedprice_last,
+        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid_1,
+        l_extendedprice_last         => dec_l_extendedprice_last_1,
         l_extendedprice              => dec_l_extendedprice_1,
 
         l_discount_valid             => dec_l_discount_valid(1), 
         l_discount_ready             => dec_l_discount_ready(1),
-        l_discount_dvalid            => dec_l_discount_dvalid,
-        l_discount_last              => dec_l_discount_last,
+        l_discount_dvalid            => dec_l_discount_dvalid_1,
+        l_discount_last              => dec_l_discount_last_1,
         l_discount                   => dec_l_discount_1,
 
         l_shipdate_valid             => dec_l_shipdate_valid(1), 
         l_shipdate_ready             => dec_l_shipdate_ready(1),
-        l_shipdate_dvalid            => dec_l_shipdate_dvalid,
-        l_shipdate_last              => dec_l_shipdate_last,
+        l_shipdate_dvalid            => dec_l_shipdate_dvalid_1,
+        l_shipdate_last              => dec_l_shipdate_last_1,
         l_shipdate                   => dec_l_shipdate_1,
 
         sum_out_valid                => sum_out_valid_stages(1),
@@ -777,8 +854,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_discount_2,
         out_valid                        => dec_l_discount_valid(2),
         out_ready                        => dec_l_discount_ready(2),
-        out_data(DATA_WIDTH + 1)         => dec_l_discount_last,
-        out_data(DATA_WIDTH)             => dec_l_discount_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_discount_last_2,
+        out_data(DATA_WIDTH)             => dec_l_discount_dvalid_2,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_discount_2
       );
     quantity_buffer_pu_2: StreamBuffer
@@ -796,8 +873,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_quantity_2,
         out_valid                        => dec_l_quantity_valid(2),
         out_ready                        => dec_l_quantity_ready(2),
-        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last,
-        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last_2,
+        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid_2,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_quantity_2
       );
     extendedprice_buffer_pu_2: StreamBuffer
@@ -815,8 +892,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_extendedprice_2,
         out_valid                        => dec_l_extendedprice_valid(2),
         out_ready                        => dec_l_extendedprice_ready(2),
-        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last,
-        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last_2,
+        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid_2,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_extendedprice_2
       );
     shipdate_buffer_pu_2: StreamBuffer
@@ -834,8 +911,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_shipdate_2,
         out_valid                        => dec_l_shipdate_valid(2),
         out_ready                        => dec_l_shipdate_ready(2),
-        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last,
-        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last_2,
+        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid_2,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_shipdate_2
       );
     processing_unit_2: PU
@@ -852,26 +929,26 @@ begin
         
         l_quantity_valid             => dec_l_quantity_valid(2), 
         l_quantity_ready             => dec_l_quantity_ready(2),
-        l_quantity_dvalid            => dec_l_quantity_dvalid,
-        l_quantity_last              => dec_l_quantity_last,
+        l_quantity_dvalid            => dec_l_quantity_dvalid_2,
+        l_quantity_last              => dec_l_quantity_last_2,
         l_quantity                   => dec_l_quantity_2,
 
         l_extendedprice_valid        => dec_l_extendedprice_valid(2), 
         l_extendedprice_ready        => dec_l_extendedprice_ready(2),
-        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid,
-        l_extendedprice_last         => dec_l_extendedprice_last,
+        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid_2,
+        l_extendedprice_last         => dec_l_extendedprice_last_2,
         l_extendedprice              => dec_l_extendedprice_2,
 
         l_discount_valid             => dec_l_discount_valid(2), 
         l_discount_ready             => dec_l_discount_ready(2),
-        l_discount_dvalid            => dec_l_discount_dvalid,
-        l_discount_last              => dec_l_discount_last,
+        l_discount_dvalid            => dec_l_discount_dvalid_2,
+        l_discount_last              => dec_l_discount_last_2,
         l_discount                   => dec_l_discount_2,
 
         l_shipdate_valid             => dec_l_shipdate_valid(2), 
         l_shipdate_ready             => dec_l_shipdate_ready(2),
-        l_shipdate_dvalid            => dec_l_shipdate_dvalid,
-        l_shipdate_last              => dec_l_shipdate_last,
+        l_shipdate_dvalid            => dec_l_shipdate_dvalid_2,
+        l_shipdate_last              => dec_l_shipdate_last_2,
         l_shipdate                   => dec_l_shipdate_2,
 
         sum_out_valid                => sum_out_valid_stages(2),
@@ -897,8 +974,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_discount_3,
         out_valid                        => dec_l_discount_valid(3),
         out_ready                        => dec_l_discount_ready(3),
-        out_data(DATA_WIDTH + 1)         => dec_l_discount_last,
-        out_data(DATA_WIDTH)             => dec_l_discount_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_discount_last_3,
+        out_data(DATA_WIDTH)             => dec_l_discount_dvalid_3,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_discount_3
       );
     quantity_buffer_pu_3: StreamBuffer
@@ -916,8 +993,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_quantity_3,
         out_valid                        => dec_l_quantity_valid(3),
         out_ready                        => dec_l_quantity_ready(3),
-        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last,
-        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last_3,
+        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid_3,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_quantity_3
       );
     extendedprice_buffer_pu_3: StreamBuffer
@@ -935,8 +1012,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_extendedprice_3,
         out_valid                        => dec_l_extendedprice_valid(3),
         out_ready                        => dec_l_extendedprice_ready(3),
-        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last,
-        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last_3,
+        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid_3,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_extendedprice_3
       );
     shipdate_buffer_pu_3: StreamBuffer
@@ -954,8 +1031,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_shipdate_3,
         out_valid                        => dec_l_shipdate_valid(3),
         out_ready                        => dec_l_shipdate_ready(3),
-        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last,
-        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last_3,
+        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid_3,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_shipdate_3
       );
     processing_unit_3: PU
@@ -972,26 +1049,26 @@ begin
         
         l_quantity_valid             => dec_l_quantity_valid(3), 
         l_quantity_ready             => dec_l_quantity_ready(3),
-        l_quantity_dvalid            => dec_l_quantity_dvalid,
-        l_quantity_last              => dec_l_quantity_last,
+        l_quantity_dvalid            => dec_l_quantity_dvalid_3,
+        l_quantity_last              => dec_l_quantity_last_3,
         l_quantity                   => dec_l_quantity_3,
 
         l_extendedprice_valid        => dec_l_extendedprice_valid(3), 
         l_extendedprice_ready        => dec_l_extendedprice_ready(3),
-        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid,
-        l_extendedprice_last         => dec_l_extendedprice_last,
+        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid_3,
+        l_extendedprice_last         => dec_l_extendedprice_last_3,
         l_extendedprice              => dec_l_extendedprice_3,
 
         l_discount_valid             => dec_l_discount_valid(3), 
         l_discount_ready             => dec_l_discount_ready(3),
-        l_discount_dvalid            => dec_l_discount_dvalid,
-        l_discount_last              => dec_l_discount_last,
+        l_discount_dvalid            => dec_l_discount_dvalid_3,
+        l_discount_last              => dec_l_discount_last_3,
         l_discount                   => dec_l_discount_3,
 
         l_shipdate_valid             => dec_l_shipdate_valid(3), 
         l_shipdate_ready             => dec_l_shipdate_ready(3),
-        l_shipdate_dvalid            => dec_l_shipdate_dvalid,
-        l_shipdate_last              => dec_l_shipdate_last,
+        l_shipdate_dvalid            => dec_l_shipdate_dvalid_3,
+        l_shipdate_last              => dec_l_shipdate_last_3,
         l_shipdate                   => dec_l_shipdate_3,
 
         sum_out_valid                => sum_out_valid_stages(3),
@@ -1017,8 +1094,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_discount_4,
         out_valid                        => dec_l_discount_valid(4),
         out_ready                        => dec_l_discount_ready(4),
-        out_data(DATA_WIDTH + 1)         => dec_l_discount_last,
-        out_data(DATA_WIDTH)             => dec_l_discount_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_discount_last_4,
+        out_data(DATA_WIDTH)             => dec_l_discount_dvalid_4,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_discount_4
       );
     quantity_buffer_pu_4: StreamBuffer
@@ -1036,8 +1113,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_quantity_4,
         out_valid                        => dec_l_quantity_valid(4),
         out_ready                        => dec_l_quantity_ready(4),
-        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last,
-        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last_4,
+        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid_4,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_quantity_4
       );
     extendedprice_buffer_pu_4: StreamBuffer
@@ -1055,8 +1132,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_extendedprice_4,
         out_valid                        => dec_l_extendedprice_valid(4),
         out_ready                        => dec_l_extendedprice_ready(4),
-        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last,
-        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last_4,
+        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid_4,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_extendedprice_4
       );
     shipdate_buffer_pu_4: StreamBuffer
@@ -1074,8 +1151,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_shipdate_4,
         out_valid                        => dec_l_shipdate_valid(4),
         out_ready                        => dec_l_shipdate_ready(4),
-        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last,
-        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last_4,
+        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid_4,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_shipdate_4
       );
     processing_unit_4: PU
@@ -1092,26 +1169,26 @@ begin
         
         l_quantity_valid             => dec_l_quantity_valid(4), 
         l_quantity_ready             => dec_l_quantity_ready(4),
-        l_quantity_dvalid            => dec_l_quantity_dvalid,
-        l_quantity_last              => dec_l_quantity_last,
+        l_quantity_dvalid            => dec_l_quantity_dvalid_4,
+        l_quantity_last              => dec_l_quantity_last_4,
         l_quantity                   => dec_l_quantity_4,
 
         l_extendedprice_valid        => dec_l_extendedprice_valid(4), 
         l_extendedprice_ready        => dec_l_extendedprice_ready(4),
-        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid,
-        l_extendedprice_last         => dec_l_extendedprice_last,
+        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid_4,
+        l_extendedprice_last         => dec_l_extendedprice_last_4,
         l_extendedprice              => dec_l_extendedprice_4,
 
         l_discount_valid             => dec_l_discount_valid(4), 
         l_discount_ready             => dec_l_discount_ready(4),
-        l_discount_dvalid            => dec_l_discount_dvalid,
-        l_discount_last              => dec_l_discount_last,
+        l_discount_dvalid            => dec_l_discount_dvalid_4,
+        l_discount_last              => dec_l_discount_last_4,
         l_discount                   => dec_l_discount_4,
 
         l_shipdate_valid             => dec_l_shipdate_valid(4), 
         l_shipdate_ready             => dec_l_shipdate_ready(4),
-        l_shipdate_dvalid            => dec_l_shipdate_dvalid,
-        l_shipdate_last              => dec_l_shipdate_last,
+        l_shipdate_dvalid            => dec_l_shipdate_dvalid_4,
+        l_shipdate_last              => dec_l_shipdate_last_4,
         l_shipdate                   => dec_l_shipdate_4,
 
         sum_out_valid                => sum_out_valid_stages(4),
@@ -1137,8 +1214,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_discount_5,
         out_valid                        => dec_l_discount_valid(5),
         out_ready                        => dec_l_discount_ready(5),
-        out_data(DATA_WIDTH + 1)         => dec_l_discount_last,
-        out_data(DATA_WIDTH)             => dec_l_discount_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_discount_last_5,
+        out_data(DATA_WIDTH)             => dec_l_discount_dvalid_5,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_discount_5
       );
     quantity_buffer_pu_5: StreamBuffer
@@ -1156,8 +1233,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_quantity_5,
         out_valid                        => dec_l_quantity_valid(5),
         out_ready                        => dec_l_quantity_ready(5),
-        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last,
-        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last_5,
+        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid_5,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_quantity_5
       );
     extendedprice_buffer_pu_5: StreamBuffer
@@ -1175,8 +1252,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_extendedprice_5,
         out_valid                        => dec_l_extendedprice_valid(5),
         out_ready                        => dec_l_extendedprice_ready(5),
-        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last,
-        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last_5,
+        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid_5,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_extendedprice_5
       );
     shipdate_buffer_pu_5: StreamBuffer
@@ -1194,8 +1271,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_shipdate_5,
         out_valid                        => dec_l_shipdate_valid(5),
         out_ready                        => dec_l_shipdate_ready(5),
-        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last,
-        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last_5,
+        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid_5,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_shipdate_5
       );
     processing_unit_5: PU
@@ -1212,26 +1289,26 @@ begin
         
         l_quantity_valid             => dec_l_quantity_valid(5), 
         l_quantity_ready             => dec_l_quantity_ready(5),
-        l_quantity_dvalid            => dec_l_quantity_dvalid,
-        l_quantity_last              => dec_l_quantity_last,
+        l_quantity_dvalid            => dec_l_quantity_dvalid_5,
+        l_quantity_last              => dec_l_quantity_last_5,
         l_quantity                   => dec_l_quantity_5,
 
         l_extendedprice_valid        => dec_l_extendedprice_valid(5), 
         l_extendedprice_ready        => dec_l_extendedprice_ready(5),
-        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid,
-        l_extendedprice_last         => dec_l_extendedprice_last,
+        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid_5,
+        l_extendedprice_last         => dec_l_extendedprice_last_5,
         l_extendedprice              => dec_l_extendedprice_5,
 
         l_discount_valid             => dec_l_discount_valid(5), 
         l_discount_ready             => dec_l_discount_ready(5),
-        l_discount_dvalid            => dec_l_discount_dvalid,
-        l_discount_last              => dec_l_discount_last,
+        l_discount_dvalid            => dec_l_discount_dvalid_5,
+        l_discount_last              => dec_l_discount_last_5,
         l_discount                   => dec_l_discount_5,
 
         l_shipdate_valid             => dec_l_shipdate_valid(5), 
         l_shipdate_ready             => dec_l_shipdate_ready(5),
-        l_shipdate_dvalid            => dec_l_shipdate_dvalid,
-        l_shipdate_last              => dec_l_shipdate_last,
+        l_shipdate_dvalid            => dec_l_shipdate_dvalid_5,
+        l_shipdate_last              => dec_l_shipdate_last_5,
         l_shipdate                   => dec_l_shipdate_5,
 
         sum_out_valid                => sum_out_valid_stages(5),
@@ -1257,8 +1334,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_discount_6,
         out_valid                        => dec_l_discount_valid(6),
         out_ready                        => dec_l_discount_ready(6),
-        out_data(DATA_WIDTH + 1)         => dec_l_discount_last,
-        out_data(DATA_WIDTH)             => dec_l_discount_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_discount_last_6,
+        out_data(DATA_WIDTH)             => dec_l_discount_dvalid_6,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_discount_6
       );
     quantity_buffer_pu_6: StreamBuffer
@@ -1276,8 +1353,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_quantity_6,
         out_valid                        => dec_l_quantity_valid(6),
         out_ready                        => dec_l_quantity_ready(6),
-        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last,
-        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last_6,
+        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid_6,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_quantity_6
       );
     extendedprice_buffer_pu_6: StreamBuffer
@@ -1295,8 +1372,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_extendedprice_6,
         out_valid                        => dec_l_extendedprice_valid(6),
         out_ready                        => dec_l_extendedprice_ready(6),
-        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last,
-        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last_6,
+        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid_6,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_extendedprice_6
       );
     shipdate_buffer_pu_6: StreamBuffer
@@ -1314,8 +1391,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_shipdate_6,
         out_valid                        => dec_l_shipdate_valid(6),
         out_ready                        => dec_l_shipdate_ready(6),
-        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last,
-        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last_6,
+        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid_6,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_shipdate_6
       );
     processing_unit_6: PU
@@ -1332,26 +1409,26 @@ begin
         
         l_quantity_valid             => dec_l_quantity_valid(6), 
         l_quantity_ready             => dec_l_quantity_ready(6),
-        l_quantity_dvalid            => dec_l_quantity_dvalid,
-        l_quantity_last              => dec_l_quantity_last,
+        l_quantity_dvalid            => dec_l_quantity_dvalid_6,
+        l_quantity_last              => dec_l_quantity_last_6,
         l_quantity                   => dec_l_quantity_6,
 
         l_extendedprice_valid        => dec_l_extendedprice_valid(6), 
         l_extendedprice_ready        => dec_l_extendedprice_ready(6),
-        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid,
-        l_extendedprice_last         => dec_l_extendedprice_last,
+        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid_6,
+        l_extendedprice_last         => dec_l_extendedprice_last_6,
         l_extendedprice              => dec_l_extendedprice_6,
 
         l_discount_valid             => dec_l_discount_valid(6), 
         l_discount_ready             => dec_l_discount_ready(6),
-        l_discount_dvalid            => dec_l_discount_dvalid,
-        l_discount_last              => dec_l_discount_last,
+        l_discount_dvalid            => dec_l_discount_dvalid_6,
+        l_discount_last              => dec_l_discount_last_6,
         l_discount                   => dec_l_discount_6,
 
         l_shipdate_valid             => dec_l_shipdate_valid(6), 
         l_shipdate_ready             => dec_l_shipdate_ready(6),
-        l_shipdate_dvalid            => dec_l_shipdate_dvalid,
-        l_shipdate_last              => dec_l_shipdate_last,
+        l_shipdate_dvalid            => dec_l_shipdate_dvalid_6,
+        l_shipdate_last              => dec_l_shipdate_last_6,
         l_shipdate                   => dec_l_shipdate_6,
 
         sum_out_valid                => sum_out_valid_stages(6),
@@ -1377,8 +1454,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_discount_7,
         out_valid                        => dec_l_discount_valid(7),
         out_ready                        => dec_l_discount_ready(7),
-        out_data(DATA_WIDTH + 1)         => dec_l_discount_last,
-        out_data(DATA_WIDTH)             => dec_l_discount_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_discount_last_7,
+        out_data(DATA_WIDTH)             => dec_l_discount_dvalid_7,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_discount_7
       );
     quantity_buffer_pu_7: StreamBuffer
@@ -1396,8 +1473,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_quantity_7,
         out_valid                        => dec_l_quantity_valid(7),
         out_ready                        => dec_l_quantity_ready(7),
-        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last,
-        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last_7,
+        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid_7,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_quantity_7
       );
     extendedprice_buffer_pu_7: StreamBuffer
@@ -1415,8 +1492,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_extendedprice_7,
         out_valid                        => dec_l_extendedprice_valid(7),
         out_ready                        => dec_l_extendedprice_ready(7),
-        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last,
-        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last_7,
+        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid_7,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_extendedprice_7
       );
     shipdate_buffer_pu_7: StreamBuffer
@@ -1434,8 +1511,8 @@ begin
         in_data(DATA_WIDTH - 1 downto 0) => buf_l_shipdate_7,
         out_valid                        => dec_l_shipdate_valid(7),
         out_ready                        => dec_l_shipdate_ready(7),
-        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last,
-        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid,
+        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last_7,
+        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid_7,
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_shipdate_7
       );
     processing_unit_7: PU
@@ -1452,26 +1529,26 @@ begin
         
         l_quantity_valid             => dec_l_quantity_valid(7), 
         l_quantity_ready             => dec_l_quantity_ready(7),
-        l_quantity_dvalid            => dec_l_quantity_dvalid,
-        l_quantity_last              => dec_l_quantity_last,
+        l_quantity_dvalid            => dec_l_quantity_dvalid_7,
+        l_quantity_last              => dec_l_quantity_last_7,
         l_quantity                   => dec_l_quantity_7,
 
         l_extendedprice_valid        => dec_l_extendedprice_valid(7), 
         l_extendedprice_ready        => dec_l_extendedprice_ready(7),
-        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid,
-        l_extendedprice_last         => dec_l_extendedprice_last,
+        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid_7,
+        l_extendedprice_last         => dec_l_extendedprice_last_7,
         l_extendedprice              => dec_l_extendedprice_7,
 
         l_discount_valid             => dec_l_discount_valid(7), 
         l_discount_ready             => dec_l_discount_ready(7),
-        l_discount_dvalid            => dec_l_discount_dvalid,
-        l_discount_last              => dec_l_discount_last,
+        l_discount_dvalid            => dec_l_discount_dvalid_7,
+        l_discount_last              => dec_l_discount_last_7,
         l_discount                   => dec_l_discount_7,
 
         l_shipdate_valid             => dec_l_shipdate_valid(7), 
         l_shipdate_ready             => dec_l_shipdate_ready(7),
-        l_shipdate_dvalid            => dec_l_shipdate_dvalid,
-        l_shipdate_last              => dec_l_shipdate_last,
+        l_shipdate_dvalid            => dec_l_shipdate_dvalid_7,
+        l_shipdate_last              => dec_l_shipdate_last_7,
         l_shipdate                   => dec_l_shipdate_7,
 
         sum_out_valid                => sum_out_valid_stages(7),
