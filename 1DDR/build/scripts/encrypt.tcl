@@ -93,6 +93,8 @@ file copy -force $CL_DIR/design/vhdl/hardware/vhlib/stream/StreamFIFOCounter.vhd
 file copy -force $CL_DIR/design/vhdl/hardware/vhlib/util/UtilRam_pkg.vhd $TARGET_DIR
 file copy -force $CL_DIR/design/vhdl/hardware/vhlib/stream/StreamFIFO.vhd $TARGET_DIR
 file copy -force $CL_DIR/design/vhdl/hardware/vhlib/stream/StreamBuffer.vhd $TARGET_DIR
+file copy -force $CL_DIR/design/vhdl/PU.vhd $TARGET_DIR
+file copy -force $CL_DIR/design/vhdl/Float_to_Fixed.vhd $TARGET_DIR
 file copy -force $CL_DIR/design/vhdl/MergeOp.vhd $TARGET_DIR
 file copy -force $CL_DIR/design/vhdl/hardware/vhlib/stream/StreamSlice.vhd $TARGET_DIR
 file copy -force $CL_DIR/design/vhdl/ALU.vhd $TARGET_DIR

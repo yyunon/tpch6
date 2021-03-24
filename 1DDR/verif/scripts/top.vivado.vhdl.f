@@ -48,6 +48,7 @@ ${CL_ROOT}/design/vhdl/hardware/parallel_patterns/ReduceStream.vhd
 ${CL_ROOT}/design/vhdl/Forecast_pkg.vhd
 ${CL_ROOT}/design/vhdl/SumOp.vhd
 ${CL_ROOT}/design/vhdl/ReduceStage.vhd
+${CL_ROOT}/design/vhdl/flopoco.vhd
 ${CL_ROOT}/design/vhdl/PU.vhd
 ${CL_ROOT}/design/vhdl/ReduceMultiStreams.vhd
 ${CL_ROOT}/design/vhdl/hardware/vhlib/stream/StreamSync.vhd
