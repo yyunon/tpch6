@@ -419,12 +419,8 @@ begin
       out_valid                      => extendedprice_valid,
       out_ready                      => extendedprice_ready
     );
-
-
-  GEN_PU_IN_PARALLEL:
-  FOR I in 0 to EPC-1 generate
-
-    discount_buffer_pu: StreamBuffer
+-- Output buf.
+    discount_buffer_pu_0: StreamBuffer
       generic map (
       DATA_WIDTH                      => 64 + 2,
       MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
@@ -432,18 +428,18 @@ begin
       port map (
         clk                                    => kcd_clk,
         reset                                  => kcd_reset or reset,
-        in_valid                               => discount_valid(I),
-        in_ready                               => discount_ready(I),
+        in_valid                               => discount_valid(0),
+        in_ready                               => discount_ready(0),
         in_data(DATA_WIDTH + 1)          => buf_l_discount_last,
         in_data(DATA_WIDTH)              => buf_l_discount_dvalid,
-        in_data(DATA_WIDTH - 1 downto 0) => buf_l_discount((I+1)* 64 - 1 downto I * 64),
-        out_valid                              => dec_l_discount_valid(I),
-        out_ready                              => dec_l_discount_ready(I),
+        in_data(DATA_WIDTH - 1 downto 0) => buf_l_discount((0+1)* 64 - 1 downto 0 * 64),
+        out_valid                              => dec_l_discount_valid(0),
+        out_ready                              => dec_l_discount_ready(0),
         out_data(DATA_WIDTH + 1)         => dec_l_discount_last,
         out_data(DATA_WIDTH)             => dec_l_discount_dvalid,
-        out_data(DATA_WIDTH - 1 downto 0)=> dec_l_discount((I+1)* 64 - 1 downto I * 64)
+        out_data(DATA_WIDTH - 1 downto 0)=> dec_l_discount((0+1)* 64 - 1 downto 0 * 64)
       );
-    quantity_buffer_pu: StreamBuffer
+    quantity_buffer_pu_0: StreamBuffer
       generic map (
       DATA_WIDTH                      => 64 + 2,
       MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
@@ -451,18 +447,18 @@ begin
       port map (
         clk                                    => kcd_clk,
         reset                                  => kcd_reset or reset,
-        in_valid                               => quantity_valid(I),
-        in_ready                               => quantity_ready(I),
+        in_valid                               => quantity_valid(0),
+        in_ready                               => quantity_ready(0),
         in_data(DATA_WIDTH + 1)          => buf_l_quantity_last,
         in_data(DATA_WIDTH)              => buf_l_quantity_dvalid,
-        in_data(DATA_WIDTH - 1 downto 0) => buf_l_quantity((I+1)* 64 - 1 downto I * 64),
-        out_valid                              => dec_l_quantity_valid(I),
-        out_ready                              => dec_l_quantity_ready(I),
+        in_data(DATA_WIDTH - 1 downto 0) => buf_l_quantity((0+1)* 64 - 1 downto 0 * 64),
+        out_valid                              => dec_l_quantity_valid(0),
+        out_ready                              => dec_l_quantity_ready(0),
         out_data(DATA_WIDTH + 1)         => dec_l_quantity_last,
         out_data(DATA_WIDTH)             => dec_l_quantity_dvalid,
-        out_data(DATA_WIDTH - 1 downto 0)=> dec_l_quantity((I+1)* 64 - 1 downto I * 64)
+        out_data(DATA_WIDTH - 1 downto 0)=> dec_l_quantity((0+1)* 64 - 1 downto 0 * 64)
       );
-    extendedprice_buffer_pu: StreamBuffer
+    extendedprice_buffer_pu_0: StreamBuffer
       generic map (
       DATA_WIDTH                      => 64 + 2,
       MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
@@ -470,18 +466,18 @@ begin
       port map (
         clk                                    => kcd_clk,
         reset                                  => kcd_reset or reset,
-        in_valid                               => extendedprice_valid(I),
-        in_ready                               => extendedprice_ready(I),
+        in_valid                               => extendedprice_valid(0),
+        in_ready                               => extendedprice_ready(0),
         in_data(DATA_WIDTH + 1)          => buf_l_extendedprice_last,
         in_data(DATA_WIDTH)              => buf_l_extendedprice_dvalid,
-        in_data(DATA_WIDTH - 1 downto 0) => buf_l_extendedprice((I+1)* 64 - 1 downto I * 64),
-        out_valid                              => dec_l_extendedprice_valid(I),
-        out_ready                              => dec_l_extendedprice_ready(I),
+        in_data(DATA_WIDTH - 1 downto 0) => buf_l_extendedprice((0+1)* 64 - 1 downto 0 * 64),
+        out_valid                              => dec_l_extendedprice_valid(0),
+        out_ready                              => dec_l_extendedprice_ready(0),
         out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last,
         out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid,
-        out_data(DATA_WIDTH - 1 downto 0)=> dec_l_extendedprice((I+1)* 64 - 1 downto I * 64)
+        out_data(DATA_WIDTH - 1 downto 0)=> dec_l_extendedprice((0+1)* 64 - 1 downto 0 * 64)
       );
-    shipdate_buffer_pu: StreamBuffer
+    shipdate_buffer_pu_0: StreamBuffer
       generic map (
       DATA_WIDTH                      => 64 + 2,
       MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
@@ -489,18 +485,17 @@ begin
       port map (
         clk                                    => kcd_clk,
         reset                                  => kcd_reset or reset,
-        in_valid                               => shipdate_valid(I),
-        in_ready                               => shipdate_ready(I),
+        in_valid                               => shipdate_valid(0),
+        in_ready                               => shipdate_ready(0),
         in_data(DATA_WIDTH + 1)          => buf_l_shipdate_last,
         in_data(DATA_WIDTH)              => buf_l_shipdate_dvalid,
-        in_data(DATA_WIDTH - 1 downto 0) => buf_l_shipdate((I+1)* 64 - 1 downto I * 64),
-        out_valid                              => dec_l_shipdate_valid(I),
-        out_ready                              => dec_l_shipdate_ready(I),
+        in_data(DATA_WIDTH - 1 downto 0) => buf_l_shipdate((0+1)* 64 - 1 downto 0 * 64),
+        out_valid                              => dec_l_shipdate_valid(0),
+        out_ready                              => dec_l_shipdate_ready(0),
         out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last,
         out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid,
-        out_data(DATA_WIDTH - 1 downto 0)=> dec_l_shipdate((I+1)* 64 - 1 downto I * 64)
+        out_data(DATA_WIDTH - 1 downto 0)=> dec_l_shipdate((0+1)* 64 - 1 downto 0 * 64)
       );
-
     processing_unit_0: PU
       generic map (
         FIXED_LEFT_INDEX             => FIXED_LEFT_INDEX,
@@ -513,36 +508,860 @@ begin
         clk                          => kcd_clk,
         reset                        => kcd_reset or reset,
         
-        l_quantity_valid             => dec_l_quantity_valid(I), 
-        l_quantity_ready             => dec_l_quantity_ready(I),
+        l_quantity_valid             => dec_l_quantity_valid(0), 
+        l_quantity_ready             => dec_l_quantity_ready(0),
         l_quantity_dvalid            => dec_l_quantity_dvalid,
         l_quantity_last              => dec_l_quantity_last,
-        l_quantity                   => dec_l_quantity((I+1)* 64 - 1 downto I * 64),
+        l_quantity                   => dec_l_quantity((0+1)* 64 - 1 downto 0 * 64),
 
-        l_extendedprice_valid        => dec_l_extendedprice_valid(I), 
-        l_extendedprice_ready        => dec_l_extendedprice_ready(I),
+        l_extendedprice_valid        => dec_l_extendedprice_valid(0), 
+        l_extendedprice_ready        => dec_l_extendedprice_ready(0),
         l_extendedprice_dvalid       => dec_l_extendedprice_dvalid,
         l_extendedprice_last         => dec_l_extendedprice_last,
-        l_extendedprice              => dec_l_extendedprice((I+1)* 64 - 1 downto I * 64),
+        l_extendedprice              => dec_l_extendedprice((0+1)* 64 - 1 downto 0 * 64),
 
-        l_discount_valid             => dec_l_discount_valid(I), 
-        l_discount_ready             => dec_l_discount_ready(I),
+        l_discount_valid             => dec_l_discount_valid(0), 
+        l_discount_ready             => dec_l_discount_ready(0),
         l_discount_dvalid            => dec_l_discount_dvalid,
         l_discount_last              => dec_l_discount_last,
-        l_discount                   => dec_l_discount((I+1)* 64 - 1 downto I * 64),
+        l_discount                   => dec_l_discount((0+1)* 64 - 1 downto 0 * 64),
 
-        l_shipdate_valid             => dec_l_shipdate_valid(I), 
-        l_shipdate_ready             => dec_l_shipdate_ready(I),
+        l_shipdate_valid             => dec_l_shipdate_valid(0), 
+        l_shipdate_ready             => dec_l_shipdate_ready(0),
         l_shipdate_dvalid            => dec_l_shipdate_dvalid,
         l_shipdate_last              => dec_l_shipdate_last,
-        l_shipdate                   => dec_l_shipdate((I+1)* 64 - 1 downto I * 64),
+        l_shipdate                   => dec_l_shipdate((0+1)* 64 - 1 downto 0 * 64),
 
-        sum_out_valid                => sum_out_valid_stages(I),
-        sum_out_ready                => sum_out_ready_stages(I),
-        sum_out_data                 => sum_out_data_stages((I+1)* 64 - 1 downto I * 64)
+        sum_out_valid                => sum_out_valid_stages(0),
+        sum_out_ready                => sum_out_ready_stages(0),
+        sum_out_data                 => sum_out_data_stages((0+1)* 64 - 1 downto 0 * 64)
       );
 
-    end generate;
+-- Output buf.
+    discount_buffer_pu_1: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => discount_valid(1),
+        in_ready                               => discount_ready(1),
+        in_data(DATA_WIDTH + 1)          => buf_l_discount_last,
+        in_data(DATA_WIDTH)              => buf_l_discount_dvalid,
+        in_data(DATA_WIDTH - 1 downto 1) => buf_l_discount((1+1)* 64 - 1 downto 1 * 64),
+        out_valid                              => dec_l_discount_valid(1),
+        out_ready                              => dec_l_discount_ready(1),
+        out_data(DATA_WIDTH + 1)         => dec_l_discount_last,
+        out_data(DATA_WIDTH)             => dec_l_discount_dvalid,
+        out_data(DATA_WIDTH - 1 downto 1)=> dec_l_discount((1+1)* 64 - 1 downto 1 * 64)
+      );
+    quantity_buffer_pu_1: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => quantity_valid(1),
+        in_ready                               => quantity_ready(1),
+        in_data(DATA_WIDTH + 1)          => buf_l_quantity_last,
+        in_data(DATA_WIDTH)              => buf_l_quantity_dvalid,
+        in_data(DATA_WIDTH - 1 downto 1) => buf_l_quantity((1+1)* 64 - 1 downto 1 * 64),
+        out_valid                              => dec_l_quantity_valid(1),
+        out_ready                              => dec_l_quantity_ready(1),
+        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last,
+        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid,
+        out_data(DATA_WIDTH - 1 downto 1)=> dec_l_quantity((1+1)* 64 - 1 downto 1 * 64)
+      );
+    extendedprice_buffer_pu_1: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => extendedprice_valid(1),
+        in_ready                               => extendedprice_ready(1),
+        in_data(DATA_WIDTH + 1)          => buf_l_extendedprice_last,
+        in_data(DATA_WIDTH)              => buf_l_extendedprice_dvalid,
+        in_data(DATA_WIDTH - 1 downto 1) => buf_l_extendedprice((1+1)* 64 - 1 downto 1 * 64),
+        out_valid                              => dec_l_extendedprice_valid(1),
+        out_ready                              => dec_l_extendedprice_ready(1),
+        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last,
+        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid,
+        out_data(DATA_WIDTH - 1 downto 1)=> dec_l_extendedprice((1+1)* 64 - 1 downto 1 * 64)
+      );
+    shipdate_buffer_pu_1: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => shipdate_valid(1),
+        in_ready                               => shipdate_ready(1),
+        in_data(DATA_WIDTH + 1)          => buf_l_shipdate_last,
+        in_data(DATA_WIDTH)              => buf_l_shipdate_dvalid,
+        in_data(DATA_WIDTH - 1 downto 1) => buf_l_shipdate((1+1)* 64 - 1 downto 1 * 64),
+        out_valid                              => dec_l_shipdate_valid(1),
+        out_ready                              => dec_l_shipdate_ready(1),
+        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last,
+        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid,
+        out_data(DATA_WIDTH - 1 downto 1)=> dec_l_shipdate((1+1)* 64 - 1 downto 1 * 64)
+      );
+    processing_unit_1: PU
+      generic map (
+        FIXED_LEFT_INDEX             => FIXED_LEFT_INDEX,
+        FIXED_RIGHT_INDEX            => FIXED_RIGHT_INDEX,
+        DATA_WIDTH                   => 64,
+        INDEX_WIDTH                  => INDEX_WIDTH,
+        CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+      )
+      port map (
+        clk                          => kcd_clk,
+        reset                        => kcd_reset or reset,
+        
+        l_quantity_valid             => dec_l_quantity_valid(1), 
+        l_quantity_ready             => dec_l_quantity_ready(1),
+        l_quantity_dvalid            => dec_l_quantity_dvalid,
+        l_quantity_last              => dec_l_quantity_last,
+        l_quantity                   => dec_l_quantity((1+1)* 64 - 1 downto 1 * 64),
+
+        l_extendedprice_valid        => dec_l_extendedprice_valid(1), 
+        l_extendedprice_ready        => dec_l_extendedprice_ready(1),
+        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid,
+        l_extendedprice_last         => dec_l_extendedprice_last,
+        l_extendedprice              => dec_l_extendedprice((1+1)* 64 - 1 downto 1 * 64),
+
+        l_discount_valid             => dec_l_discount_valid(1), 
+        l_discount_ready             => dec_l_discount_ready(1),
+        l_discount_dvalid            => dec_l_discount_dvalid,
+        l_discount_last              => dec_l_discount_last,
+        l_discount                   => dec_l_discount((1+1)* 64 - 1 downto 1 * 64),
+
+        l_shipdate_valid             => dec_l_shipdate_valid(1), 
+        l_shipdate_ready             => dec_l_shipdate_ready(1),
+        l_shipdate_dvalid            => dec_l_shipdate_dvalid,
+        l_shipdate_last              => dec_l_shipdate_last,
+        l_shipdate                   => dec_l_shipdate((1+1)* 64 - 1 downto 1 * 64),
+
+        sum_out_valid                => sum_out_valid_stages(1),
+        sum_out_ready                => sum_out_ready_stages(1),
+        sum_out_data                 => sum_out_data_stages((1+1)* 64 - 1 downto 1 * 64)
+      );
+-- Output buf.
+    discount_buffer_pu_2: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => discount_valid(2),
+        in_ready                               => discount_ready(2),
+        in_data(DATA_WIDTH + 1)          => buf_l_discount_last,
+        in_data(DATA_WIDTH)              => buf_l_discount_dvalid,
+        in_data(DATA_WIDTH - 1 downto 2) => buf_l_discount((2+1)* 64 - 1 downto 2 * 64),
+        out_valid                              => dec_l_discount_valid(2),
+        out_ready                              => dec_l_discount_ready(2),
+        out_data(DATA_WIDTH + 1)         => dec_l_discount_last,
+        out_data(DATA_WIDTH)             => dec_l_discount_dvalid,
+        out_data(DATA_WIDTH - 1 downto 2)=> dec_l_discount((2+1)* 64 - 1 downto 2 * 64)
+      );
+    quantity_buffer_pu_2: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => quantity_valid(2),
+        in_ready                               => quantity_ready(2),
+        in_data(DATA_WIDTH + 1)          => buf_l_quantity_last,
+        in_data(DATA_WIDTH)              => buf_l_quantity_dvalid,
+        in_data(DATA_WIDTH - 1 downto 2) => buf_l_quantity((2+1)* 64 - 1 downto 2 * 64),
+        out_valid                              => dec_l_quantity_valid(2),
+        out_ready                              => dec_l_quantity_ready(2),
+        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last,
+        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid,
+        out_data(DATA_WIDTH - 1 downto 2)=> dec_l_quantity((2+1)* 64 - 1 downto 2 * 64)
+      );
+    extendedprice_buffer_pu_2: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => extendedprice_valid(2),
+        in_ready                               => extendedprice_ready(2),
+        in_data(DATA_WIDTH + 1)          => buf_l_extendedprice_last,
+        in_data(DATA_WIDTH)              => buf_l_extendedprice_dvalid,
+        in_data(DATA_WIDTH - 1 downto 2) => buf_l_extendedprice((2+1)* 64 - 1 downto 2 * 64),
+        out_valid                              => dec_l_extendedprice_valid(2),
+        out_ready                              => dec_l_extendedprice_ready(2),
+        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last,
+        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid,
+        out_data(DATA_WIDTH - 1 downto 2)=> dec_l_extendedprice((2+1)* 64 - 1 downto 2 * 64)
+      );
+    shipdate_buffer_pu_2: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => shipdate_valid(2),
+        in_ready                               => shipdate_ready(2),
+        in_data(DATA_WIDTH + 1)          => buf_l_shipdate_last,
+        in_data(DATA_WIDTH)              => buf_l_shipdate_dvalid,
+        in_data(DATA_WIDTH - 1 downto 2) => buf_l_shipdate((2+1)* 64 - 1 downto 2 * 64),
+        out_valid                              => dec_l_shipdate_valid(2),
+        out_ready                              => dec_l_shipdate_ready(2),
+        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last,
+        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid,
+        out_data(DATA_WIDTH - 1 downto 2)=> dec_l_shipdate((2+1)* 64 - 1 downto 2 * 64)
+      );
+    processing_unit_2: PU
+      generic map (
+        FIXED_LEFT_INDEX             => FIXED_LEFT_INDEX,
+        FIXED_RIGHT_INDEX            => FIXED_RIGHT_INDEX,
+        DATA_WIDTH                   => 64,
+        INDEX_WIDTH                  => INDEX_WIDTH,
+        CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+      )
+      port map (
+        clk                          => kcd_clk,
+        reset                        => kcd_reset or reset,
+        
+        l_quantity_valid             => dec_l_quantity_valid(2), 
+        l_quantity_ready             => dec_l_quantity_ready(2),
+        l_quantity_dvalid            => dec_l_quantity_dvalid,
+        l_quantity_last              => dec_l_quantity_last,
+        l_quantity                   => dec_l_quantity((2+1)* 64 - 1 downto 2 * 64),
+
+        l_extendedprice_valid        => dec_l_extendedprice_valid(2), 
+        l_extendedprice_ready        => dec_l_extendedprice_ready(2),
+        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid,
+        l_extendedprice_last         => dec_l_extendedprice_last,
+        l_extendedprice              => dec_l_extendedprice((2+1)* 64 - 1 downto 2 * 64),
+
+        l_discount_valid             => dec_l_discount_valid(2), 
+        l_discount_ready             => dec_l_discount_ready(2),
+        l_discount_dvalid            => dec_l_discount_dvalid,
+        l_discount_last              => dec_l_discount_last,
+        l_discount                   => dec_l_discount((2+1)* 64 - 1 downto 2 * 64),
+
+        l_shipdate_valid             => dec_l_shipdate_valid(2), 
+        l_shipdate_ready             => dec_l_shipdate_ready(2),
+        l_shipdate_dvalid            => dec_l_shipdate_dvalid,
+        l_shipdate_last              => dec_l_shipdate_last,
+        l_shipdate                   => dec_l_shipdate((2+1)* 64 - 1 downto 2 * 64),
+
+        sum_out_valid                => sum_out_valid_stages(2),
+        sum_out_ready                => sum_out_ready_stages(2),
+        sum_out_data                 => sum_out_data_stages((2+1)* 64 - 1 downto 2 * 64)
+      );
+
+-- Output buf.
+    discount_buffer_pu_3: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => discount_valid(3),
+        in_ready                               => discount_ready(3),
+        in_data(DATA_WIDTH + 1)          => buf_l_discount_last,
+        in_data(DATA_WIDTH)              => buf_l_discount_dvalid,
+        in_data(DATA_WIDTH - 1 downto 3) => buf_l_discount((3+1)* 64 - 1 downto 3 * 64),
+        out_valid                              => dec_l_discount_valid(3),
+        out_ready                              => dec_l_discount_ready(3),
+        out_data(DATA_WIDTH + 1)         => dec_l_discount_last,
+        out_data(DATA_WIDTH)             => dec_l_discount_dvalid,
+        out_data(DATA_WIDTH - 1 downto 3)=> dec_l_discount((3+1)* 64 - 1 downto 3 * 64)
+      );
+    quantity_buffer_pu_3: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => quantity_valid(3),
+        in_ready                               => quantity_ready(3),
+        in_data(DATA_WIDTH + 1)          => buf_l_quantity_last,
+        in_data(DATA_WIDTH)              => buf_l_quantity_dvalid,
+        in_data(DATA_WIDTH - 1 downto 3) => buf_l_quantity((3+1)* 64 - 1 downto 3 * 64),
+        out_valid                              => dec_l_quantity_valid(3),
+        out_ready                              => dec_l_quantity_ready(3),
+        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last,
+        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid,
+        out_data(DATA_WIDTH - 1 downto 3)=> dec_l_quantity((3+1)* 64 - 1 downto 3 * 64)
+      );
+    extendedprice_buffer_pu_3: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => extendedprice_valid(3),
+        in_ready                               => extendedprice_ready(3),
+        in_data(DATA_WIDTH + 1)          => buf_l_extendedprice_last,
+        in_data(DATA_WIDTH)              => buf_l_extendedprice_dvalid,
+        in_data(DATA_WIDTH - 1 downto 3) => buf_l_extendedprice((3+1)* 64 - 1 downto 3 * 64),
+        out_valid                              => dec_l_extendedprice_valid(3),
+        out_ready                              => dec_l_extendedprice_ready(3),
+        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last,
+        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid,
+        out_data(DATA_WIDTH - 1 downto 3)=> dec_l_extendedprice((3+1)* 64 - 1 downto 3 * 64)
+      );
+    shipdate_buffer_pu_3: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => shipdate_valid(3),
+        in_ready                               => shipdate_ready(3),
+        in_data(DATA_WIDTH + 1)          => buf_l_shipdate_last,
+        in_data(DATA_WIDTH)              => buf_l_shipdate_dvalid,
+        in_data(DATA_WIDTH - 1 downto 3) => buf_l_shipdate((3+1)* 64 - 1 downto 3 * 64),
+        out_valid                              => dec_l_shipdate_valid(3),
+        out_ready                              => dec_l_shipdate_ready(3),
+        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last,
+        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid,
+        out_data(DATA_WIDTH - 1 downto 3)=> dec_l_shipdate((3+1)* 64 - 1 downto 3 * 64)
+      );
+    processing_unit_3: PU
+      generic map (
+        FIXED_LEFT_INDEX             => FIXED_LEFT_INDEX,
+        FIXED_RIGHT_INDEX            => FIXED_RIGHT_INDEX,
+        DATA_WIDTH                   => 64,
+        INDEX_WIDTH                  => INDEX_WIDTH,
+        CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+      )
+      port map (
+        clk                          => kcd_clk,
+        reset                        => kcd_reset or reset,
+        
+        l_quantity_valid             => dec_l_quantity_valid(3), 
+        l_quantity_ready             => dec_l_quantity_ready(3),
+        l_quantity_dvalid            => dec_l_quantity_dvalid,
+        l_quantity_last              => dec_l_quantity_last,
+        l_quantity                   => dec_l_quantity((3+1)* 64 - 1 downto 3 * 64),
+
+        l_extendedprice_valid        => dec_l_extendedprice_valid(3), 
+        l_extendedprice_ready        => dec_l_extendedprice_ready(3),
+        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid,
+        l_extendedprice_last         => dec_l_extendedprice_last,
+        l_extendedprice              => dec_l_extendedprice((3+1)* 64 - 1 downto 3 * 64),
+
+        l_discount_valid             => dec_l_discount_valid(3), 
+        l_discount_ready             => dec_l_discount_ready(3),
+        l_discount_dvalid            => dec_l_discount_dvalid,
+        l_discount_last              => dec_l_discount_last,
+        l_discount                   => dec_l_discount((3+1)* 64 - 1 downto 3 * 64),
+
+        l_shipdate_valid             => dec_l_shipdate_valid(3), 
+        l_shipdate_ready             => dec_l_shipdate_ready(3),
+        l_shipdate_dvalid            => dec_l_shipdate_dvalid,
+        l_shipdate_last              => dec_l_shipdate_last,
+        l_shipdate                   => dec_l_shipdate((3+1)* 64 - 1 downto 3 * 64),
+
+        sum_out_valid                => sum_out_valid_stages(3),
+        sum_out_ready                => sum_out_ready_stages(3),
+        sum_out_data                 => sum_out_data_stages((3+1)* 64 - 1 downto 3 * 64)
+      );
+
+-- Output buf.
+    discount_buffer_pu_4: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => discount_valid(4),
+        in_ready                               => discount_ready(4),
+        in_data(DATA_WIDTH + 1)          => buf_l_discount_last,
+        in_data(DATA_WIDTH)              => buf_l_discount_dvalid,
+        in_data(DATA_WIDTH - 1 downto 4) => buf_l_discount((4+1)* 64 - 1 downto 4 * 64),
+        out_valid                              => dec_l_discount_valid(4),
+        out_ready                              => dec_l_discount_ready(4),
+        out_data(DATA_WIDTH + 1)         => dec_l_discount_last,
+        out_data(DATA_WIDTH)             => dec_l_discount_dvalid,
+        out_data(DATA_WIDTH - 1 downto 4)=> dec_l_discount((4+1)* 64 - 1 downto 4 * 64)
+      );
+    quantity_buffer_pu_4: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => quantity_valid(4),
+        in_ready                               => quantity_ready(4),
+        in_data(DATA_WIDTH + 1)          => buf_l_quantity_last,
+        in_data(DATA_WIDTH)              => buf_l_quantity_dvalid,
+        in_data(DATA_WIDTH - 1 downto 4) => buf_l_quantity((4+1)* 64 - 1 downto 4 * 64),
+        out_valid                              => dec_l_quantity_valid(4),
+        out_ready                              => dec_l_quantity_ready(4),
+        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last,
+        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid,
+        out_data(DATA_WIDTH - 1 downto 4)=> dec_l_quantity((4+1)* 64 - 1 downto 4 * 64)
+      );
+    extendedprice_buffer_pu_4: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => extendedprice_valid(4),
+        in_ready                               => extendedprice_ready(4),
+        in_data(DATA_WIDTH + 1)          => buf_l_extendedprice_last,
+        in_data(DATA_WIDTH)              => buf_l_extendedprice_dvalid,
+        in_data(DATA_WIDTH - 1 downto 4) => buf_l_extendedprice((4+1)* 64 - 1 downto 4 * 64),
+        out_valid                              => dec_l_extendedprice_valid(4),
+        out_ready                              => dec_l_extendedprice_ready(4),
+        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last,
+        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid,
+        out_data(DATA_WIDTH - 1 downto 4)=> dec_l_extendedprice((4+1)* 64 - 1 downto 4 * 64)
+      );
+    shipdate_buffer_pu_4: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => shipdate_valid(4),
+        in_ready                               => shipdate_ready(4),
+        in_data(DATA_WIDTH + 1)          => buf_l_shipdate_last,
+        in_data(DATA_WIDTH)              => buf_l_shipdate_dvalid,
+        in_data(DATA_WIDTH - 1 downto 4) => buf_l_shipdate((4+1)* 64 - 1 downto 4 * 64),
+        out_valid                              => dec_l_shipdate_valid(4),
+        out_ready                              => dec_l_shipdate_ready(4),
+        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last,
+        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid,
+        out_data(DATA_WIDTH - 1 downto 4)=> dec_l_shipdate((4+1)* 64 - 1 downto 4 * 64)
+      );
+    processing_unit_4: PU
+      generic map (
+        FIXED_LEFT_INDEX             => FIXED_LEFT_INDEX,
+        FIXED_RIGHT_INDEX            => FIXED_RIGHT_INDEX,
+        DATA_WIDTH                   => 64,
+        INDEX_WIDTH                  => INDEX_WIDTH,
+        CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+      )
+      port map (
+        clk                          => kcd_clk,
+        reset                        => kcd_reset or reset,
+        
+        l_quantity_valid             => dec_l_quantity_valid(4), 
+        l_quantity_ready             => dec_l_quantity_ready(4),
+        l_quantity_dvalid            => dec_l_quantity_dvalid,
+        l_quantity_last              => dec_l_quantity_last,
+        l_quantity                   => dec_l_quantity((4+1)* 64 - 1 downto 4 * 64),
+
+        l_extendedprice_valid        => dec_l_extendedprice_valid(4), 
+        l_extendedprice_ready        => dec_l_extendedprice_ready(4),
+        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid,
+        l_extendedprice_last         => dec_l_extendedprice_last,
+        l_extendedprice              => dec_l_extendedprice((4+1)* 64 - 1 downto 4 * 64),
+
+        l_discount_valid             => dec_l_discount_valid(4), 
+        l_discount_ready             => dec_l_discount_ready(4),
+        l_discount_dvalid            => dec_l_discount_dvalid,
+        l_discount_last              => dec_l_discount_last,
+        l_discount                   => dec_l_discount((4+1)* 64 - 1 downto 4 * 64),
+
+        l_shipdate_valid             => dec_l_shipdate_valid(4), 
+        l_shipdate_ready             => dec_l_shipdate_ready(4),
+        l_shipdate_dvalid            => dec_l_shipdate_dvalid,
+        l_shipdate_last              => dec_l_shipdate_last,
+        l_shipdate                   => dec_l_shipdate((4+1)* 64 - 1 downto 4 * 64),
+
+        sum_out_valid                => sum_out_valid_stages(4),
+        sum_out_ready                => sum_out_ready_stages(4),
+        sum_out_data                 => sum_out_data_stages((4+1)* 64 - 1 downto 4 * 64)
+      );
+
+-- Output buf.
+    discount_buffer_pu_5: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => discount_valid(5),
+        in_ready                               => discount_ready(5),
+        in_data(DATA_WIDTH + 1)          => buf_l_discount_last,
+        in_data(DATA_WIDTH)              => buf_l_discount_dvalid,
+        in_data(DATA_WIDTH - 1 downto 5) => buf_l_discount((5+1)* 64 - 1 downto 5 * 64),
+        out_valid                              => dec_l_discount_valid(5),
+        out_ready                              => dec_l_discount_ready(5),
+        out_data(DATA_WIDTH + 1)         => dec_l_discount_last,
+        out_data(DATA_WIDTH)             => dec_l_discount_dvalid,
+        out_data(DATA_WIDTH - 1 downto 5)=> dec_l_discount((5+1)* 64 - 1 downto 5 * 64)
+      );
+    quantity_buffer_pu_5: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => quantity_valid(5),
+        in_ready                               => quantity_ready(5),
+        in_data(DATA_WIDTH + 1)          => buf_l_quantity_last,
+        in_data(DATA_WIDTH)              => buf_l_quantity_dvalid,
+        in_data(DATA_WIDTH - 1 downto 5) => buf_l_quantity((5+1)* 64 - 1 downto 5 * 64),
+        out_valid                              => dec_l_quantity_valid(5),
+        out_ready                              => dec_l_quantity_ready(5),
+        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last,
+        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid,
+        out_data(DATA_WIDTH - 1 downto 5)=> dec_l_quantity((5+1)* 64 - 1 downto 5 * 64)
+      );
+    extendedprice_buffer_pu_5: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => extendedprice_valid(5),
+        in_ready                               => extendedprice_ready(5),
+        in_data(DATA_WIDTH + 1)          => buf_l_extendedprice_last,
+        in_data(DATA_WIDTH)              => buf_l_extendedprice_dvalid,
+        in_data(DATA_WIDTH - 1 downto 5) => buf_l_extendedprice((5+1)* 64 - 1 downto 5 * 64),
+        out_valid                              => dec_l_extendedprice_valid(5),
+        out_ready                              => dec_l_extendedprice_ready(5),
+        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last,
+        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid,
+        out_data(DATA_WIDTH - 1 downto 5)=> dec_l_extendedprice((5+1)* 64 - 1 downto 5 * 64)
+      );
+    shipdate_buffer_pu_5: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => shipdate_valid(5),
+        in_ready                               => shipdate_ready(5),
+        in_data(DATA_WIDTH + 1)          => buf_l_shipdate_last,
+        in_data(DATA_WIDTH)              => buf_l_shipdate_dvalid,
+        in_data(DATA_WIDTH - 1 downto 5) => buf_l_shipdate((5+1)* 64 - 1 downto 5 * 64),
+        out_valid                              => dec_l_shipdate_valid(5),
+        out_ready                              => dec_l_shipdate_ready(5),
+        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last,
+        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid,
+        out_data(DATA_WIDTH - 1 downto 5)=> dec_l_shipdate((5+1)* 64 - 1 downto 5 * 64)
+      );
+    processing_unit_5: PU
+      generic map (
+        FIXED_LEFT_INDEX             => FIXED_LEFT_INDEX,
+        FIXED_RIGHT_INDEX            => FIXED_RIGHT_INDEX,
+        DATA_WIDTH                   => 64,
+        INDEX_WIDTH                  => INDEX_WIDTH,
+        CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+      )
+      port map (
+        clk                          => kcd_clk,
+        reset                        => kcd_reset or reset,
+        
+        l_quantity_valid             => dec_l_quantity_valid(5), 
+        l_quantity_ready             => dec_l_quantity_ready(5),
+        l_quantity_dvalid            => dec_l_quantity_dvalid,
+        l_quantity_last              => dec_l_quantity_last,
+        l_quantity                   => dec_l_quantity((5+1)* 64 - 1 downto 5 * 64),
+
+        l_extendedprice_valid        => dec_l_extendedprice_valid(5), 
+        l_extendedprice_ready        => dec_l_extendedprice_ready(5),
+        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid,
+        l_extendedprice_last         => dec_l_extendedprice_last,
+        l_extendedprice              => dec_l_extendedprice((5+1)* 64 - 1 downto 5 * 64),
+
+        l_discount_valid             => dec_l_discount_valid(5), 
+        l_discount_ready             => dec_l_discount_ready(5),
+        l_discount_dvalid            => dec_l_discount_dvalid,
+        l_discount_last              => dec_l_discount_last,
+        l_discount                   => dec_l_discount((5+1)* 64 - 1 downto 5 * 64),
+
+        l_shipdate_valid             => dec_l_shipdate_valid(5), 
+        l_shipdate_ready             => dec_l_shipdate_ready(5),
+        l_shipdate_dvalid            => dec_l_shipdate_dvalid,
+        l_shipdate_last              => dec_l_shipdate_last,
+        l_shipdate                   => dec_l_shipdate((5+1)* 64 - 1 downto 5 * 64),
+
+        sum_out_valid                => sum_out_valid_stages(5),
+        sum_out_ready                => sum_out_ready_stages(5),
+        sum_out_data                 => sum_out_data_stages((5+1)* 64 - 1 downto 5 * 64)
+      );
+
+-- Output buf.
+    discount_buffer_pu_6: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => discount_valid(6),
+        in_ready                               => discount_ready(6),
+        in_data(DATA_WIDTH + 1)          => buf_l_discount_last,
+        in_data(DATA_WIDTH)              => buf_l_discount_dvalid,
+        in_data(DATA_WIDTH - 1 downto 6) => buf_l_discount((6+1)* 64 - 1 downto 6 * 64),
+        out_valid                              => dec_l_discount_valid(6),
+        out_ready                              => dec_l_discount_ready(6),
+        out_data(DATA_WIDTH + 1)         => dec_l_discount_last,
+        out_data(DATA_WIDTH)             => dec_l_discount_dvalid,
+        out_data(DATA_WIDTH - 1 downto 6)=> dec_l_discount((6+1)* 64 - 1 downto 6 * 64)
+      );
+    quantity_buffer_pu_6: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => quantity_valid(6),
+        in_ready                               => quantity_ready(6),
+        in_data(DATA_WIDTH + 1)          => buf_l_quantity_last,
+        in_data(DATA_WIDTH)              => buf_l_quantity_dvalid,
+        in_data(DATA_WIDTH - 1 downto 6) => buf_l_quantity((6+1)* 64 - 1 downto 6 * 64),
+        out_valid                              => dec_l_quantity_valid(6),
+        out_ready                              => dec_l_quantity_ready(6),
+        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last,
+        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid,
+        out_data(DATA_WIDTH - 1 downto 6)=> dec_l_quantity((6+1)* 64 - 1 downto 6 * 64)
+      );
+    extendedprice_buffer_pu_6: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => extendedprice_valid(6),
+        in_ready                               => extendedprice_ready(6),
+        in_data(DATA_WIDTH + 1)          => buf_l_extendedprice_last,
+        in_data(DATA_WIDTH)              => buf_l_extendedprice_dvalid,
+        in_data(DATA_WIDTH - 1 downto 6) => buf_l_extendedprice((6+1)* 64 - 1 downto 6 * 64),
+        out_valid                              => dec_l_extendedprice_valid(6),
+        out_ready                              => dec_l_extendedprice_ready(6),
+        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last,
+        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid,
+        out_data(DATA_WIDTH - 1 downto 6)=> dec_l_extendedprice((6+1)* 64 - 1 downto 6 * 64)
+      );
+    shipdate_buffer_pu_6: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => shipdate_valid(6),
+        in_ready                               => shipdate_ready(6),
+        in_data(DATA_WIDTH + 1)          => buf_l_shipdate_last,
+        in_data(DATA_WIDTH)              => buf_l_shipdate_dvalid,
+        in_data(DATA_WIDTH - 1 downto 6) => buf_l_shipdate((6+1)* 64 - 1 downto 6 * 64),
+        out_valid                              => dec_l_shipdate_valid(6),
+        out_ready                              => dec_l_shipdate_ready(6),
+        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last,
+        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid,
+        out_data(DATA_WIDTH - 1 downto 6)=> dec_l_shipdate((6+1)* 64 - 1 downto 6 * 64)
+      );
+    processing_unit_6: PU
+      generic map (
+        FIXED_LEFT_INDEX             => FIXED_LEFT_INDEX,
+        FIXED_RIGHT_INDEX            => FIXED_RIGHT_INDEX,
+        DATA_WIDTH                   => 64,
+        INDEX_WIDTH                  => INDEX_WIDTH,
+        CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+      )
+      port map (
+        clk                          => kcd_clk,
+        reset                        => kcd_reset or reset,
+        
+        l_quantity_valid             => dec_l_quantity_valid(6), 
+        l_quantity_ready             => dec_l_quantity_ready(6),
+        l_quantity_dvalid            => dec_l_quantity_dvalid,
+        l_quantity_last              => dec_l_quantity_last,
+        l_quantity                   => dec_l_quantity((6+1)* 64 - 1 downto 6 * 64),
+
+        l_extendedprice_valid        => dec_l_extendedprice_valid(6), 
+        l_extendedprice_ready        => dec_l_extendedprice_ready(6),
+        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid,
+        l_extendedprice_last         => dec_l_extendedprice_last,
+        l_extendedprice              => dec_l_extendedprice((6+1)* 64 - 1 downto 6 * 64),
+
+        l_discount_valid             => dec_l_discount_valid(6), 
+        l_discount_ready             => dec_l_discount_ready(6),
+        l_discount_dvalid            => dec_l_discount_dvalid,
+        l_discount_last              => dec_l_discount_last,
+        l_discount                   => dec_l_discount((6+1)* 64 - 1 downto 6 * 64),
+
+        l_shipdate_valid             => dec_l_shipdate_valid(6), 
+        l_shipdate_ready             => dec_l_shipdate_ready(6),
+        l_shipdate_dvalid            => dec_l_shipdate_dvalid,
+        l_shipdate_last              => dec_l_shipdate_last,
+        l_shipdate                   => dec_l_shipdate((6+1)* 64 - 1 downto 6 * 64),
+
+        sum_out_valid                => sum_out_valid_stages(6),
+        sum_out_ready                => sum_out_ready_stages(6),
+        sum_out_data                 => sum_out_data_stages((6+1)* 64 - 1 downto 6 * 64)
+      );
+
+-- Output buf.
+    discount_buffer_pu_7: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => discount_valid(7),
+        in_ready                               => discount_ready(7),
+        in_data(DATA_WIDTH + 1)          => buf_l_discount_last,
+        in_data(DATA_WIDTH)              => buf_l_discount_dvalid,
+        in_data(DATA_WIDTH - 1 downto 7) => buf_l_discount((7+1)* 64 - 1 downto 7 * 64),
+        out_valid                              => dec_l_discount_valid(7),
+        out_ready                              => dec_l_discount_ready(7),
+        out_data(DATA_WIDTH + 1)         => dec_l_discount_last,
+        out_data(DATA_WIDTH)             => dec_l_discount_dvalid,
+        out_data(DATA_WIDTH - 1 downto 7)=> dec_l_discount((7+1)* 64 - 1 downto 7 * 64)
+      );
+    quantity_buffer_pu_7: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => quantity_valid(7),
+        in_ready                               => quantity_ready(7),
+        in_data(DATA_WIDTH + 1)          => buf_l_quantity_last,
+        in_data(DATA_WIDTH)              => buf_l_quantity_dvalid,
+        in_data(DATA_WIDTH - 1 downto 7) => buf_l_quantity((7+1)* 64 - 1 downto 7 * 64),
+        out_valid                              => dec_l_quantity_valid(7),
+        out_ready                              => dec_l_quantity_ready(7),
+        out_data(DATA_WIDTH + 1)         => dec_l_quantity_last,
+        out_data(DATA_WIDTH)             => dec_l_quantity_dvalid,
+        out_data(DATA_WIDTH - 1 downto 7)=> dec_l_quantity((7+1)* 64 - 1 downto 7 * 64)
+      );
+    extendedprice_buffer_pu_7: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => extendedprice_valid(7),
+        in_ready                               => extendedprice_ready(7),
+        in_data(DATA_WIDTH + 1)          => buf_l_extendedprice_last,
+        in_data(DATA_WIDTH)              => buf_l_extendedprice_dvalid,
+        in_data(DATA_WIDTH - 1 downto 7) => buf_l_extendedprice((7+1)* 64 - 1 downto 7 * 64),
+        out_valid                              => dec_l_extendedprice_valid(7),
+        out_ready                              => dec_l_extendedprice_ready(7),
+        out_data(DATA_WIDTH + 1)         => dec_l_extendedprice_last,
+        out_data(DATA_WIDTH)             => dec_l_extendedprice_dvalid,
+        out_data(DATA_WIDTH - 1 downto 7)=> dec_l_extendedprice((7+1)* 64 - 1 downto 7 * 64)
+      );
+    shipdate_buffer_pu_7: StreamBuffer
+      generic map (
+      DATA_WIDTH                      => 64 + 2,
+      MIN_DEPTH                       => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
+      )
+      port map (
+        clk                                    => kcd_clk,
+        reset                                  => kcd_reset or reset,
+        in_valid                               => shipdate_valid(7),
+        in_ready                               => shipdate_ready(7),
+        in_data(DATA_WIDTH + 1)          => buf_l_shipdate_last,
+        in_data(DATA_WIDTH)              => buf_l_shipdate_dvalid,
+        in_data(DATA_WIDTH - 1 downto 7) => buf_l_shipdate((7+1)* 64 - 1 downto 7 * 64),
+        out_valid                              => dec_l_shipdate_valid(7),
+        out_ready                              => dec_l_shipdate_ready(7),
+        out_data(DATA_WIDTH + 1)         => dec_l_shipdate_last,
+        out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid,
+        out_data(DATA_WIDTH - 1 downto 7)=> dec_l_shipdate((7+1)* 64 - 1 downto 7 * 64)
+      );
+    processing_unit_7: PU
+      generic map (
+        FIXED_LEFT_INDEX             => FIXED_LEFT_INDEX,
+        FIXED_RIGHT_INDEX            => FIXED_RIGHT_INDEX,
+        DATA_WIDTH                   => 64,
+        INDEX_WIDTH                  => INDEX_WIDTH,
+        CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+      )
+      port map (
+        clk                          => kcd_clk,
+        reset                        => kcd_reset or reset,
+        
+        l_quantity_valid             => dec_l_quantity_valid(7), 
+        l_quantity_ready             => dec_l_quantity_ready(7),
+        l_quantity_dvalid            => dec_l_quantity_dvalid,
+        l_quantity_last              => dec_l_quantity_last,
+        l_quantity                   => dec_l_quantity((7+1)* 64 - 1 downto 7 * 64),
+
+        l_extendedprice_valid        => dec_l_extendedprice_valid(7), 
+        l_extendedprice_ready        => dec_l_extendedprice_ready(7),
+        l_extendedprice_dvalid       => dec_l_extendedprice_dvalid,
+        l_extendedprice_last         => dec_l_extendedprice_last,
+        l_extendedprice              => dec_l_extendedprice((7+1)* 64 - 1 downto 7 * 64),
+
+        l_discount_valid             => dec_l_discount_valid(7), 
+        l_discount_ready             => dec_l_discount_ready(7),
+        l_discount_dvalid            => dec_l_discount_dvalid,
+        l_discount_last              => dec_l_discount_last,
+        l_discount                   => dec_l_discount((7+1)* 64 - 1 downto 7 * 64),
+
+        l_shipdate_valid             => dec_l_shipdate_valid(7), 
+        l_shipdate_ready             => dec_l_shipdate_ready(7),
+        l_shipdate_dvalid            => dec_l_shipdate_dvalid,
+        l_shipdate_last              => dec_l_shipdate_last,
+        l_shipdate                   => dec_l_shipdate((7+1)* 64 - 1 downto 7 * 64),
+
+        sum_out_valid                => sum_out_valid_stages(7),
+        sum_out_ready                => sum_out_ready_stages(7),
+        sum_out_data                 => sum_out_data_stages((7+1)* 64 - 1 downto 7 * 64)
+      );
+
 
   with state select state_slv <= 
                "000" when STATE_COMMAND,
