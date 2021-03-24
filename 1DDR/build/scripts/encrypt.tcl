@@ -98,7 +98,6 @@ file copy -force $CL_DIR/design/vhdl/Float_to_Fixed.vhd $TARGET_DIR
 file copy -force $CL_DIR/design/vhdl/MergeOp.vhd $TARGET_DIR
 file copy -force $CL_DIR/design/vhdl/hardware/vhlib/stream/StreamSlice.vhd $TARGET_DIR
 file copy -force $CL_DIR/design/vhdl/ALU.vhd $TARGET_DIR
-file copy -force $CL_DIR/design/vhdl/Float_to_Fixed.vhd $TARGET_DIR
 file copy -force $CL_DIR/design/vhdl/Forecast.vhd $TARGET_DIR
 file copy -force $CL_DIR/design/vhdl/Forecast_Nucleus.gen.vhd $TARGET_DIR
 file copy -force $CL_DIR/design/vhdl/Forecast_Mantle.gen.vhd $TARGET_DIR
