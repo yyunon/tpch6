@@ -7,14 +7,14 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.std_logic_misc.all;
 
-library ieee_proposed;
-use ieee_proposed.fixed_pkg.all;
+--library ieee_proposed;
+--use ieee_proposed.fixed_pkg.all;
 
 library work;
 use work.Forecast_pkg.all;
 use work.Stream_pkg.all;
 use work.ParallelPatterns_pkg.all;
---use work.fixed_generic_pkg_mod.all;
+use work.fixed_generic_pkg_mod.all;
 
 entity Forecast is
   generic (
