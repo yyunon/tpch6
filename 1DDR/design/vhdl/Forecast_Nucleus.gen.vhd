@@ -191,7 +191,15 @@ architecture Implementation of Forecast_Nucleus is
       rhigh                        : out std_logic_vector(31 downto 0);
       rlow                         : out std_logic_vector(31 downto 0);
       status_1                     : out std_logic_vector(31 downto 0);
-      status_2                     : out std_logic_vector(31 downto 0)
+      status_2                     : out std_logic_vector(31 downto 0);
+      r1                           : out std_logic_vector(63 downto 0);
+      r2                           : out std_logic_vector(63 downto 0);
+      r3                           : out std_logic_vector(63 downto 0);
+      r4                           : out std_logic_vector(63 downto 0);
+      r5                           : out std_logic_vector(63 downto 0);
+      r6                           : out std_logic_vector(63 downto 0);
+      r7                           : out std_logic_vector(63 downto 0);
+      r8                           : out std_logic_vector(63 downto 0)
     );
   end component;
 
@@ -276,6 +284,14 @@ architecture Implementation of Forecast_Nucleus is
   signal Forecast_inst_rlow                                 : std_logic_vector(31 downto 0);
   signal Forecast_inst_status_1                             : std_logic_vector(31 downto 0);
   signal Forecast_inst_status_2                             : std_logic_vector(31 downto 0);
+  signal Forecast_inst_r1                                   : std_logic_vector(63 downto 0);
+  signal Forecast_inst_r2                                   : std_logic_vector(63 downto 0);
+  signal Forecast_inst_r3                                   : std_logic_vector(63 downto 0);
+  signal Forecast_inst_r4                                   : std_logic_vector(63 downto 0);
+  signal Forecast_inst_r5                                   : std_logic_vector(63 downto 0);
+  signal Forecast_inst_r6                                   : std_logic_vector(63 downto 0);
+  signal Forecast_inst_r7                                   : std_logic_vector(63 downto 0);
+  signal Forecast_inst_r8                                   : std_logic_vector(63 downto 0);
   signal mmio_inst_f_start_data                             : std_logic;
   signal mmio_inst_f_stop_data                              : std_logic;
   signal mmio_inst_f_reset_data                             : std_logic;
@@ -293,6 +309,14 @@ architecture Implementation of Forecast_Nucleus is
   signal mmio_inst_f_rlow_write_data                        : std_logic_vector(31 downto 0);
   signal mmio_inst_f_status_1_write_data                    : std_logic_vector(31 downto 0);
   signal mmio_inst_f_status_2_write_data                    : std_logic_vector(31 downto 0);
+  signal mmio_inst_f_r1_write_data                          : std_logic_vector(63 downto 0);
+  signal mmio_inst_f_r2_write_data                          : std_logic_vector(63 downto 0);
+  signal mmio_inst_f_r3_write_data                          : std_logic_vector(63 downto 0);
+  signal mmio_inst_f_r4_write_data                          : std_logic_vector(63 downto 0);
+  signal mmio_inst_f_r5_write_data                          : std_logic_vector(63 downto 0);
+  signal mmio_inst_f_r6_write_data                          : std_logic_vector(63 downto 0);
+  signal mmio_inst_f_r7_write_data                          : std_logic_vector(63 downto 0);
+  signal mmio_inst_f_r8_write_data                          : std_logic_vector(63 downto 0);
   signal mmio_inst_f_Profile_enable_data                    : std_logic;
   signal mmio_inst_f_Profile_clear_data                     : std_logic;
   signal mmio_inst_mmio_awvalid                             : std_logic;
@@ -447,7 +471,15 @@ begin
       rhigh                        => Forecast_inst_rhigh,
       rlow                         => Forecast_inst_rlow,
       status_1                     => Forecast_inst_status_1,
-      status_2                     => Forecast_inst_status_2
+      status_2                     => Forecast_inst_status_2,
+      r1                           => Forecast_inst_r1,
+      r2                           => Forecast_inst_r2,
+      r3                           => Forecast_inst_r3,
+      r4                           => Forecast_inst_r4,
+      r5                           => Forecast_inst_r5,
+      r6                           => Forecast_inst_r6,
+      r7                           => Forecast_inst_r7,
+      r8                           => Forecast_inst_r8
     );
 
   mmio_inst : mmio
@@ -471,6 +503,14 @@ begin
       f_rlow_write_data             => mmio_inst_f_rlow_write_data,
       f_status_1_write_data         => mmio_inst_f_status_1_write_data,
       f_status_2_write_data         => mmio_inst_f_status_2_write_data,
+      f_r1_write_data               => mmio_inst_f_r1_write_data,
+      f_r2_write_data               => mmio_inst_f_r2_write_data,
+      f_r3_write_data               => mmio_inst_f_r3_write_data,
+      f_r4_write_data               => mmio_inst_f_r4_write_data,
+      f_r5_write_data               => mmio_inst_f_r5_write_data,
+      f_r6_write_data               => mmio_inst_f_r6_write_data,
+      f_r7_write_data               => mmio_inst_f_r7_write_data,
+      f_r8_write_data               => mmio_inst_f_r8_write_data,
       mmio_awvalid                  => mmio_inst_mmio_awvalid,
       mmio_awready                  => mmio_inst_mmio_awready,
       mmio_awaddr                   => mmio_inst_mmio_awaddr,
@@ -663,6 +703,14 @@ begin
   mmio_inst_f_rlow_write_data                       <= Forecast_inst_rlow;
   mmio_inst_f_status_1_write_data                   <= Forecast_inst_status_1;
   mmio_inst_f_status_2_write_data                   <= Forecast_inst_status_2;
+  mmio_inst_f_r1_write_data                         <= Forecast_inst_r1;
+  mmio_inst_f_r2_write_data                         <= Forecast_inst_r2;
+  mmio_inst_f_r3_write_data                         <= Forecast_inst_r3;
+  mmio_inst_f_r4_write_data                         <= Forecast_inst_r4;
+  mmio_inst_f_r5_write_data                         <= Forecast_inst_r5;
+  mmio_inst_f_r6_write_data                         <= Forecast_inst_r6;
+  mmio_inst_f_r7_write_data                         <= Forecast_inst_r7;
+  mmio_inst_f_r8_write_data                         <= Forecast_inst_r8;
   mmio_inst_mmio_awvalid                            <= mmio_awvalid;
   mmio_awready                                      <= mmio_inst_mmio_awready;
   mmio_inst_mmio_awaddr                             <= mmio_awaddr;

@@ -7,14 +7,14 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.std_logic_misc.all;
 
-library ieee_proposed;
-use ieee_proposed.fixed_pkg.all;
+--library ieee_proposed;
+--use ieee_proposed.fixed_pkg.all;
 
 library work;
 use work.Forecast_pkg.all;
 use work.Stream_pkg.all;
 use work.ParallelPatterns_pkg.all;
---use work.fixed_generic_pkg_mod.all;
+use work.fixed_generic_pkg_mod.all;
 
 entity Forecast is
   generic (
@@ -89,10 +89,18 @@ entity Forecast is
     result                       : out std_logic_vector(63 downto 0);
     l_firstidx                   : in  std_logic_vector(31 downto 0);
     l_lastidx                    : in  std_logic_vector(31 downto 0);
+    status_1                     : out std_logic_vector(31 downto 0);
+    status_2                     : out std_logic_vector(31 downto 0);
     rhigh                        : out std_logic_vector(31 downto 0);
     rlow                         : out std_logic_vector(31 downto 0);
-    status_1                     : out std_logic_vector(31 downto 0);
-    status_2                     : out std_logic_vector(31 downto 0)
+    r1                           : out std_logic_vector(63 downto 0);
+    r2                           : out std_logic_vector(63 downto 0);
+    r3                           : out std_logic_vector(63 downto 0);
+    r4                           : out std_logic_vector(63 downto 0);
+    r5                           : out std_logic_vector(63 downto 0);
+    r6                           : out std_logic_vector(63 downto 0);
+    r7                           : out std_logic_vector(63 downto 0);
+    r8                           : out std_logic_vector(63 downto 0)
 
 );
 end entity;
@@ -1731,7 +1739,7 @@ begin
     if rising_edge(kcd_clk) then
       -- Register the next state.
       state    <= state_next;        
-      status_1 <= (31 downto EPC => '0') & ONES;
+      status_1  <= (31 downto EPC => '0') & sum_out_valid_stages;
       result_out_data := (others => '0');
       temp_acc := (others => '0');
 
@@ -1742,14 +1750,46 @@ begin
         rhigh  <= result_out_data(63 downto 32);
         rlow   <= result_out_data(31 downto 0);
       end if;
+      if(sum_out_valid_stages(0) = '0') then 
+        r1     <= to_slv(resize( arg => temp_inp_1,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
+      end if;
+      if(sum_out_valid_stages(1) = '0') then 
+        r2     <= to_slv(resize( arg => temp_inp_2,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));   
+      end if;
+      if(sum_out_valid_stages(2) = '0') then 
+        r3     <= to_slv(resize( arg => temp_inp_3,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));   
+      end if;
+      if(sum_out_valid_stages(3) = '0') then 
+        r4     <= to_slv(resize( arg => temp_inp_4,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));   
+      end if;
+      if(sum_out_valid_stages(4) = '0') then 
+        r5     <= to_slv(resize( arg => temp_inp_5,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));   
+      end if;
+      if(sum_out_valid_stages(5) = '0') then 
+        r6     <= to_slv(resize( arg => temp_inp_6,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));   
+      end if;
+      if(sum_out_valid_stages(6) = '0') then 
+        r7     <= to_slv(resize( arg => temp_inp_7,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));   
+      end if;
+      if(sum_out_valid_stages(7) = '0') then 
+        r8     <= to_slv(resize( arg => temp_inp_8,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));   
+      end if;
 
       if kcd_reset = '1' or reset = '1' then
         state  <= STATE_IDLE;
+        status_1  <= (others => '0');
+        status_2 <= (others => '0');
         result <= (others => '0');
         rhigh  <= (others => '0');
         rlow   <= (others => '0');
-        status_1  <= (others => '0');
-        status_2  <= (others => '0');
+        r1     <= (others => '0');   
+        r2     <= (others => '0');                           
+        r3     <= (others => '0');                           
+        r4     <= (others => '0');                           
+        r5     <= (others => '0');                           
+        r6     <= (others => '0');                           
+        r7     <= (others => '0');                           
+        r8     <= (others => '0');                           
       end if;
     end if;
   end process;
