@@ -1731,6 +1731,7 @@ begin
     if rising_edge(kcd_clk) then
       -- Register the next state.
       state    <= state_next;        
+      status_1 <= (31 downto EPC => '0') & ONES;
       result_out_data := (others => '0');
       temp_acc := (others => '0');
 
@@ -1747,6 +1748,8 @@ begin
         result <= (others => '0');
         rhigh  <= (others => '0');
         rlow   <= (others => '0');
+        status_1  <= (others => '0');
+        status_2  <= (others => '0');
       end if;
     end if;
   end process;
