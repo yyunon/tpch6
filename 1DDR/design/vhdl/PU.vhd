@@ -64,20 +64,20 @@ architecture Behavioral of PU is
   constant MERGER_OUT_DEPTH                     : integer := 2;
 
   -- Converter inout buffers 
-  constant EXTENDEDPRICE_CONVERTER_IN_DEPTH     : integer := 20;
-  constant EXTENDEDPRICE_CONVERTER_OUT_DEPTH    : integer := 0;
-  constant DISCOUNT_CONVERTER_IN_DEPTH          : integer := 68;
-  constant DISCOUNT_CONVERTER_OUT_DEPTH         : integer := 68;
+  constant EXTENDEDPRICE_CONVERTER_IN_DEPTH     : integer := 8;
+  constant EXTENDEDPRICE_CONVERTER_OUT_DEPTH    : integer := 8;
+  constant DISCOUNT_CONVERTER_IN_DEPTH          : integer := 8;
+  constant DISCOUNT_CONVERTER_OUT_DEPTH         : integer := 8;
   constant QUANTITY_CONVERTER_IN_DEPTH          : integer := 0;
   constant QUANTITY_CONVERTER_OUT_DEPTH         : integer := 0;
 
   -- Filter in out buffers2
   constant BETWEEN_FILTER_IN_DEPTH              : integer := 8;
-  constant BETWEEN_FILTER_OUT_DEPTH             : integer := 68;
+  constant BETWEEN_FILTER_OUT_DEPTH             : integer := 8;
   constant LESSTHAN_FILTER_IN_DEPTH             : integer := 8;
-  constant LESSTHAN_FILTER_OUT_DEPTH            : integer := 68;
+  constant LESSTHAN_FILTER_OUT_DEPTH            : integer := 8;
   constant COMPARE_FILTER_IN_DEPTH              : integer := 8; --DATE
-  constant COMPARE_FILTER_OUT_DEPTH             : integer := 68; --DATE
+  constant COMPARE_FILTER_OUT_DEPTH             : integer := 8; --DATE
 
 -- Outputs of converters
   signal conv_l_discount_valid        : std_logic :='0';
