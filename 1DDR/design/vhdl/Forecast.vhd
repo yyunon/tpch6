@@ -7,14 +7,14 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.std_logic_misc.all;
 
---library ieee_proposed;
---use ieee_proposed.fixed_pkg.all;
+library ieee_proposed;
+use ieee_proposed.fixed_pkg.all;
 
 library work;
 use work.Forecast_pkg.all;
 use work.Stream_pkg.all;
 use work.ParallelPatterns_pkg.all;
-use work.fixed_generic_pkg_mod.all;
+--use work.fixed_generic_pkg_mod.all;
 
 entity Forecast is
   generic (
@@ -335,7 +335,14 @@ architecture Implementation of Forecast is
 
   signal result_out_valid           : std_logic;
   signal result_out_ready           : std_logic;
-  signal result_out_data            : std_logic_vector(DATA_WIDTH - 1 downto 0);
+  signal temp_inp_1                 : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
+  signal temp_inp_2                 : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
+  signal temp_inp_3                 : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
+  signal temp_inp_4                 : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
+  signal temp_inp_5                 : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
+  signal temp_inp_6                 : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
+  signal temp_inp_7                 : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
+  signal temp_inp_8                 : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
 
   constant ONES                     : std_logic_vector(EPC - 1 downto 0) := (others => '1');
 
@@ -1556,6 +1563,14 @@ begin
         sum_out_data                 => sum_out_data_stages((7+1)* 64 - 1 downto 7 * 64)
       );
 -------------------------------------------------------------------------------
+    temp_inp_1 <= to_sfixed(sum_out_data_stages(DATA_WIDTH - 1 downto 0), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+    temp_inp_2 <= to_sfixed(sum_out_data_stages(2*DATA_WIDTH - 1 downto DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+    temp_inp_3 <= to_sfixed(sum_out_data_stages(3*DATA_WIDTH - 1 downto 2 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+    temp_inp_4 <= to_sfixed(sum_out_data_stages(4*DATA_WIDTH - 1 downto 3 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+    temp_inp_5 <= to_sfixed(sum_out_data_stages(5*DATA_WIDTH - 1 downto 4 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+    temp_inp_6 <= to_sfixed(sum_out_data_stages(6*DATA_WIDTH - 1 downto 5 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+    temp_inp_7 <= to_sfixed(sum_out_data_stages(7*DATA_WIDTH - 1 downto 6 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+    temp_inp_8 <= to_sfixed(sum_out_data_stages(8*DATA_WIDTH - 1 downto 7 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
 
 
   with state select state_slv <= 
@@ -1583,15 +1598,6 @@ begin
         reset,
         kcd_reset
     ) is 
-      variable temp_inp_1         : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
-      variable temp_inp_2         : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
-      variable temp_inp_3         : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
-      variable temp_inp_4         : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
-      variable temp_inp_5         : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
-      variable temp_inp_6         : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
-      variable temp_inp_7         : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
-      variable temp_inp_8         : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
-      variable temp_acc           : sfixed(FIXED_LEFT_INDEX + (EPC - 1) downto FIXED_RIGHT_INDEX);
   begin
 
     l_quantity_cmd_valid             <= '0';
@@ -1624,7 +1630,6 @@ begin
     state_next                       <= state; -- Retain current state.
 
     sum_out_ready_stages             <= (others => '0');
-    result_out_data                  <= (others => '0');
 
     case state is
       when STATE_IDLE =>
@@ -1679,17 +1684,6 @@ begin
         sum_out_ready_stages         <= (others => '1');
 
         if sum_out_valid_stages = ONES then
-          temp_inp_1 := to_sfixed(sum_out_data_stages(DATA_WIDTH - 1 downto 0), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
-          temp_inp_2 := to_sfixed(sum_out_data_stages(2*DATA_WIDTH - 1 downto DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
-          temp_inp_3 := to_sfixed(sum_out_data_stages(3*DATA_WIDTH - 1 downto 2 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
-          temp_inp_4 := to_sfixed(sum_out_data_stages(4*DATA_WIDTH - 1 downto 3 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
-          temp_inp_5 := to_sfixed(sum_out_data_stages(5*DATA_WIDTH - 1 downto 4 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
-          temp_inp_6 := to_sfixed(sum_out_data_stages(6*DATA_WIDTH - 1 downto 5 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
-          temp_inp_7 := to_sfixed(sum_out_data_stages(7*DATA_WIDTH - 1 downto 6 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
-          temp_inp_8 := to_sfixed(sum_out_data_stages(8*DATA_WIDTH - 1 downto 7 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
-
-          temp_acc := temp_inp_1 + temp_inp_2 + temp_inp_3 + temp_inp_4 + temp_inp_5 + temp_inp_6 + temp_inp_7 + temp_inp_8;
-          result_out_data <= to_slv(resize( arg => temp_acc,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
 
           state_next                 <= STATE_UNLOCK;
         end if;
@@ -1728,23 +1722,29 @@ begin
   
  -- Sequential part:
   sequential_proc: process (kcd_clk)
+    variable result_out_data    : std_logic_vector(DATA_WIDTH - 1 downto 0);
+    variable temp_acc           : sfixed(FIXED_LEFT_INDEX + (EPC - 1) downto FIXED_RIGHT_INDEX);
   begin
     -- On the rising edge of the kernel clock:
     if rising_edge(kcd_clk) then
       -- Register the next state.
-      state <= state_next;        
+      state    <= state_next;        
+      result_out_data := (others => '0');
+      temp_acc := (others => '0');
 
-      if state = STATE_DONE then
+      if sum_out_valid_stages = ONES then
+        temp_acc := temp_inp_1 + temp_inp_2 + temp_inp_3 + temp_inp_4 + temp_inp_5 + temp_inp_6 + temp_inp_7 + temp_inp_8;
+        result_out_data := to_slv(resize( arg => temp_acc,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
         result <= result_out_data;
-        rhigh <= result_out_data(63 downto 32);
-        rlow <= result_out_data(31 downto 0);
-      else
-        result <= (63 downto state_slv'length => '0') & state_slv;
+        rhigh  <= result_out_data(63 downto 32);
+        rlow   <= result_out_data(31 downto 0);
       end if;
 
       if kcd_reset = '1' or reset = '1' then
-        state <= STATE_IDLE;
+        state  <= STATE_IDLE;
         result <= (others => '0');
+        rhigh  <= (others => '0');
+        rlow   <= (others => '0');
       end if;
     end if;
   end process;
