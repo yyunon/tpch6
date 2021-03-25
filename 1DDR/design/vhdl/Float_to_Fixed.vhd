@@ -159,6 +159,7 @@ begin
       out_data(64)              => ops_dvalid,
       out_data(63 downto 0)     => ops_data
     );   
+
 xilinx_converter:
 if CONVERTER_TYPE = "xilinx_ip" generate
    data_converter: floating_point_0
@@ -178,7 +179,16 @@ if CONVERTER_TYPE = "xilinx_ip" generate
     -- Xilinx ip clk cycles depends heavily on the configuration:
     -- The current one uses sth around 2 clk cycles, not pipelined.
     fsm_process:
-    process(state, conv_data_ready, ops_valid)
+    process(state,
+            conv_data_ready,
+
+            result_data,
+            result_valid,
+
+            ops_data,
+            ops_last,
+            ops_valid
+            )
     begin
       state_next <= state;
 
@@ -189,17 +199,7 @@ if CONVERTER_TYPE = "xilinx_ip" generate
       conv_data_last <= '0';
       --conv_data <= (others => '0');
       --flopoco_input <= (others => '0');
-      dly_1 <= '0';
-      dly_2 <= '0';
-      dly_3 <= '0';
-      dly_4 <= '0';
-      dly_5 <= '0';
-      dly_6 <= '0';
-      dly_7 <= '0';
-      dly_8 <= '0';
-      dly_9 <= '0';
-      dly_10 <= '0';
-
+      
       case state is
         when idle =>
           if (conv_data_ready = '1') and (ops_valid = '1') then
@@ -207,38 +207,22 @@ if CONVERTER_TYPE = "xilinx_ip" generate
           end if;
         when start =>
           flopoco_input <= ops_data;
-          dly_1 <= ops_last;
           state_next <= busy_1;
         when busy_1 =>
-          dly_2 <= dly_1;
           state_next <= busy_2;
         when busy_2 =>
-          dly_3 <= dly_2;
           state_next <= busy_3;
         when busy_3 =>
-          dly_4 <= dly_3;
           state_next <= busy_4;
         when busy_4 =>
-          dly_5 <= dly_4;
           state_next <= busy_5;
         when busy_5 =>
-          dly_6 <= dly_5;
           state_next <= busy_6;
         when busy_6 =>
-          dly_7<= dly_6;
-          state_next <= busy_7;
-        when busy_7 =>
-          dly_8 <= dly_7;
-          state_next <= busy_8;
-        when busy_8 =>
-          dly_9 <= dly_8;
-          state_next <= busy_9;
-        when busy_9 =>
-          dly_10 <= dly_9;
           state_next <= done;
         when done =>
           ops_ready <= '1';
-          conv_data_last <= dly_10; -- This propag. the last
+          conv_data_last <= ops_last; -- This propag. the last
           conv_data <= result_data;
           conv_data_dvalid <= '1';
           conv_data_valid <= result_valid;
