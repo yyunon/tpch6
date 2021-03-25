@@ -104,16 +104,6 @@ architecture Behavioral of Float_to_Fixed is
   signal ops_last               : std_logic;
   signal ops_data               : std_logic_vector(DATA_WIDTH - 1 downto 0);
 
-  signal dly_1                  : std_logic;
-  signal dly_2                  : std_logic;
-  signal dly_3                  : std_logic;
-  signal dly_4                  : std_logic;
-  signal dly_5                  : std_logic;
-  signal dly_6                  : std_logic;
-  signal dly_7                  : std_logic;
-  signal dly_8                  : std_logic;
-  signal dly_9                  : std_logic;
-  signal dly_10                 : std_logic;
   signal flopoco_data           : std_logic_vector(DATA_WIDTH + 1 downto 0);
   signal flopoco_input          : std_logic_vector(DATA_WIDTH - 1 downto 0);
 
@@ -166,12 +156,12 @@ if CONVERTER_TYPE = "xilinx_ip" generate
     PORT MAP (
       aclk => clk,
       s_axis_a_tvalid => ops_valid,
-      s_axis_a_tdata => flopoco_input,
+      s_axis_a_tdata => ops_data,
       s_axis_a_tuser(1) => ops_dvalid,
       s_axis_a_tuser(0) => '0',
       s_axis_a_tlast => ops_last,
       m_axis_result_tvalid => result_valid,
-      m_axis_result_tdata => result_data,
+      m_axis_result_tdata => conv_data,
       m_axis_result_tuser(1) => result_dvalid,
       m_axis_result_tuser(0) => conv_data_dum,
       m_axis_result_tlast => result_last
@@ -197,16 +187,13 @@ if CONVERTER_TYPE = "xilinx_ip" generate
       conv_data_dvalid <= '0';
       conv_data_valid <= '0';
       conv_data_last <= '0';
-      --conv_data <= (others => '0');
-      --flopoco_input <= (others => '0');
-      
+
       case state is
         when idle =>
           if (conv_data_ready = '1') and (ops_valid = '1') then
             state_next <= start;
           end if;
         when start =>
-          flopoco_input <= ops_data;
           state_next <= busy_1;
         when busy_1 =>
           state_next <= busy_2;
@@ -223,7 +210,6 @@ if CONVERTER_TYPE = "xilinx_ip" generate
         when done =>
           ops_ready <= '1';
           conv_data_last <= ops_last; -- This propag. the last
-          conv_data <= result_data;
           conv_data_dvalid <= '1';
           conv_data_valid <= result_valid;
           state_next <= idle;
@@ -245,7 +231,7 @@ if CONVERTER_TYPE = "xilinx_ip" generate
       port map ( 
          clk                      => clk,
          rst                      => reset,
-         X                        => flopoco_input,
+         X                        => ops_data,
          R                        => flopoco_data
       );
 
@@ -254,10 +240,20 @@ if CONVERTER_TYPE = "xilinx_ip" generate
          clk                      => clk,
          rst                      => reset,
          I                        => flopoco_data,
-         O                        => result_data 
+         O                        => conv_data 
       );
+    -- Flopoco converter utilizes 5 clk cycles to finish.
     fsm_process:
-    process(state, conv_data_ready, ops_valid)
+    process(state,
+            conv_data_ready,
+
+            result_data,
+            result_valid,
+
+            ops_data,
+            ops_last,
+            ops_valid
+            )
     begin
       state_next <= state;
 
@@ -266,16 +262,6 @@ if CONVERTER_TYPE = "xilinx_ip" generate
       conv_data_dvalid <= '0';
       conv_data_valid <= '0';
       conv_data_last <= '0';
-      --conv_data <= (others => '0');
-      --flopoco_input <= (others => '0');
-      dly_1 <= '0';
-      dly_2 <= '0';
-      dly_3 <= '0';
-      dly_4 <= '0';
-      dly_5 <= '0';
-      dly_6 <= '0';
-      dly_7 <= '0';
-      dly_8 <= '0';
 
       case state is
         when idle =>
@@ -283,36 +269,22 @@ if CONVERTER_TYPE = "xilinx_ip" generate
             state_next <= start;
           end if;
         when start =>
-          flopoco_input <= ops_data;
-          dly_1 <= ops_last;
           state_next <= busy_1;
         when busy_1 =>
-          dly_2 <= dly_1;
           state_next <= busy_2;
         when busy_2 =>
-          dly_3 <= dly_2;
           state_next <= busy_3;
         when busy_3 =>
-          dly_4 <= dly_3;
           state_next <= busy_4;
         when busy_4 =>
-          dly_5 <= dly_4;
           state_next <= busy_5;
         when busy_5 =>
-          dly_6 <= dly_5;
-          state_next <= busy_6;
-        when busy_6 =>
-          dly_7<= dly_6;
-          state_next <= busy_7;
-        when busy_7 =>
-          dly_8 <= dly_7;
           state_next <= done;
         when done =>
           ops_ready <= '1';
-          conv_data_last <= dly_8;
-          conv_data <= result_data;
+          conv_data_last <= ops_last; -- This propag. the last
           conv_data_dvalid <= '1';
-          conv_data_valid <= '1';
+          conv_data_valid <= result_valid;
           state_next <= idle;
         when others =>
           state_next <= idle;
