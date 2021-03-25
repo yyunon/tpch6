@@ -102,8 +102,8 @@ architecture Implementation of Forecast is
   constant FIXED_LEFT_INDEX         : integer := 45;
   constant FIXED_RIGHT_INDEX        : integer := FIXED_LEFT_INDEX - (DATA_WIDTH-1);
  
-  constant SYNC_IN_BUFFER_DEPTH     : integer := 8;
-  constant SYNC_OUT_BUFFER_DEPTH    : integer := 8;
+  constant SYNC_IN_BUFFER_DEPTH     : integer := 2;
+  constant SYNC_OUT_BUFFER_DEPTH    : integer := 2;
 
   -- If the input stream size is not divisible by EPC check this:
   signal   pu_mask                  : std_logic_vector(EPC - 1 downto 0);
