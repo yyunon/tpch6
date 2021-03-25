@@ -67,6 +67,14 @@ package mmio_pkg is
       -- Interface for field rlow: rlow.
       f_rlow_write_data : in std_logic_vector(31 downto 0) := (others => '0');
 
+      -- Interface for field status_1: status_1.
+      f_status_1_write_data : in std_logic_vector(31 downto 0)
+          := (others => '0');
+
+      -- Interface for field status_2: status_2.
+      f_status_2_write_data : in std_logic_vector(31 downto 0)
+          := (others => '0');
+
       -- Interface for field Profile_enable: Profile_enable.
       f_Profile_enable_data : out std_logic := '0';
 

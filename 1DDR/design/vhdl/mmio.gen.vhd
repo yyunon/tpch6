@@ -65,6 +65,12 @@ entity mmio is
     -- Interface for field rlow: rlow.
     f_rlow_write_data : in std_logic_vector(31 downto 0) := (others => '0');
 
+    -- Interface for field status_1: status_1.
+    f_status_1_write_data : in std_logic_vector(31 downto 0) := (others => '0');
+
+    -- Interface for field status_2: status_2.
+    f_status_2_write_data : in std_logic_vector(31 downto 0) := (others => '0');
+
     -- Interface for field Profile_enable: Profile_enable.
     f_Profile_enable_data : out std_logic := '0';
 
@@ -459,6 +465,32 @@ begin
     type f_rlow_r_array is array (natural range <>) of f_rlow_r_type;
     variable f_rlow_r : f_rlow_r_array(0 to 0) := (others => F_RLOW_R_RESET);
 
+    -- Private declarations for field status_1: status_1.
+    type f_status_1_r_type is record
+      d : std_logic_vector(31 downto 0);
+      v : std_logic;
+    end record;
+    constant F_STATUS_1_R_RESET : f_status_1_r_type := (
+      d => (others => '0'),
+      v => '0'
+    );
+    type f_status_1_r_array is array (natural range <>) of f_status_1_r_type;
+    variable f_status_1_r : f_status_1_r_array(0 to 0)
+        := (others => F_STATUS_1_R_RESET);
+
+    -- Private declarations for field status_2: status_2.
+    type f_status_2_r_type is record
+      d : std_logic_vector(31 downto 0);
+      v : std_logic;
+    end record;
+    constant F_STATUS_2_R_RESET : f_status_2_r_type := (
+      d => (others => '0'),
+      v => '0'
+    );
+    type f_status_2_r_array is array (natural range <>) of f_status_2_r_type;
+    variable f_status_2_r : f_status_2_r_array(0 to 0)
+        := (others => F_STATUS_2_R_RESET);
+
     -- Private declarations for field Profile_enable: Profile_enable.
     type f_Profile_enable_r_type is record
       d : std_logic;
@@ -650,6 +682,18 @@ begin
       -- Handle hardware write for field rlow: status.
       f_rlow_r((0)).d := f_rlow_write_data;
       f_rlow_r((0)).v := '1';
+
+      -- Pre-bus logic for field status_1: status_1.
+
+      -- Handle hardware write for field status_1: status.
+      f_status_1_r((0)).d := f_status_1_write_data;
+      f_status_1_r((0)).v := '1';
+
+      -- Pre-bus logic for field status_2: status_2.
+
+      -- Handle hardware write for field status_2: status.
+      f_status_2_r((0)).d := f_status_2_write_data;
+      f_status_2_r((0)).v := '1';
 
       -- Pre-bus logic for field Profile_clear: Profile_clear.
 
@@ -1146,8 +1190,78 @@ begin
 
           end if;
 
-        when others => -- "10000"
+        when "10000" =>
           -- r_addr = 000000000000000000000000010000--
+
+          if r_req then
+
+            -- Clear holding register location prior to read.
+            r_hold := (others => '0');
+
+          end if;
+
+          -- Read logic for field status_1: status_1.
+
+          if r_req then
+            tmp_data32 := r_hold(31 downto 0);
+          end if;
+          if r_req then
+
+            -- Regular access logic. Read mode: enabled.
+            tmp_data32 := f_status_1_r((0)).d;
+            r_ack := true;
+
+          end if;
+          if r_req then
+            r_hold(31 downto 0) := tmp_data32;
+          end if;
+
+          -- Read logic for block status_1_reg: block containing bits 31..0 of
+          -- register `status_1_reg` (`STATUS_1`).
+          if r_req then
+
+            r_data := r_hold(31 downto 0);
+            r_multi := '0';
+
+          end if;
+
+        when "10001" =>
+          -- r_addr = 000000000000000000000000010001--
+
+          if r_req then
+
+            -- Clear holding register location prior to read.
+            r_hold := (others => '0');
+
+          end if;
+
+          -- Read logic for field status_2: status_2.
+
+          if r_req then
+            tmp_data32 := r_hold(31 downto 0);
+          end if;
+          if r_req then
+
+            -- Regular access logic. Read mode: enabled.
+            tmp_data32 := f_status_2_r((0)).d;
+            r_ack := true;
+
+          end if;
+          if r_req then
+            r_hold(31 downto 0) := tmp_data32;
+          end if;
+
+          -- Read logic for block status_2_reg: block containing bits 31..0 of
+          -- register `status_2_reg` (`STATUS_2`).
+          if r_req then
+
+            r_data := r_hold(31 downto 0);
+            r_multi := '0';
+
+          end if;
+
+        when others => -- "10010"
+          -- r_addr = 000000000000000000000000010010--
 
           if r_req then
 
@@ -1473,8 +1587,8 @@ begin
 
           end if;
 
-        when "10000" =>
-          -- w_addr = 000000000000000000000000010000--
+        when "10010" =>
+          -- w_addr = 000000000000000000000000010010--
 
           -- Write logic for block Profile_enable_reg: block containing bits
           -- 31..0 of register `Profile_enable_reg` (`PROFILE_ENABLE`).
@@ -1498,8 +1612,8 @@ begin
 
           end if;
 
-        when others => -- "10001"
-          -- w_addr = 000000000000000000000000010001--
+        when others => -- "10011"
+          -- w_addr = 000000000000000000000000010011--
 
           -- Write logic for block Profile_clear_reg: block containing bits
           -- 31..0 of register `Profile_clear_reg` (`PROFILE_CLEAR`).

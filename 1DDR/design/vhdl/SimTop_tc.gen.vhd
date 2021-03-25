@@ -305,21 +305,21 @@ begin
     -- 2. Write addresses of the arrow buffers in the SREC file.
     mmio_write32(6, X"00000000", mmio_source, mmio_sink, bcd_clk, bcd_reset); -- l quantity_values buffer address.
     mmio_write32(7, X"00000000", mmio_source, mmio_sink, bcd_clk, bcd_reset);
-    mmio_write32(8, X"00001f40", mmio_source, mmio_sink, bcd_clk, bcd_reset); -- l extendedprice_values buffer address.
+    mmio_write32(8, X"00000340", mmio_source, mmio_sink, bcd_clk, bcd_reset); -- l extendedprice_values buffer address.
     mmio_write32(9, X"00000000", mmio_source, mmio_sink, bcd_clk, bcd_reset);
-    mmio_write32(10, X"00003e80", mmio_source, mmio_sink, bcd_clk, bcd_reset); -- l discount_values buffer address.
+    mmio_write32(10, X"00000680", mmio_source, mmio_sink, bcd_clk, bcd_reset); -- l discount_values buffer address.
     mmio_write32(11, X"00000000", mmio_source, mmio_sink, bcd_clk, bcd_reset);
-    mmio_write32(12, X"00005dc0", mmio_source, mmio_sink, bcd_clk, bcd_reset); -- l shipdate_values buffer address.
+    mmio_write32(12, X"000009c0", mmio_source, mmio_sink, bcd_clk, bcd_reset); -- l shipdate_values buffer address.
     mmio_write32(13, X"00000000", mmio_source, mmio_sink, bcd_clk, bcd_reset);
 
     -- 3. Write recordbatch bounds.
     mmio_write32(4, X"00000000", mmio_source, mmio_sink, bcd_clk, bcd_reset); -- l first index.
-    mmio_write32(5, X"000003e8", mmio_source, mmio_sink, bcd_clk, bcd_reset); -- l last index.
+    mmio_write32(5, X"00000064", mmio_source, mmio_sink, bcd_clk, bcd_reset); -- l last index.
 
     -- 4. Write any kernel-specific registers.
 
     -- 5. Start the kernel.
-    mmio_write32(16, X"00000001", mmio_source, mmio_sink, bcd_clk, bcd_reset); -- Start profiling.
+    mmio_write32(18, X"00000001", mmio_source, mmio_sink, bcd_clk, bcd_reset); -- Start profiling.
     mmio_write32(REG_CONTROL, CONTROL_START, mmio_source, mmio_sink, bcd_clk, bcd_reset);
 
     -- 6. Poll for completion
@@ -337,7 +337,7 @@ begin
       exit when read_data_masked = STATUS_DONE;
     end loop;
 
-    mmio_write32(16, X"00000000", mmio_source, mmio_sink, bcd_clk, bcd_reset); -- Stop profiling.
+    mmio_write32(18, X"00000000", mmio_source, mmio_sink, bcd_clk, bcd_reset); -- Stop profiling.
 
     -- 7. Read return register.
     mmio_read32(REG_RETURN0, read_data, mmio_source, mmio_sink, bcd_clk, bcd_reset);

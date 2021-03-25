@@ -90,7 +90,9 @@ entity Forecast is
     l_firstidx                   : in  std_logic_vector(31 downto 0);
     l_lastidx                    : in  std_logic_vector(31 downto 0);
     rhigh                        : out std_logic_vector(31 downto 0);
-    rlow                         : out std_logic_vector(31 downto 0)
+    rlow                         : out std_logic_vector(31 downto 0);
+    status_1                     : out std_logic_vector(31 downto 0);
+    status_2                     : out std_logic_vector(31 downto 0)
 
 );
 end entity;
