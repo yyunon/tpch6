@@ -1624,6 +1624,7 @@ begin
     state_next                       <= state; -- Retain current state.
 
     sum_out_ready_stages             <= (others => '0');
+    result_out_data                  <= (others => '0');
 
     case state is
       when STATE_IDLE =>
