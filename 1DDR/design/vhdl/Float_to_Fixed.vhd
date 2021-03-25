@@ -81,12 +81,11 @@ architecture Behavioral of Float_to_Fixed is
   component InputIEEE_11_52_to_11_52 is
     port ( clk, rst : in std_logic;
             X : in  std_logic_vector(63 downto 0);
-            R : out  std_logic_vector(10+53+2 downto 0)   );
+            R : out  std_logic_vector(11+52+2 downto 0)   );
   end component;
-
-  component FP2Fix_11_52M_18_45_S_NT_F400_uid3 is
-    port ( clk, rst : in std_logic;
-            I : in  std_logic_vector(10+53+2 downto 0);
+  component FP2Fix_11_52M_18_45_S_T_F400_uid2 is
+      port (clk : in std_logic;
+            I : in  std_logic_vector(11+52+2 downto 0);
             O : out  std_logic_vector(63 downto 0)   );
   end component;
   --
@@ -220,7 +219,7 @@ if CONVERTER_TYPE = "xilinx_ip" generate
   end generate;
 
   flopoco_converter:
-  if CONVERTER_TYPE = "flopoco" generate
+  if CONVERTER_TYPE = "flopoco_big_numbers" generate
     -- Flopoco has its own type, which is simply IEEE.
     -- Yet, it uses flags for normalization etc. 
     -- First, convert it to flopoco then to fixed point in this 
@@ -235,10 +234,9 @@ if CONVERTER_TYPE = "xilinx_ip" generate
          R                        => flopoco_data
       );
 
-    flopoco_to_fixed: FP2Fix_11_52M_18_45_S_NT_F400_uid3
+    flopoco_to_fixed:FP2Fix_11_52M_18_45_S_T_F400_uid2
       port map ( 
          clk                      => clk,
-         rst                      => reset,
          I                        => flopoco_data,
          O                        => conv_data 
       );
@@ -279,6 +277,8 @@ if CONVERTER_TYPE = "xilinx_ip" generate
         when busy_4 =>
           state_next <= busy_5;
         when busy_5 =>
+          state_next <= busy_6;
+        when busy_6 =>
           state_next <= done;
         when done =>
           ops_ready <= '1';
