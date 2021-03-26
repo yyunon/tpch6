@@ -769,7 +769,7 @@ begin
         FIXED_RIGHT_INDEX            => FIXED_RIGHT_INDEX,
         DATA_WIDTH                   => 64,
         INDEX_WIDTH                  => INDEX_WIDTH,
-        CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+        CONVERTERS                   => "FLOAT_TO_FIXED", -- TODO: Implement this
         ILA                          => ""
       )
       port map (
@@ -890,7 +890,7 @@ begin
         FIXED_RIGHT_INDEX            => FIXED_RIGHT_INDEX,
         DATA_WIDTH                   => 64,
         INDEX_WIDTH                  => INDEX_WIDTH,
-        CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+        CONVERTERS                   => "FLOAT_TO_FIXED", -- TODO: Implement this
         ILA                          => ""
       )
       port map (
@@ -1011,7 +1011,7 @@ begin
         FIXED_RIGHT_INDEX            => FIXED_RIGHT_INDEX,
         DATA_WIDTH                   => 64,
         INDEX_WIDTH                  => INDEX_WIDTH,
-        CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+        CONVERTERS                   => "FLOAT_TO_FIXED", -- TODO: Implement this
         ILA                          => ""
       )
       port map (
@@ -1132,7 +1132,7 @@ begin
         FIXED_RIGHT_INDEX            => FIXED_RIGHT_INDEX,
         DATA_WIDTH                   => 64,
         INDEX_WIDTH                  => INDEX_WIDTH,
-        CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+        CONVERTERS                   => "FLOAT_TO_FIXED", -- TODO: Implement this
         ILA                          => ""
       )
       port map (
@@ -1253,7 +1253,7 @@ begin
         FIXED_RIGHT_INDEX            => FIXED_RIGHT_INDEX,
         DATA_WIDTH                   => 64,
         INDEX_WIDTH                  => INDEX_WIDTH,
-        CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+        CONVERTERS                   => "FLOAT_TO_FIXED", -- TODO: Implement this
         ILA                          => ""
       )
       port map (
@@ -1374,7 +1374,7 @@ begin
         FIXED_RIGHT_INDEX            => FIXED_RIGHT_INDEX,
         DATA_WIDTH                   => 64,
         INDEX_WIDTH                  => INDEX_WIDTH,
-        CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+        CONVERTERS                   => "FLOAT_TO_FIXED", -- TODO: Implement this
         ILA                          => ""
       )
       port map (
@@ -1495,7 +1495,7 @@ begin
         FIXED_RIGHT_INDEX            => FIXED_RIGHT_INDEX,
         DATA_WIDTH                   => 64,
         INDEX_WIDTH                  => INDEX_WIDTH,
-        CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+        CONVERTERS                   => "FLOAT_TO_FIXED", -- TODO: Implement this
         ILA                          => ""
       )
       port map (
