@@ -40,7 +40,7 @@ package Forecast_pkg is
         FIXED_RIGHT_INDEX            : INTEGER;
         DATA_WIDTH                   : NATURAL;
         INDEX_WIDTH                  : INTEGER;
-        CONVERTERS                   : STRING := ""
+        CONVERTERS                   : STRING := "";
         ILA                          : STRING := ""
 
     );
