@@ -149,6 +149,15 @@ begin
       out_data(63 downto 0)     => ops_data
     );   
 
+none_converter:
+if CONVERTER_TYPE = "none" generate
+    conv_data <= ops_data;
+    conv_data_last <= ops_last;
+    conv_data_dvalid <= ops_dvalid;
+    conv_data_valid <= ops_valid;
+    ops_ready <= conv_data_ready;
+end generate;
+
 xilinx_converter:
 if CONVERTER_TYPE = "xilinx_ip" generate
    data_converter: floating_point_0
@@ -215,6 +224,16 @@ if CONVERTER_TYPE = "xilinx_ip" generate
         when others =>
           state_next <= idle;
       end case;
+    end process;
+    clk_process: 
+    process(clk)
+    begin
+      if clk'event and clk = '1' then
+        state <= state_next;
+        if reset = '1' then
+          state <= idle;
+        end if;
+      end if;
     end process;
   end generate;
 
@@ -290,6 +309,16 @@ if CONVERTER_TYPE = "xilinx_ip" generate
           state_next <= idle;
       end case;
     end process;
+    clk_process: 
+    process(clk)
+    begin
+      if clk'event and clk = '1' then
+        state <= state_next;
+        if reset = '1' then
+          state <= idle;
+        end if;
+      end if;
+    end process;
   end generate;
 
   out_buf: StreamBuffer
@@ -314,14 +343,4 @@ if CONVERTER_TYPE = "xilinx_ip" generate
     );
    
 
-  clk_process: 
-  process(clk)
-  begin
-    if clk'event and clk = '1' then
-      state <= state_next;
-      if reset = '1' then
-        state <= idle;
-      end if;
-    end if;
-  end process;
 end Behavioral;
