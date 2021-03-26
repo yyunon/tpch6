@@ -1,3 +1,9 @@
 .Xil
 .cache
 hd_visual
+*.tar.gz
+*.nohup.*
+*.out
+*.log
+last_log
+
