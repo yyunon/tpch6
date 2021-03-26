@@ -770,6 +770,7 @@ begin
         DATA_WIDTH                   => 64,
         INDEX_WIDTH                  => INDEX_WIDTH,
         CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+        ILA                          => ""
       )
       port map (
         clk                          => kcd_clk,
@@ -890,6 +891,7 @@ begin
         DATA_WIDTH                   => 64,
         INDEX_WIDTH                  => INDEX_WIDTH,
         CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+        ILA                          => ""
       )
       port map (
         clk                          => kcd_clk,
@@ -1010,6 +1012,7 @@ begin
         DATA_WIDTH                   => 64,
         INDEX_WIDTH                  => INDEX_WIDTH,
         CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+        ILA                          => ""
       )
       port map (
         clk                          => kcd_clk,
@@ -1130,6 +1133,7 @@ begin
         DATA_WIDTH                   => 64,
         INDEX_WIDTH                  => INDEX_WIDTH,
         CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+        ILA                          => ""
       )
       port map (
         clk                          => kcd_clk,
@@ -1250,6 +1254,7 @@ begin
         DATA_WIDTH                   => 64,
         INDEX_WIDTH                  => INDEX_WIDTH,
         CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+        ILA                          => ""
       )
       port map (
         clk                          => kcd_clk,
@@ -1370,6 +1375,7 @@ begin
         DATA_WIDTH                   => 64,
         INDEX_WIDTH                  => INDEX_WIDTH,
         CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+        ILA                          => ""
       )
       port map (
         clk                          => kcd_clk,
@@ -1490,6 +1496,7 @@ begin
         DATA_WIDTH                   => 64,
         INDEX_WIDTH                  => INDEX_WIDTH,
         CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+        ILA                          => ""
       )
       port map (
         clk                          => kcd_clk,
