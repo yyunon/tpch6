@@ -41,6 +41,7 @@ package Forecast_pkg is
         DATA_WIDTH                   : NATURAL;
         INDEX_WIDTH                  : INTEGER;
         CONVERTERS                   : STRING := ""
+        ILA                          : STRING := ""
 
     );
     port (

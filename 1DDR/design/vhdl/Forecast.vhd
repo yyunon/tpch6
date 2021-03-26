@@ -356,56 +356,6 @@ architecture Implementation of Forecast is
 
   constant ONES                     : std_logic_vector(EPC - 1 downto 0) := (others => '1');
 
-  component ila_1 
-  port(
-        clk     : in std_logic;
-        probe0  : in std_logic_vector(0 downto 0);
-        probe1  : in std_logic_vector(63 downto 0);
-        probe2  : in std_logic_vector(1 downto 0);
-        probe3  : in std_logic_vector(0 downto 0);
-        probe4  : in std_logic_vector(0 downto 0);
-        probe5  : in std_logic_vector(63 downto 0);
-        probe6  : in std_logic_vector(0 downto 0);
-        probe7  : in std_logic_vector(0 downto 0);
-        probe8  : in std_logic_vector(0 downto 0);
-        probe9  : in std_logic_vector(0 downto 0);
-        probe10 : in std_logic_vector(511 downto 0);
-        probe11 : in std_logic_vector(0 downto 0);
-        probe12 : in std_logic_vector(0 downto 0);
-        probe13 : in std_logic_vector(1 downto 0);
-        probe14 : in std_logic_vector(511 downto 0);
-        probe15 : in std_logic_vector(63 downto 0);
-        probe16 : in std_logic_vector(0 downto 0);
-        probe17 : in std_logic_vector(2 downto 0);
-        probe18 : in std_logic_vector(2 downto 0);
-        probe19 : in std_logic_vector(4 downto 0);
-        probe20 : in std_logic_vector(4 downto 0);
-        probe21 : in std_logic_vector(7 downto 0);
-        probe22 : in std_logic_vector(0 downto 0);
-        probe23 : in std_logic_vector(2 downto 0);
-        probe24 : in std_logic_vector(1 downto 0);
-        probe25 : in std_logic_vector(4 downto 0);
-        probe26 : in std_logic_vector(0 downto 0);
-        probe27 : in std_logic_vector(7 downto 0);
-        probe28 : in std_logic_vector(2 downto 0);
-        probe29 : in std_logic_vector(1 downto 0);
-        probe30 : in std_logic_vector(0 downto 0);
-        probe31 : in std_logic_vector(3 downto 0);
-        probe32 : in std_logic_vector(3 downto 0);
-        probe33 : in std_logic_vector(3 downto 0);
-        probe34 : in std_logic_vector(3 downto 0);
-        probe35 : in std_logic_vector(0 downto 0);
-        probe36 : in std_logic_vector(3 downto 0);
-        probe37 : in std_logic_vector(3 downto 0);
-        probe38 : in std_logic_vector(4 downto 0);
-        probe39 : in std_logic_vector(0 downto 0);
-        probe40 : in std_logic_vector(0 downto 0);
-        probe41 : in std_logic_vector(0 downto 0);
-        probe42 : in std_logic_vector(0 downto 0); 
-        probe43 : in std_logic_vector(0 downto 0)
-  );
-  end component;
-
 begin
 
    --One-hot encoded char mask.
@@ -698,7 +648,8 @@ begin
         FIXED_RIGHT_INDEX            => FIXED_RIGHT_INDEX,
         DATA_WIDTH                   => 64,
         INDEX_WIDTH                  => INDEX_WIDTH,
-        CONVERTERS                   => "FLOAT_TO_FIXED" -- TODO: Implement this
+        CONVERTERS                   => "FLOAT_TO_FIXED", -- TODO: Implement this
+        ILA                          => "TRUE"
       )
       port map (
         clk                          => kcd_clk,
