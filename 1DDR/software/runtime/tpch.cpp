@@ -167,6 +167,14 @@ int main(int argc, char **argv) {
   fletcher::Kernel kernel(context);
 
   // Start the kernel.
+  status = kernel.Reset();
+
+  if (!status.ok()) {
+    std::cerr << "Could not start the kernel." << std::endl;
+    return -1;
+  }
+
+  // Start the kernel.
   status = kernel.Start();
 
   if (!status.ok()) {
