@@ -6,3 +6,4 @@ xvhdl.*
 .hdl_checker/
 .vscode
 .metals
+Forecast.gen.vhd
