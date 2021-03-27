@@ -446,7 +446,7 @@ end generate;
 
 input_buffer_to_pu:
 for I in 0 to EPC-1 generate
-  -- Output buf.
+
   --------------------------------------------------------------------
     discount_buffer_pu_0: StreamBuffer
       generic map (
