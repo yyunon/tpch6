@@ -358,25 +358,40 @@ architecture Implementation of Forecast is
 
 begin
 
-   --One-hot encoded char mask.
-   --with l_quantity_count(3 downto 0) select pu_mask  <=
-   --     "00000001" when "0001",
-   --     "00000011" when "0010", 
-   --     "00000111" when "0011", 
-   --     "00001111" when "0100",
-   --     "00011111" when "0101", 
-   --     "00111111" when "0110",
-   --     "01111111" when "0111",
-   --     "11111111" when "1000",
-   --     "11111111" when "1001",
-   --     "11111111" when "1010", 
-   --     "11111111" when "1011", 
-   --     "11111111" when "1100",
-   --     "11111111" when "1101", 
-   --     "11111111" when "1110",
-   --     "11111111" when "1111",
-   --     "00000000" when others;
-
+ --  +---------------------+  +---------------------+  +---------------------+  +---------------------+ 
+ --|                     |  |                     |  |                     |  |                     | 
+ --|      extendedprice  |  |      discount       |  |     shipdate        |  |          quantity   | 
+ --|         512         |  |        512          |  |        512          |  |           512       | 
+ --|                     |  |                     |  |                     |  |                     | 
+ --+---------------------+  +---------------------+  +---------------------+  +---------------------+ 
+ --           |                        |                        |                        |            
+ --           |                        |                        |                        |            
+ --           |                        |                        |                        |            
+ --           |                        |                        |                        |            
+ --           |                        |                        |                        |            
+ --           |                        |                        |                        |            
+ --           |                        |                        |                        |            
+ --           |                        |                        |                        |            
+ --           |                        |                        |                        |            
+ -- +-------------------------++-----------------------++-----------------------++-----------------------+
+ -- | Sync. all the streams   || Sync. all the streams || Sync. all the streams || Sync. all the streams |
+ -- +-------------------------++-----------------------++-----------------------++-----------------------+
+ --            |                        |                       |                       |             
+ --            |                        |                       |                       |             
+ --            |64x4                    |64x4                   | 64x4                  | 64x4        
+ --            |                        |                       |                       |             
+ --            |                        +                       +                       |             
+ --            |                          |    |     |      |                           |             
+ --            +------                    |    |     |      |                    -------+             
+ --                                     +---+ +---+ +|--+ +---+                                       
+ --                                     |   | |   | |   | |   |                                       
+ --                                     |   | |   | |   | |   |                                       
+ --                                     |PU | |PU | |PU | |PU |                                       
+ --                                     |   | |   | |   | |   |                                       
+ --                                     |   | |   | |   | |   |                                       
+ --                                     |   | |   | |   | |   |                                       
+ --                                     +---+ +---+ +---+ +---+                                       
+  -- Input buffers to synchronizers.
   discount_buffer: StreamBuffer
     generic map (
      DATA_WIDTH                      => 64 * EPC + 2,
@@ -527,6 +542,7 @@ begin
       out_valid                      => extendedprice_valid,
       out_ready                      => extendedprice_ready
     );
+  -- parse each channel to corresponding PU input.
   buf_l_quantity_0 <= buf_l_quantity((0+1)* 64 - 1 downto 0 * 64);
   buf_l_quantity_1 <= buf_l_quantity((1+1)* 64 - 1 downto 1 * 64);
   buf_l_quantity_2 <= buf_l_quantity((2+1)* 64 - 1 downto 2 * 64);
