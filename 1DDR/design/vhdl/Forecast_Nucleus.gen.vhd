@@ -55,26 +55,22 @@ entity Forecast_Nucleus is
     l_quantity_ready             : out std_logic;
     l_quantity_dvalid            : in  std_logic;
     l_quantity_last              : in  std_logic;
-    l_quantity                   : in  std_logic_vector(511 downto 0);
-    l_quantity_count             : in  std_logic_vector(3 downto 0);
+    l_quantity                   : in  std_logic_vector(63 downto 0);
     l_extendedprice_valid        : in  std_logic;
     l_extendedprice_ready        : out std_logic;
     l_extendedprice_dvalid       : in  std_logic;
     l_extendedprice_last         : in  std_logic;
-    l_extendedprice              : in  std_logic_vector(511 downto 0);
-    l_extendedprice_count        : in  std_logic_vector(3 downto 0);
+    l_extendedprice              : in  std_logic_vector(63 downto 0);
     l_discount_valid             : in  std_logic;
     l_discount_ready             : out std_logic;
     l_discount_dvalid            : in  std_logic;
     l_discount_last              : in  std_logic;
-    l_discount                   : in  std_logic_vector(511 downto 0);
-    l_discount_count             : in  std_logic_vector(3 downto 0);
+    l_discount                   : in  std_logic_vector(63 downto 0);
     l_shipdate_valid             : in  std_logic;
     l_shipdate_ready             : out std_logic;
     l_shipdate_dvalid            : in  std_logic;
     l_shipdate_last              : in  std_logic;
-    l_shipdate                   : in  std_logic_vector(511 downto 0);
-    l_shipdate_count             : in  std_logic_vector(3 downto 0);
+    l_shipdate                   : in  std_logic_vector(63 downto 0);
     l_quantity_unl_valid         : in  std_logic;
     l_quantity_unl_ready         : out std_logic;
     l_quantity_unl_tag           : in  std_logic_vector(TAG_WIDTH-1 downto 0);
@@ -127,26 +123,22 @@ architecture Implementation of Forecast_Nucleus is
       l_quantity_ready             : out std_logic;
       l_quantity_dvalid            : in  std_logic;
       l_quantity_last              : in  std_logic;
-      l_quantity                   : in  std_logic_vector(511 downto 0);
-      l_quantity_count             : in  std_logic_vector(3 downto 0);
+      l_quantity                   : in  std_logic_vector(63 downto 0);
       l_extendedprice_valid        : in  std_logic;
       l_extendedprice_ready        : out std_logic;
       l_extendedprice_dvalid       : in  std_logic;
       l_extendedprice_last         : in  std_logic;
-      l_extendedprice              : in  std_logic_vector(511 downto 0);
-      l_extendedprice_count        : in  std_logic_vector(3 downto 0);
+      l_extendedprice              : in  std_logic_vector(63 downto 0);
       l_discount_valid             : in  std_logic;
       l_discount_ready             : out std_logic;
       l_discount_dvalid            : in  std_logic;
       l_discount_last              : in  std_logic;
-      l_discount                   : in  std_logic_vector(511 downto 0);
-      l_discount_count             : in  std_logic_vector(3 downto 0);
+      l_discount                   : in  std_logic_vector(63 downto 0);
       l_shipdate_valid             : in  std_logic;
       l_shipdate_ready             : out std_logic;
       l_shipdate_dvalid            : in  std_logic;
       l_shipdate_last              : in  std_logic;
-      l_shipdate                   : in  std_logic_vector(511 downto 0);
-      l_shipdate_count             : in  std_logic_vector(3 downto 0);
+      l_shipdate                   : in  std_logic_vector(63 downto 0);
       l_quantity_unl_valid         : in  std_logic;
       l_quantity_unl_ready         : out std_logic;
       l_quantity_unl_tag           : in  std_logic_vector(TAG_WIDTH-1 downto 0);
@@ -207,29 +199,25 @@ architecture Implementation of Forecast_Nucleus is
   signal Forecast_inst_l_quantity_ready                     : std_logic;
   signal Forecast_inst_l_quantity_dvalid                    : std_logic;
   signal Forecast_inst_l_quantity_last                      : std_logic;
-  signal Forecast_inst_l_quantity                           : std_logic_vector(511 downto 0);
-  signal Forecast_inst_l_quantity_count                     : std_logic_vector(3 downto 0);
+  signal Forecast_inst_l_quantity                           : std_logic_vector(63 downto 0);
 
   signal Forecast_inst_l_extendedprice_valid                : std_logic;
   signal Forecast_inst_l_extendedprice_ready                : std_logic;
   signal Forecast_inst_l_extendedprice_dvalid               : std_logic;
   signal Forecast_inst_l_extendedprice_last                 : std_logic;
-  signal Forecast_inst_l_extendedprice                      : std_logic_vector(511 downto 0);
-  signal Forecast_inst_l_extendedprice_count                : std_logic_vector(3 downto 0);
+  signal Forecast_inst_l_extendedprice                      : std_logic_vector(63 downto 0);
 
   signal Forecast_inst_l_discount_valid                     : std_logic;
   signal Forecast_inst_l_discount_ready                     : std_logic;
   signal Forecast_inst_l_discount_dvalid                    : std_logic;
   signal Forecast_inst_l_discount_last                      : std_logic;
-  signal Forecast_inst_l_discount                           : std_logic_vector(511 downto 0);
-  signal Forecast_inst_l_discount_count                     : std_logic_vector(3 downto 0);
+  signal Forecast_inst_l_discount                           : std_logic_vector(63 downto 0);
 
   signal Forecast_inst_l_shipdate_valid                     : std_logic;
   signal Forecast_inst_l_shipdate_ready                     : std_logic;
   signal Forecast_inst_l_shipdate_dvalid                    : std_logic;
   signal Forecast_inst_l_shipdate_last                      : std_logic;
-  signal Forecast_inst_l_shipdate                           : std_logic_vector(511 downto 0);
-  signal Forecast_inst_l_shipdate_count                     : std_logic_vector(3 downto 0);
+  signal Forecast_inst_l_shipdate                           : std_logic_vector(63 downto 0);
 
   signal Forecast_inst_l_quantity_unl_valid                 : std_logic;
   signal Forecast_inst_l_quantity_unl_ready                 : std_logic;
@@ -408,25 +396,21 @@ begin
       l_quantity_dvalid            => Forecast_inst_l_quantity_dvalid,
       l_quantity_last              => Forecast_inst_l_quantity_last,
       l_quantity                   => Forecast_inst_l_quantity,
-      l_quantity_count             => Forecast_inst_l_quantity_count,
       l_extendedprice_valid        => Forecast_inst_l_extendedprice_valid,
       l_extendedprice_ready        => Forecast_inst_l_extendedprice_ready,
       l_extendedprice_dvalid       => Forecast_inst_l_extendedprice_dvalid,
       l_extendedprice_last         => Forecast_inst_l_extendedprice_last,
       l_extendedprice              => Forecast_inst_l_extendedprice,
-      l_extendedprice_count        => Forecast_inst_l_extendedprice_count,
       l_discount_valid             => Forecast_inst_l_discount_valid,
       l_discount_ready             => Forecast_inst_l_discount_ready,
       l_discount_dvalid            => Forecast_inst_l_discount_dvalid,
       l_discount_last              => Forecast_inst_l_discount_last,
       l_discount                   => Forecast_inst_l_discount,
-      l_discount_count             => Forecast_inst_l_discount_count,
       l_shipdate_valid             => Forecast_inst_l_shipdate_valid,
       l_shipdate_ready             => Forecast_inst_l_shipdate_ready,
       l_shipdate_dvalid            => Forecast_inst_l_shipdate_dvalid,
       l_shipdate_last              => Forecast_inst_l_shipdate_last,
       l_shipdate                   => Forecast_inst_l_shipdate,
-      l_shipdate_count             => Forecast_inst_l_shipdate_count,
       l_quantity_unl_valid         => Forecast_inst_l_quantity_unl_valid,
       l_quantity_unl_ready         => Forecast_inst_l_quantity_unl_ready,
       l_quantity_unl_tag           => Forecast_inst_l_quantity_unl_tag,
@@ -651,28 +635,24 @@ begin
   Forecast_inst_l_quantity_dvalid                   <= l_quantity_dvalid;
   Forecast_inst_l_quantity_last                     <= l_quantity_last;
   Forecast_inst_l_quantity                          <= l_quantity;
-  Forecast_inst_l_quantity_count                    <= l_quantity_count;
 
   Forecast_inst_l_extendedprice_valid               <= l_extendedprice_valid;
   l_extendedprice_ready                             <= Forecast_inst_l_extendedprice_ready;
   Forecast_inst_l_extendedprice_dvalid              <= l_extendedprice_dvalid;
   Forecast_inst_l_extendedprice_last                <= l_extendedprice_last;
   Forecast_inst_l_extendedprice                     <= l_extendedprice;
-  Forecast_inst_l_extendedprice_count               <= l_extendedprice_count;
 
   Forecast_inst_l_discount_valid                    <= l_discount_valid;
   l_discount_ready                                  <= Forecast_inst_l_discount_ready;
   Forecast_inst_l_discount_dvalid                   <= l_discount_dvalid;
   Forecast_inst_l_discount_last                     <= l_discount_last;
   Forecast_inst_l_discount                          <= l_discount;
-  Forecast_inst_l_discount_count                    <= l_discount_count;
 
   Forecast_inst_l_shipdate_valid                    <= l_shipdate_valid;
   l_shipdate_ready                                  <= Forecast_inst_l_shipdate_ready;
   Forecast_inst_l_shipdate_dvalid                   <= l_shipdate_dvalid;
   Forecast_inst_l_shipdate_last                     <= l_shipdate_last;
   Forecast_inst_l_shipdate                          <= l_shipdate;
-  Forecast_inst_l_shipdate_count                    <= l_shipdate_count;
 
   Forecast_inst_l_quantity_unl_valid                <= l_quantity_unl_valid;
   l_quantity_unl_ready                              <= Forecast_inst_l_quantity_unl_ready;

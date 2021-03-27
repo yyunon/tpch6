@@ -55,8 +55,7 @@ entity Forecast_l is
     l_quantity_ready               : in  std_logic;
     l_quantity_dvalid              : out std_logic;
     l_quantity_last                : out std_logic;
-    l_quantity                     : out std_logic_vector(511 downto 0);
-    l_quantity_count               : out std_logic_vector(3 downto 0);
+    l_quantity                     : out std_logic_vector(63 downto 0);
     l_quantity_bus_rreq_valid      : out std_logic;
     l_quantity_bus_rreq_ready      : in  std_logic;
     l_quantity_bus_rreq_addr       : out std_logic_vector(L_QUANTITY_BUS_ADDR_WIDTH-1 downto 0);
@@ -78,8 +77,7 @@ entity Forecast_l is
     l_extendedprice_ready          : in  std_logic;
     l_extendedprice_dvalid         : out std_logic;
     l_extendedprice_last           : out std_logic;
-    l_extendedprice                : out std_logic_vector(511 downto 0);
-    l_extendedprice_count          : out std_logic_vector(3 downto 0);
+    l_extendedprice                : out std_logic_vector(63 downto 0);
     l_extendedprice_bus_rreq_valid : out std_logic;
     l_extendedprice_bus_rreq_ready : in  std_logic;
     l_extendedprice_bus_rreq_addr  : out std_logic_vector(L_EXTENDEDPRICE_BUS_ADDR_WIDTH-1 downto 0);
@@ -101,8 +99,7 @@ entity Forecast_l is
     l_discount_ready               : in  std_logic;
     l_discount_dvalid              : out std_logic;
     l_discount_last                : out std_logic;
-    l_discount                     : out std_logic_vector(511 downto 0);
-    l_discount_count               : out std_logic_vector(3 downto 0);
+    l_discount                     : out std_logic_vector(63 downto 0);
     l_discount_bus_rreq_valid      : out std_logic;
     l_discount_bus_rreq_ready      : in  std_logic;
     l_discount_bus_rreq_addr       : out std_logic_vector(L_DISCOUNT_BUS_ADDR_WIDTH-1 downto 0);
@@ -124,8 +121,7 @@ entity Forecast_l is
     l_shipdate_ready               : in  std_logic;
     l_shipdate_dvalid              : out std_logic;
     l_shipdate_last                : out std_logic;
-    l_shipdate                     : out std_logic_vector(511 downto 0);
-    l_shipdate_count               : out std_logic_vector(3 downto 0);
+    l_shipdate                     : out std_logic_vector(63 downto 0);
     l_shipdate_bus_rreq_valid      : out std_logic;
     l_shipdate_bus_rreq_ready      : in  std_logic;
     l_shipdate_bus_rreq_addr       : out std_logic_vector(L_SHIPDATE_BUS_ADDR_WIDTH-1 downto 0);
@@ -169,7 +165,7 @@ architecture Implementation of Forecast_l is
 
   signal quantity_inst_out_valid           : std_logic_vector(0 downto 0);
   signal quantity_inst_out_ready           : std_logic_vector(0 downto 0);
-  signal quantity_inst_out_data            : std_logic_vector(515 downto 0);
+  signal quantity_inst_out_data            : std_logic_vector(63 downto 0);
   signal quantity_inst_out_dvalid          : std_logic_vector(0 downto 0);
   signal quantity_inst_out_last            : std_logic_vector(0 downto 0);
 
@@ -195,7 +191,7 @@ architecture Implementation of Forecast_l is
 
   signal extendedprice_inst_out_valid      : std_logic_vector(0 downto 0);
   signal extendedprice_inst_out_ready      : std_logic_vector(0 downto 0);
-  signal extendedprice_inst_out_data       : std_logic_vector(515 downto 0);
+  signal extendedprice_inst_out_data       : std_logic_vector(63 downto 0);
   signal extendedprice_inst_out_dvalid     : std_logic_vector(0 downto 0);
   signal extendedprice_inst_out_last       : std_logic_vector(0 downto 0);
 
@@ -221,7 +217,7 @@ architecture Implementation of Forecast_l is
 
   signal discount_inst_out_valid           : std_logic_vector(0 downto 0);
   signal discount_inst_out_ready           : std_logic_vector(0 downto 0);
-  signal discount_inst_out_data            : std_logic_vector(515 downto 0);
+  signal discount_inst_out_data            : std_logic_vector(63 downto 0);
   signal discount_inst_out_dvalid          : std_logic_vector(0 downto 0);
   signal discount_inst_out_last            : std_logic_vector(0 downto 0);
 
@@ -247,7 +243,7 @@ architecture Implementation of Forecast_l is
 
   signal shipdate_inst_out_valid           : std_logic_vector(0 downto 0);
   signal shipdate_inst_out_ready           : std_logic_vector(0 downto 0);
-  signal shipdate_inst_out_data            : std_logic_vector(515 downto 0);
+  signal shipdate_inst_out_data            : std_logic_vector(63 downto 0);
   signal shipdate_inst_out_dvalid          : std_logic_vector(0 downto 0);
   signal shipdate_inst_out_last            : std_logic_vector(0 downto 0);
 
@@ -260,7 +256,7 @@ begin
       BUS_BURST_STEP_LEN => L_QUANTITY_BUS_BURST_STEP_LEN,
       BUS_BURST_MAX_LEN  => L_QUANTITY_BUS_BURST_MAX_LEN,
       INDEX_WIDTH        => INDEX_WIDTH,
-      CFG                => "prim(64;epc=8)",
+      CFG                => "prim(64)",
       CMD_TAG_ENABLE     => true,
       CMD_TAG_WIDTH      => TAG_WIDTH
     )
@@ -301,7 +297,7 @@ begin
       BUS_BURST_STEP_LEN => L_EXTENDEDPRICE_BUS_BURST_STEP_LEN,
       BUS_BURST_MAX_LEN  => L_EXTENDEDPRICE_BUS_BURST_MAX_LEN,
       INDEX_WIDTH        => INDEX_WIDTH,
-      CFG                => "prim(64;epc=8)",
+      CFG                => "prim(64)",
       CMD_TAG_ENABLE     => true,
       CMD_TAG_WIDTH      => TAG_WIDTH
     )
@@ -342,7 +338,7 @@ begin
       BUS_BURST_STEP_LEN => L_DISCOUNT_BUS_BURST_STEP_LEN,
       BUS_BURST_MAX_LEN  => L_DISCOUNT_BUS_BURST_MAX_LEN,
       INDEX_WIDTH        => INDEX_WIDTH,
-      CFG                => "prim(64;epc=8)",
+      CFG                => "prim(64)",
       CMD_TAG_ENABLE     => true,
       CMD_TAG_WIDTH      => TAG_WIDTH
     )
@@ -383,7 +379,7 @@ begin
       BUS_BURST_STEP_LEN => L_SHIPDATE_BUS_BURST_STEP_LEN,
       BUS_BURST_MAX_LEN  => L_SHIPDATE_BUS_BURST_MAX_LEN,
       INDEX_WIDTH        => INDEX_WIDTH,
-      CFG                => "prim(64;epc=8)",
+      CFG                => "prim(64)",
       CMD_TAG_ENABLE     => true,
       CMD_TAG_WIDTH      => TAG_WIDTH
     )
@@ -420,8 +416,7 @@ begin
   quantity_inst_out_ready(0)        <= l_quantity_ready;
   l_quantity_dvalid                 <= quantity_inst_out_dvalid(0);
   l_quantity_last                   <= quantity_inst_out_last(0);
-  l_quantity                        <= quantity_inst_out_data(511 downto 0);
-  l_quantity_count                  <= quantity_inst_out_data(515 downto 512);
+  l_quantity                        <= quantity_inst_out_data;
 
   l_quantity_bus_rreq_valid         <= quantity_inst_bus_rreq_valid;
   quantity_inst_bus_rreq_ready      <= l_quantity_bus_rreq_ready;
@@ -440,8 +435,7 @@ begin
   extendedprice_inst_out_ready(0)   <= l_extendedprice_ready;
   l_extendedprice_dvalid            <= extendedprice_inst_out_dvalid(0);
   l_extendedprice_last              <= extendedprice_inst_out_last(0);
-  l_extendedprice                   <= extendedprice_inst_out_data(511 downto 0);
-  l_extendedprice_count             <= extendedprice_inst_out_data(515 downto 512);
+  l_extendedprice                   <= extendedprice_inst_out_data;
 
   l_extendedprice_bus_rreq_valid    <= extendedprice_inst_bus_rreq_valid;
   extendedprice_inst_bus_rreq_ready <= l_extendedprice_bus_rreq_ready;
@@ -460,8 +454,7 @@ begin
   discount_inst_out_ready(0)        <= l_discount_ready;
   l_discount_dvalid                 <= discount_inst_out_dvalid(0);
   l_discount_last                   <= discount_inst_out_last(0);
-  l_discount                        <= discount_inst_out_data(511 downto 0);
-  l_discount_count                  <= discount_inst_out_data(515 downto 512);
+  l_discount                        <= discount_inst_out_data;
 
   l_discount_bus_rreq_valid         <= discount_inst_bus_rreq_valid;
   discount_inst_bus_rreq_ready      <= l_discount_bus_rreq_ready;
@@ -480,8 +473,7 @@ begin
   shipdate_inst_out_ready(0)        <= l_shipdate_ready;
   l_shipdate_dvalid                 <= shipdate_inst_out_dvalid(0);
   l_shipdate_last                   <= shipdate_inst_out_last(0);
-  l_shipdate                        <= shipdate_inst_out_data(511 downto 0);
-  l_shipdate_count                  <= shipdate_inst_out_data(515 downto 512);
+  l_shipdate                        <= shipdate_inst_out_data;
 
   l_shipdate_bus_rreq_valid         <= shipdate_inst_bus_rreq_valid;
   shipdate_inst_bus_rreq_ready      <= l_shipdate_bus_rreq_ready;
