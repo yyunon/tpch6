@@ -28,26 +28,22 @@ entity Forecast is
     l_quantity_ready             : out std_logic;
     l_quantity_dvalid            : in  std_logic;
     l_quantity_last              : in  std_logic;
-    l_quantity                   : in  std_logic_vector(511 downto 0);
-    l_quantity_count             : in  std_logic_vector(3 downto 0);
+    l_quantity                   : in  std_logic_vector(63 downto 0);
     l_extendedprice_valid        : in  std_logic;
     l_extendedprice_ready        : out std_logic;
     l_extendedprice_dvalid       : in  std_logic;
     l_extendedprice_last         : in  std_logic;
-    l_extendedprice              : in  std_logic_vector(511 downto 0);
-    l_extendedprice_count        : in  std_logic_vector(3 downto 0);
+    l_extendedprice              : in  std_logic_vector(63 downto 0);
     l_discount_valid             : in  std_logic;
     l_discount_ready             : out std_logic;
     l_discount_dvalid            : in  std_logic;
     l_discount_last              : in  std_logic;
-    l_discount                   : in  std_logic_vector(511 downto 0);
-    l_discount_count             : in  std_logic_vector(3 downto 0);
+    l_discount                   : in  std_logic_vector(63 downto 0);
     l_shipdate_valid             : in  std_logic;
     l_shipdate_ready             : out std_logic;
     l_shipdate_dvalid            : in  std_logic;
     l_shipdate_last              : in  std_logic;
-    l_shipdate                   : in  std_logic_vector(511 downto 0);
-    l_shipdate_count             : in  std_logic_vector(3 downto 0);
+    l_shipdate                   : in  std_logic_vector(63 downto 0);
     l_quantity_unl_valid         : in  std_logic;
     l_quantity_unl_ready         : out std_logic;
     l_quantity_unl_tag           : in  std_logic_vector(TAG_WIDTH-1 downto 0);
@@ -89,10 +85,10 @@ entity Forecast is
     result                       : out std_logic_vector(63 downto 0);
     l_firstidx                   : in  std_logic_vector(31 downto 0);
     l_lastidx                    : in  std_logic_vector(31 downto 0);
-    status_1                     : out std_logic_vector(31 downto 0);
-    status_2                     : out std_logic_vector(31 downto 0);
     rhigh                        : out std_logic_vector(31 downto 0);
     rlow                         : out std_logic_vector(31 downto 0);
+    status_1                     : out std_logic_vector(31 downto 0);
+    status_2                     : out std_logic_vector(31 downto 0);
     r1                           : out std_logic_vector(63 downto 0);
     r2                           : out std_logic_vector(63 downto 0);
     r3                           : out std_logic_vector(63 downto 0);
@@ -101,19 +97,18 @@ entity Forecast is
     r6                           : out std_logic_vector(63 downto 0);
     r7                           : out std_logic_vector(63 downto 0);
     r8                           : out std_logic_vector(63 downto 0)
-
 );
 end entity;
 
 architecture Implementation of Forecast is 
 
   constant DATA_WIDTH               : integer := 64;
-  constant EPC                      : integer := 8;
+  constant EPC                      : integer := 1;
   constant FIXED_LEFT_INDEX         : integer := 45;
   constant FIXED_RIGHT_INDEX        : integer := FIXED_LEFT_INDEX - (DATA_WIDTH-1);
  
-  constant SYNC_IN_BUFFER_DEPTH     : integer := 2;
-  constant SYNC_OUT_BUFFER_DEPTH    : integer := 2;
+  constant SYNC_IN_BUFFER_DEPTH     : integer := 0;
+  constant SYNC_OUT_BUFFER_DEPTH    : integer := 0;
 
   -- If the input stream size is not divisible by EPC check this:
   signal   pu_mask                  : std_logic_vector(EPC - 1 downto 0);
@@ -216,6 +211,7 @@ architecture Implementation of Forecast is
 
   signal result_out_valid           : std_logic;
   signal result_out_ready           : std_logic;
+
   signal temp_inp_1                 : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
   signal temp_inp_2                 : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
   signal temp_inp_3                 : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
@@ -576,16 +572,17 @@ for I in 0 to EPC-1 generate
   -------------------------------------------------------------------------------
   end generate;
 
-  
-  temp_inp_1 <= to_sfixed(sum_out_data_stages(DATA_WIDTH - 1 downto 0), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
-  temp_inp_2 <= to_sfixed(sum_out_data_stages(2*DATA_WIDTH - 1 downto DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
-  temp_inp_3 <= to_sfixed(sum_out_data_stages(3*DATA_WIDTH - 1 downto 2 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
-  temp_inp_4 <= to_sfixed(sum_out_data_stages(4*DATA_WIDTH - 1 downto 3 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
-  temp_inp_5 <= to_sfixed(sum_out_data_stages(5*DATA_WIDTH - 1 downto 4 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
-  temp_inp_6 <= to_sfixed(sum_out_data_stages(6*DATA_WIDTH - 1 downto 5 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
-  temp_inp_7 <= to_sfixed(sum_out_data_stages(7*DATA_WIDTH - 1 downto 6 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
-  temp_inp_8 <= to_sfixed(sum_out_data_stages(8*DATA_WIDTH - 1 downto 7 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
-
+  gen_out_sum_data:
+  if EPC > 1 generate          
+    temp_inp_1 <= to_sfixed(sum_out_data_stages(DATA_WIDTH - 1 downto 0), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+    temp_inp_2 <= to_sfixed(sum_out_data_stages(2*DATA_WIDTH - 1 downto DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+    temp_inp_3 <= to_sfixed(sum_out_data_stages(3*DATA_WIDTH - 1 downto 2 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+    temp_inp_4 <= to_sfixed(sum_out_data_stages(4*DATA_WIDTH - 1 downto 3 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+    temp_inp_5 <= to_sfixed(sum_out_data_stages(5*DATA_WIDTH - 1 downto 4 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+    temp_inp_6 <= to_sfixed(sum_out_data_stages(6*DATA_WIDTH - 1 downto 5 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+    temp_inp_7 <= to_sfixed(sum_out_data_stages(7*DATA_WIDTH - 1 downto 6 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+    temp_inp_8 <= to_sfixed(sum_out_data_stages(8*DATA_WIDTH - 1 downto 7 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);          
+  end generate;
 
   with state select state_slv <= 
                "000" when STATE_COMMAND,
@@ -742,40 +739,12 @@ for I in 0 to EPC-1 generate
     if rising_edge(kcd_clk) then
       -- Register the next state.
       state    <= state_next;        
-      status_1  <= (31 downto EPC => '0') & sum_out_valid_stages;
       result_out_data := (others => '0');
-      temp_acc := (others => '0');
-
+      temp_acc := (others => '0');        
       if sum_out_valid_stages = ONES then
-        temp_acc := temp_inp_1 + temp_inp_2 + temp_inp_3 + temp_inp_4 + temp_inp_5 + temp_inp_6 + temp_inp_7 + temp_inp_8;
-        result_out_data := to_slv(resize( arg => temp_acc,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
-        result <= result_out_data;
-        rhigh  <= result_out_data(63 downto 32);
-        rlow   <= result_out_data(31 downto 0);
-      end if;
-      if(sum_out_valid_stages(0) = '0') then 
-        r1     <= to_slv(resize( arg => temp_inp_1,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
-      end if;
-      if(sum_out_valid_stages(1) = '0') then 
-        r2     <= to_slv(resize( arg => temp_inp_2,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));   
-      end if;
-      if(sum_out_valid_stages(2) = '0') then 
-        r3     <= to_slv(resize( arg => temp_inp_3,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));   
-      end if;
-      if(sum_out_valid_stages(3) = '0') then 
-        r4     <= to_slv(resize( arg => temp_inp_4,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));   
-      end if;
-      if(sum_out_valid_stages(4) = '0') then 
-        r5     <= to_slv(resize( arg => temp_inp_5,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));   
-      end if;
-      if(sum_out_valid_stages(5) = '0') then 
-        r6     <= to_slv(resize( arg => temp_inp_6,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));   
-      end if;
-      if(sum_out_valid_stages(6) = '0') then 
-        r7     <= to_slv(resize( arg => temp_inp_7,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));   
-      end if;
-      if(sum_out_valid_stages(7) = '0') then 
-        r8     <= to_slv(resize( arg => temp_inp_8,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));   
+        result <= sum_out_data_stages;
+        rhigh  <= sum_out_data_stages(63 downto 32);
+        rlow   <= sum_out_data_stages(31 downto 0);
       end if;
 
       if kcd_reset = '1' or reset = '1' then
