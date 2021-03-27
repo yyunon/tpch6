@@ -190,7 +190,8 @@ architecture Behavioral of PU is
 begin
 
  
-  --Integrated Logic Analyzers (ILA)
+  --Integrated Logic Analyzers (ILA): This module works 
+  --for only one of the instances. 
   logic_analyzer_gen:
   IF ILA = "TRUE" generate
     CL_ILA_0 : ila_1
