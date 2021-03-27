@@ -346,73 +346,93 @@ begin
 
     );
 
-  quantity_sync: StreamSync
-    generic map (
-      NUM_INPUTS                     => 1,
-      NUM_OUTPUTS                    => EPC
-    )
-    port map (
-      clk                            => kcd_clk,
-      reset                          => kcd_reset or reset,
+  -- Sync. is not necessary for single epc.
+  single_epc:
+  if EPC = 1 generate
+    quantity_valid(0) <= buf_l_quantity_valid;  
+    quantity_ready(0) <= buf_l_quantity_ready;
 
-      in_valid(0)                    => buf_l_quantity_valid,
-      in_ready(0)                    => buf_l_quantity_ready,
+    discount_valid(0) <= buf_l_discount_valid;  
+    discount_ready(0) <= buf_l_discount_ready;
 
+    extendedprice_valid(0) <= buf_l_extendedprice_valid;  
+    extendedprice_ready(0) <= buf_l_extendedprice_ready;
 
-      out_valid                      => quantity_valid,
-      out_ready                      => quantity_ready
-    );
+    shipdate_valid(0) <= buf_l_shipdate_valid;  
+    shipdate_ready(0) <= buf_l_shipdate_ready;
 
-  discount_sync: StreamSync
-    generic map (
-      NUM_INPUTS                     => 1,
-      NUM_OUTPUTS                    => EPC
-    )
-    port map (
-      clk                            => kcd_clk,
-      reset                          => kcd_reset or reset,
+  end generate;
 
-      in_valid(0)                    => buf_l_discount_valid,
-      in_ready(0)                    => buf_l_discount_ready,
+  gen_sync_multi_epc:
+  if EPC > 1 generate
+    quantity_sync: StreamSync
+      generic map (
+        NUM_INPUTS                     => 1,
+        NUM_OUTPUTS                    => EPC
+      )
+      port map (
+        clk                            => kcd_clk,
+        reset                          => kcd_reset or reset,
 
-
-      out_valid                      => discount_valid,
-      out_ready                      => discount_ready
-    );
-
-  shipdate_sync: StreamSync
-    generic map (
-      NUM_INPUTS                     => 1,
-      NUM_OUTPUTS                    => EPC
-    )
-    port map (
-      clk                            => kcd_clk,
-      reset                          => kcd_reset or reset,
-
-      in_valid(0)                    => buf_l_shipdate_valid,
-      in_ready(0)                    => buf_l_shipdate_ready,
+        in_valid(0)                    => buf_l_quantity_valid,
+        in_ready(0)                    => buf_l_quantity_ready,
 
 
-      out_valid                      => shipdate_valid,
-      out_ready                      => shipdate_ready
-    );
+        out_valid                      => quantity_valid,
+        out_ready                      => quantity_ready
+      );
 
-  extendedprice_sync: StreamSync     
-    generic map (
-      NUM_INPUTS                     => 1,
-      NUM_OUTPUTS                    => EPC
-    )
-    port map (
-      clk                            => kcd_clk,
-      reset                          => kcd_reset or reset,
+    discount_sync: StreamSync
+      generic map (
+        NUM_INPUTS                     => 1,
+        NUM_OUTPUTS                    => EPC
+      )
+      port map (
+        clk                            => kcd_clk,
+        reset                          => kcd_reset or reset,
 
-      in_valid(0)                    => buf_l_extendedprice_valid,
-      in_ready(0)                    => buf_l_extendedprice_ready,
+        in_valid(0)                    => buf_l_discount_valid,
+        in_ready(0)                    => buf_l_discount_ready,
 
 
-      out_valid                      => extendedprice_valid,
-      out_ready                      => extendedprice_ready
-    );
+        out_valid                      => discount_valid,
+        out_ready                      => discount_ready
+      );
+
+    shipdate_sync: StreamSync
+      generic map (
+        NUM_INPUTS                     => 1,
+        NUM_OUTPUTS                    => EPC
+      )
+      port map (
+        clk                            => kcd_clk,
+        reset                          => kcd_reset or reset,
+
+        in_valid(0)                    => buf_l_shipdate_valid,
+        in_ready(0)                    => buf_l_shipdate_ready,
+
+
+        out_valid                      => shipdate_valid,
+        out_ready                      => shipdate_ready
+      );
+
+    extendedprice_sync: StreamSync     
+      generic map (
+        NUM_INPUTS                     => 1,
+        NUM_OUTPUTS                    => EPC
+      )
+      port map (
+        clk                            => kcd_clk,
+        reset                          => kcd_reset or reset,
+
+        in_valid(0)                    => buf_l_extendedprice_valid,
+        in_ready(0)                    => buf_l_extendedprice_ready,
+
+
+        out_valid                      => extendedprice_valid,
+        out_ready                      => extendedprice_ready
+      );
+  end generate;
 
 assign_last_valid_signals:
 for I in 0 to EPC-1 generate
