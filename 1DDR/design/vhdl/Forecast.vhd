@@ -413,8 +413,9 @@ begin
       out_valid                      => extendedprice_valid,
       out_ready                      => extendedprice_ready
     );
+
 assign_last_valid_signals:
-for i in 0 to EPC-1 generate
+for I in 0 to EPC-1 generate
 
   discount_dvalid(I) <= buf_l_discount_dvalid; 
   extendedprice_dvalid(I) <= buf_l_extendedprice_dvalid; 
@@ -427,8 +428,8 @@ for i in 0 to EPC-1 generate
   quantity_last(I) <= buf_l_quantity_last; 
 end generate;
 
-parallel_pu_gen:
-for I in 0 to EPC-1 generate 
+input_buffer_to_pu:
+for I in 0 to EPC-1 generate
   -- Output buf.
   --------------------------------------------------------------------
     discount_buffer_pu_0: StreamBuffer
@@ -507,6 +508,10 @@ for I in 0 to EPC-1 generate
         out_data(DATA_WIDTH)             => dec_l_shipdate_dvalid(I),
         out_data(DATA_WIDTH - 1 downto 0)=> dec_l_shipdate((I+1)* 64 - 1 downto I * 64)
       );
+end generate;
+
+parallel_pu_gen:
+for I in 0 to EPC-1 generate 
     processing_unit_0: PU
       generic map (
         FIXED_LEFT_INDEX             => FIXED_LEFT_INDEX,
