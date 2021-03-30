@@ -1,115 +1,113 @@
 -- This code is directly taken from vhlib but async read is implemented
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.std_logic_misc.all;
-use ieee.numeric_std.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.std_logic_misc.ALL;
+USE ieee.numeric_std.ALL;
 
-library ieee_proposed;
-use ieee_proposed.fixed_pkg.all;
+LIBRARY ieee_proposed;
+USE ieee_proposed.fixed_pkg.ALL;
 
-library work;
-use work.Stream_pkg.all;
-use work.ParallelPatterns_pkg.all; 
-use work.Forecast_pkg.all;
+LIBRARY work;
+USE work.Stream_pkg.ALL;
+USE work.ParallelPatterns_pkg.ALL;
+USE work.Forecast_pkg.ALL;
 
 --use work.fixed_generic_pkg_mod.all;
-
-
 -- In the first prototype generate different hws for each op.
-entity FILTER is
-  generic (
+ENTITY FILTER IS
+  GENERIC (
 
     -- Width of a data word.
-    FIXED_LEFT_INDEX             : INTEGER;
-    FIXED_RIGHT_INDEX            : INTEGER;
-    DATA_WIDTH                   : NATURAl;
-    INPUT_MIN_DEPTH              : INTEGER;
-    OUTPUT_MIN_DEPTH             : INTEGER;
+    FIXED_LEFT_INDEX : INTEGER;
+    FIXED_RIGHT_INDEX : INTEGER;
+    DATA_WIDTH : NATURAL;
+    INPUT_MIN_DEPTH : INTEGER;
+    OUTPUT_MIN_DEPTH : INTEGER;
 
-    FILTERTYPE                      : string := ""
-
-  );
-  port (
-    clk                          : in  std_logic;
-    reset                        : in  std_logic;
-
-    in_valid                     : in  std_logic;
-    in_dvalid                    : in  std_logic := '1';
-    in_ready                     : out std_logic;
-    in_last                      : in  std_logic;
-    in_data                      : in  std_logic_vector(63 downto 0);
-    
-    out_valid                    : out std_logic;
-    out_ready                    : in  std_logic;
-    out_data                     : out std_logic
+    FILTERTYPE : STRING := ""
 
   );
-end FILTER;
+  PORT (
+    clk : IN STD_LOGIC;
+    reset : IN STD_LOGIC;
 
-architecture Behavioral of FILTER is
+    in_valid : IN STD_LOGIC;
+    in_dvalid : IN STD_LOGIC := '1';
+    in_ready : OUT STD_LOGIC;
+    in_last : IN STD_LOGIC;
+    in_data : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
 
-  signal temp_buffer             : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
-  signal temp_buffer_int         : integer;
-  signal ops_valid               : std_logic;
-  signal ops_ready               : std_logic;
-  signal ops_last                : std_logic;
-  signal ops_data                : std_logic_vector(DATA_WIDTH - 1 downto 0);
+    out_valid : OUT STD_LOGIC;
+    out_ready : IN STD_LOGIC;
+    out_data : OUT STD_LOGIC
 
-  signal result                  : std_logic := '0';
+  );
+END FILTER;
 
-  signal ops_ready_s             : std_logic;
+ARCHITECTURE Behavioral OF FILTER IS
 
-  signal out_ready_s             : std_logic;
-  signal out_valid_s             : std_logic;
-  signal out_data_s              : std_logic;
+  SIGNAL temp_buffer : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
+  SIGNAL temp_buffer_int : INTEGER;
+  SIGNAL ops_valid : STD_LOGIC;
+  SIGNAL ops_ready : STD_LOGIC;
+  SIGNAL ops_last : STD_LOGIC;
+  SIGNAL ops_data : STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
 
-begin
+  SIGNAL result : STD_LOGIC := '0';
 
-   -- Synchronize the operand stream
- filter_in_buffer: StreamBuffer
-    generic map (
-        DATA_WIDTH => DATA_WIDTH + 1,
-        MIN_DEPTH => INPUT_MIN_DEPTH
-    )
-    port map (
-      clk                        => clk,
-      reset                      => reset,
+  SIGNAL ops_ready_s : STD_LOGIC;
 
-      in_valid                   => in_valid,
-      in_ready                   => in_ready,
-      in_data(64)                => in_last,
-      in_data(63 downto 0)       => in_data,
+  SIGNAL out_ready_s : STD_LOGIC;
+  SIGNAL out_valid_s : STD_LOGIC;
+  SIGNAL out_data_s : STD_LOGIC;
 
-      out_valid                  => ops_valid,
-      out_ready                  => ops_ready,
-      out_data(64)               => ops_last,
-      out_data(63 downto 0)      => ops_data
-    );   
+BEGIN
 
-   -- Synchronize the operand stream
- filter_out_buffer: StreamBuffer
-    generic map (
-        DATA_WIDTH => 1,
-        MIN_DEPTH => OUTPUT_MIN_DEPTH
-    )
-    port map (
-      clk                        => clk,
-      reset                      => reset,
+  -- Synchronize the operand stream
+  filter_in_buffer : StreamBuffer
+  GENERIC MAP(
+    DATA_WIDTH => DATA_WIDTH + 1,
+    MIN_DEPTH => INPUT_MIN_DEPTH
+  )
+  PORT MAP(
+    clk => clk,
+    reset => reset,
 
-      in_valid                   => out_valid_s,
-      in_ready                   => out_ready_s,
-      in_data(0)                 => out_data_s,
+    in_valid => in_valid,
+    in_ready => in_ready,
+    in_data(64) => in_last,
+    in_data(63 DOWNTO 0) => in_data,
 
-      out_valid                  => out_valid,
-      out_ready                  => out_ready,
-      out_data(0)                => out_data
-    );   
+    out_valid => ops_valid,
+    out_ready => ops_ready,
+    out_data(64) => ops_last,
+    out_data(63 DOWNTO 0) => ops_data
+  );
 
-  ops_ready <= out_ready_s and ops_ready_s;
+  -- Synchronize the operand stream
+  filter_out_buffer : StreamBuffer
+  GENERIC MAP(
+    DATA_WIDTH => 1,
+    MIN_DEPTH => OUTPUT_MIN_DEPTH
+  )
+  PORT MAP(
+    clk => clk,
+    reset => reset,
+
+    in_valid => out_valid_s,
+    in_ready => out_ready_s,
+    in_data(0) => out_data_s,
+
+    out_valid => out_valid,
+    out_ready => out_ready,
+    out_data(0) => out_data
+  );
+
+  ops_ready <= (out_ready_s AND ops_ready_s) OR (NOT ops_valid);
   out_data_s <= result;
 
-  quantity_proc: 
-  if FILTERTYPE="LESSTHAN"  generate
+  quantity_proc :
+  IF FILTERTYPE = "LESSTHAN" GENERATE
     --process(ops_data) is 
     --  --variable temp_float_1 : float64; -- float(11 downto -52);
     --  variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
@@ -117,25 +115,25 @@ begin
     --  temp_buffer <=to_sfixed(ops_data,FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX) ;
     --  --temp_buffer <= temp_buffer_1;
     --end process;
-    process(ops_data,ops_valid,out_ready_s) is
+    PROCESS (ops_data, ops_valid, out_ready_s) IS
       -- Comparison constants
-      constant QUANTITY_CONST                  : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX) := to_sfixed(24.0, FIXED_LEFT_INDEX,FIXED_RIGHT_INDEX);
-    begin 
-      out_valid_s   <= '0';
-      ops_ready_s   <= '0';
-      result        <= '0';
-      if ops_valid = '1' and out_ready_s = '1' then
+      CONSTANT QUANTITY_CONST : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX) := to_sfixed(24.0, FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+    BEGIN
+      out_valid_s <= '0';
+      ops_ready_s <= '0';
+      result <= '0';
+      IF ops_valid = '1' AND out_ready_s = '1' THEN
         ops_ready_s <= '1';
         out_valid_s <= '1';
-        if to_sfixed(ops_data,FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX) < QUANTITY_CONST then 
-          result    <= '1';
-        end if;
-      end if;
-    end process;
-  end generate;
+        IF to_sfixed(ops_data, FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX) < QUANTITY_CONST THEN
+          result <= '1';
+        END IF;
+      END IF;
+    END PROCESS;
+  END GENERATE;
 
-  discount_proc: 
-  if FILTERTYPE="BETWEEN" generate
+  discount_proc :
+  IF FILTERTYPE = "BETWEEN" GENERATE
     --process(ops_data) is 
     --  --variable temp_float_1 : float64; -- float(11 downto -52);
     --  variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
@@ -143,48 +141,48 @@ begin
     --  temp_buffer <= to_sfixed(ops_data,temp_buffer_1'high,temp_buffer_1'low);
     --  --temp_buffer <= temp_buffer_1;
     --end process;
-    process(ops_data,ops_valid,out_ready_s) is
+    PROCESS (ops_data, ops_valid, out_ready_s) IS
 
-      constant DISCOUNT_CONST_DOWN              : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX) := to_sfixed(0.05000000, FIXED_LEFT_INDEX,FIXED_RIGHT_INDEX);
-      constant DISCOUNT_CONST_UP                : sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX) := to_sfixed(0.07000000, FIXED_LEFT_INDEX,FIXED_RIGHT_INDEX);
+      CONSTANT DISCOUNT_CONST_DOWN : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX) := to_sfixed(0.05000000, FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+      CONSTANT DISCOUNT_CONST_UP : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX) := to_sfixed(0.07000000, FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
 
-    begin 
-      out_valid_s  <= '0';
-      ops_ready_s  <= '0';
-      result       <= '0';
-      if ops_valid = '1' and out_ready_s = '1' then
-        ops_ready_s<= '1';
-        out_valid_s<= '1';
-        if (to_sfixed(ops_data,FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX) <= DISCOUNT_CONST_UP) and (to_sfixed(ops_data,FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX) >= DISCOUNT_CONST_DOWN) then 
-          result   <= '1';
-        end if;
-      end if;
-    end process;
-  end generate;
+    BEGIN
+      out_valid_s <= '0';
+      ops_ready_s <= '0';
+      result <= '0';
+      IF ops_valid = '1' AND out_ready_s = '1' THEN
+        ops_ready_s <= '1';
+        out_valid_s <= '1';
+        IF (to_sfixed(ops_data, FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX) <= DISCOUNT_CONST_UP) AND (to_sfixed(ops_data, FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX) >= DISCOUNT_CONST_DOWN) THEN
+          result <= '1';
+        END IF;
+      END IF;
+    END PROCESS;
+  END GENERATE;
 
-  shipdate_proc: 
-  if FILTERTYPE="DATE"  generate
+  shipdate_proc :
+  IF FILTERTYPE = "DATE" GENERATE
     --process(ops_data) is 
     --  --variable temp_float_1 : float64; -- float(11 downto -52);
     --  variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
     --begin
     --  temp_buffer_int <= to_integer(unsigned(ops_data));
     --end process;
-    process(ops_data,ops_valid,out_ready_s) is
-      constant DATE_LOW: integer := 8766;
-      constant DATE_HIGH: integer := 9131;
-    begin 
-      out_valid_s   <= '0';
-      ops_ready_s   <= '0';
-      result        <= '0';
-      if ops_valid = '1' and out_ready_s = '1' then
+    PROCESS (ops_data, ops_valid, out_ready_s) IS
+      CONSTANT DATE_LOW : INTEGER := 8766;
+      CONSTANT DATE_HIGH : INTEGER := 9131;
+    BEGIN
+      out_valid_s <= '0';
+      ops_ready_s <= '0';
+      result <= '0';
+      IF ops_valid = '1' AND out_ready_s = '1' THEN
         ops_ready_s <= '1';
         out_valid_s <= '1';
-        if ( to_integer(unsigned(ops_data)) >= DATE_LOW) and ( to_integer(unsigned(ops_data)) < DATE_HIGH)  then
-            result  <= '1';
-        end if;
-      end if;
-    end process;
-  end generate;
+        IF (to_integer(unsigned(ops_data)) >= DATE_LOW) AND (to_integer(unsigned(ops_data)) < DATE_HIGH) THEN
+          result <= '1';
+        END IF;
+      END IF;
+    END PROCESS;
+  END GENERATE;
 
-end Behavioral;
+END Behavioral;
