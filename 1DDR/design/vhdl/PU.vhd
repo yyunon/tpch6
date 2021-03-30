@@ -415,7 +415,7 @@ BEGIN
     DATA_WIDTH => 64,
     INPUT_MIN_DEPTH => MERGER_IN_DEPTH, -- For output buffer.
     OUTPUT_MIN_DEPTH => MERGER_OUT_DEPTH, -- For output buffer.
-    DATA_TYPE => "FLOAT64"
+    OPERATOR => "MULT_45M18"
   )
   PORT MAP(
     clk => clk,
