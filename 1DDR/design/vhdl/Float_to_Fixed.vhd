@@ -42,7 +42,7 @@ ARCHITECTURE Behavioral OF Float_to_Fixed IS
     PORT (
       aclk : IN STD_LOGIC;
       s_axis_a_tvalid : IN STD_LOGIC;
-      s_axis_a_tready : IN STD_LOGIC;
+      s_axis_a_tready : OUT STD_LOGIC;
       s_axis_a_tdata : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
       s_axis_a_tuser : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       s_axis_a_tlast : IN STD_LOGIC;
