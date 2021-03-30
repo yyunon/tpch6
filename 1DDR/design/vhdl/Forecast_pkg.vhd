@@ -2,245 +2,239 @@
 -- Author: Yuksel Yonsel
 -- Forecast implementation
 ----------------------------------------------------------------------------------
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-use ieee.std_logic_misc.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
+USE ieee.std_logic_misc.ALL;
 
-package Forecast_pkg is 
-  
-  component ReduceMultiEpc is 
-    generic (
+PACKAGE Forecast_pkg IS
 
-      -- Width of a data word.
-      EPC                             : natural;
-      FIXED_LEFT_INDEX                : INTEGER;
-      FIXED_RIGHT_INDEX               : INTEGER;
-      DATA_WIDTH                      : natural
-
-    );
-    port (
-      clk                             : in  std_logic;
-      reset                           : in  std_logic;
-
-      in_valid                        : in  std_logic;
-      in_ready                        : out std_logic;
-      in_data                         : in  std_logic_vector(DATA_WIDTH*EPC -1  downto 0);
-      
-      out_valid                       : out std_logic;
-      out_ready                       : in  std_logic;
-      out_data                        : out std_logic_vector(DATA_WIDTH - 1 downto 0)
-
-    );
-  end component;
-
-  component PU is
-    generic (
-        FIXED_LEFT_INDEX             : INTEGER;
-        FIXED_RIGHT_INDEX            : INTEGER;
-        DATA_WIDTH                   : NATURAL;
-        INDEX_WIDTH                  : INTEGER;
-        CONVERTERS                   : STRING := "";
-        ILA                          : STRING := ""
-
-    );
-    port (
-        clk                          : in std_logic;
-        reset                        : in std_logic;
-        
-        l_quantity_valid             : in  std_logic;
-        l_quantity_ready             : out std_logic;
-        l_quantity_dvalid            : in  std_logic;
-        l_quantity_last              : in  std_logic;
-        l_quantity                   : in  std_logic_vector(DATA_WIDTH - 1 downto 0);
-
-        l_extendedprice_valid        : in  std_logic;
-        l_extendedprice_ready        : out std_logic;
-        l_extendedprice_dvalid       : in  std_logic;
-        l_extendedprice_last         : in  std_logic;
-        l_extendedprice              : in  std_logic_vector(DATA_WIDTH - 1 downto 0);
-
-        l_discount_valid             : in  std_logic;
-        l_discount_ready             : out std_logic;
-        l_discount_dvalid            : in  std_logic;
-        l_discount_last              : in  std_logic;
-        l_discount                   : in  std_logic_vector(DATA_WIDTH - 1 downto 0);
-
-        l_shipdate_valid             : in  std_logic;
-        l_shipdate_ready             : out std_logic;
-        l_shipdate_dvalid            : in  std_logic;
-        l_shipdate_last              : in  std_logic;
-        l_shipdate                   : in  std_logic_vector(DATA_WIDTH - 1 downto 0);
-
-        sum_out_valid                : out std_logic;
-        sum_out_ready                : in std_logic;
-        sum_out_data                 : out std_logic_vector(63 downto 0)
-        
-         
-    );
-  end component;
-  component Float_to_Fixed is 
-    generic (
-
-      DATA_WIDTH                  : natural;
-      INPUT_MIN_DEPTH             : natural;
-      OUTPUT_MIN_DEPTH            : natural;
-      CONVERTER_TYPE              : string -- := "flopoco" := "xilinx_ip";
-
-    );
-    port (
-      clk                         : in  std_logic;
-      reset                       : in  std_logic;
-
-      in_valid                    : in  std_logic;
-      in_dvalid                   : in  std_logic := '1';
-      in_ready                    : out std_logic;
-      in_last                     : in  std_logic;
-      in_data                     : in  std_logic_vector(DATA_WIDTH - 1 downto 0);
-
-      out_valid                   : out  std_logic;
-      out_dvalid                  : out  std_logic := '1';
-      out_ready                   : in std_logic;
-      out_last                    : out  std_logic;
-      out_data                    : out  std_logic_vector(DATA_WIDTH - 1 downto 0)
-
-    );
-  end component;
-
-  component FILTER is
-    generic (
+  COMPONENT ReduceMultiEpc IS
+    GENERIC (
 
       -- Width of a data word.
-      FIXED_LEFT_INDEX            : INTEGER;
-      FIXED_RIGHT_INDEX           : INTEGER;
-      DATA_WIDTH                  : natural;
-      INPUT_MIN_DEPTH             : INTEGER;
-      OUTPUT_MIN_DEPTH            : INTEGER;
-      FILTERTYPE                     : string := ""
+      EPC : NATURAL;
+      FIXED_LEFT_INDEX : INTEGER;
+      FIXED_RIGHT_INDEX : INTEGER;
+      DATA_WIDTH : NATURAL
 
     );
-    port (
-      clk                       : in  std_logic;
-      reset                     : in  std_logic;
+    PORT (
+      clk : IN STD_LOGIC;
+      reset : IN STD_LOGIC;
 
-      in_valid                     : in  std_logic;
-      in_dvalid                    : in  std_logic := '1';
-      in_ready                     : out std_logic;
-      in_last                      : in  std_logic;
-      in_data                      : in  std_logic_vector(63 downto 0);
-      
-      out_valid                    : out std_logic;
-      out_ready                    : in  std_logic;
-      out_data                     : out std_logic
+      in_valid : IN STD_LOGIC;
+      in_ready : OUT STD_LOGIC;
+      in_data : IN STD_LOGIC_VECTOR(DATA_WIDTH * EPC - 1 DOWNTO 0);
+
+      out_valid : OUT STD_LOGIC;
+      out_ready : IN STD_LOGIC;
+      out_data : OUT STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0)
 
     );
-  end component;
-  
- component MergeOp is
-  generic (
+  END COMPONENT;
 
-    -- Width of the stream data vector.
-    FIXED_LEFT_INDEX            : INTEGER;
-    FIXED_RIGHT_INDEX           : INTEGER;
-    DATA_WIDTH                  : natural;
-    INPUT_MIN_DEPTH             : natural;
-    OUTPUT_MIN_DEPTH            : natural;
-    DATA_TYPE                   : string :=""
-   
+  COMPONENT PU IS
+    GENERIC (
+      FIXED_LEFT_INDEX : INTEGER;
+      FIXED_RIGHT_INDEX : INTEGER;
+      DATA_WIDTH : NATURAL;
+      INDEX_WIDTH : INTEGER;
+      CONVERTERS : STRING := "";
+      ILA : STRING := ""
 
-  );
-  port (
+    );
+    PORT (
+      clk : IN STD_LOGIC;
+      reset : IN STD_LOGIC;
 
-    -- Rising-edge sensitive clock.
-    clk                          : in  std_logic;
+      l_quantity_valid : IN STD_LOGIC;
+      l_quantity_ready : OUT STD_LOGIC;
+      l_quantity_dvalid : IN STD_LOGIC;
+      l_quantity_last : IN STD_LOGIC;
+      l_quantity : IN STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
 
-    -- Active-high synchronous reset.
-    reset                        : in  std_logic;
+      l_extendedprice_valid : IN STD_LOGIC;
+      l_extendedprice_ready : OUT STD_LOGIC;
+      l_extendedprice_dvalid : IN STD_LOGIC;
+      l_extendedprice_last : IN STD_LOGIC;
+      l_extendedprice : IN STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
 
-    --OP1 Input stream.
-    op1_valid                    : in  std_logic;
-    op1_last                     : in  std_logic;
-    op1_dvalid                   : in  std_logic := '1';
-    op1_data                     : in  std_logic_vector(DATA_WIDTH-1 downto 0);
-    op1_ready                    : out  std_logic;
-    
-    --OP2 Input stream.
-    op2_valid                    : in  std_logic;
-    op2_last                     : in  std_logic;
-    op2_dvalid                   : in  std_logic := '1';
-    op2_data                     : in  std_logic_vector(DATA_WIDTH-1 downto 0);
-    op2_ready                    : out  std_logic;
+      l_discount_valid : IN STD_LOGIC;
+      l_discount_ready : OUT STD_LOGIC;
+      l_discount_dvalid : IN STD_LOGIC;
+      l_discount_last : IN STD_LOGIC;
+      l_discount : IN STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
 
-    -- Output stream.
-    out_valid                    : out std_logic;
-    out_last                     : out std_logic;
-    out_ready                    : in  std_logic;
-    out_data                     : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    out_dvalid                   : out std_logic
-  );
-end component;
+      l_shipdate_valid : IN STD_LOGIC;
+      l_shipdate_ready : OUT STD_LOGIC;
+      l_shipdate_dvalid : IN STD_LOGIC;
+      l_shipdate_last : IN STD_LOGIC;
+      l_shipdate : IN STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
 
- component SumOp is
-  generic (
+      sum_out_valid : OUT STD_LOGIC;
+      sum_out_ready : IN STD_LOGIC;
+      sum_out_data : OUT STD_LOGIC_VECTOR(63 DOWNTO 0)
+    );
+  END COMPONENT;
+  COMPONENT Float_to_Fixed IS
+    GENERIC (
 
-    -- Width of the stream data vector.
-    FIXED_LEFT_INDEX            : INTEGER;
-    FIXED_RIGHT_INDEX           : INTEGER;
-    DATA_WIDTH                  : natural;
-    DATA_TYPE                   : string :=""
-   
+      DATA_WIDTH : NATURAL;
+      INPUT_MIN_DEPTH : NATURAL;
+      OUTPUT_MIN_DEPTH : NATURAL;
+      CONVERTER_TYPE : STRING -- := "flopoco" := "xilinx_ip";
 
-  );
-  port (
+    );
+    PORT (
+      clk : IN STD_LOGIC;
+      reset : IN STD_LOGIC;
 
-    -- Rising-edge sensitive clock.
-    clk                          : in  std_logic;
+      in_valid : IN STD_LOGIC;
+      in_dvalid : IN STD_LOGIC := '1';
+      in_ready : OUT STD_LOGIC;
+      in_last : IN STD_LOGIC;
+      in_data : IN STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
 
-    -- Active-high synchronous reset.
-    reset                        : in  std_logic;
+      out_valid : OUT STD_LOGIC;
+      out_dvalid : OUT STD_LOGIC := '1';
+      out_ready : IN STD_LOGIC;
+      out_last : OUT STD_LOGIC;
+      out_data : OUT STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0)
 
-    --OP1 Input stream.
-    op1_valid                    : in  std_logic;
-    op1_dvalid                   : in  std_logic := '1';
-    op1_ready                    : out std_logic;
-    op1_data                     : in  std_logic_vector(DATA_WIDTH-1 downto 0);
-    
-    --OP2 Input stream.
-    op2_valid                    : in  std_logic;
-    op2_dvalid                   : in  std_logic := '1';
-    op2_ready                    : out std_logic;
-    op2_data                     : in  std_logic_vector(DATA_WIDTH-1 downto 0);
+    );
+  END COMPONENT;
 
-    -- Output stream.
-    out_valid                    : out std_logic;
-    out_ready                    : in  std_logic;
-    out_data                     : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    out_dvalid                   : out std_logic
-  );
-end component;
-  
-  component ReduceStage is
-  generic (
-    FIXED_LEFT_INDEX            : INTEGER;
-    FIXED_RIGHT_INDEX           : INTEGER;
-    INDEX_WIDTH : integer := 32;
-    TAG_WIDTH   : integer := 1
-  );
-  port (
-    clk                          : in  std_logic;
-    reset                        : in  std_logic;
-    
-    in_valid                     : in  std_logic;
-    in_dvalid                    : in  std_logic  := '1';
-    in_ready                     : out std_logic;
-    in_last                      : in  std_logic;
-    in_data                      : in  std_logic_vector(63 downto 0);
-    
-    out_valid                    : out std_logic;
-    out_ready                    : in  std_logic;
-    out_data                     : out std_logic_vector(63 downto 0)
-    
-  );
-end component;
+  COMPONENT FILTER IS
+    GENERIC (
 
-end Forecast_pkg;
+      -- Width of a data word.
+      FIXED_LEFT_INDEX : INTEGER;
+      FIXED_RIGHT_INDEX : INTEGER;
+      DATA_WIDTH : NATURAL;
+      INPUT_MIN_DEPTH : INTEGER;
+      OUTPUT_MIN_DEPTH : INTEGER;
+      FILTERTYPE : STRING := ""
+
+    );
+    PORT (
+      clk : IN STD_LOGIC;
+      reset : IN STD_LOGIC;
+
+      in_valid : IN STD_LOGIC;
+      in_dvalid : IN STD_LOGIC := '1';
+      in_ready : OUT STD_LOGIC;
+      in_last : IN STD_LOGIC;
+      in_data : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
+
+      out_valid : OUT STD_LOGIC;
+      out_ready : IN STD_LOGIC;
+      out_data : OUT STD_LOGIC
+
+    );
+  END COMPONENT;
+
+  COMPONENT MergeOp IS
+    GENERIC (
+
+      -- Width of the stream data vector.
+      FIXED_LEFT_INDEX : INTEGER;
+      FIXED_RIGHT_INDEX : INTEGER;
+      DATA_WIDTH : NATURAL;
+      INPUT_MIN_DEPTH : NATURAL;
+      OUTPUT_MIN_DEPTH : NATURAL;
+      DATA_TYPE : STRING := ""
+    );
+    PORT (
+
+      -- Rising-edge sensitive clock.
+      clk : IN STD_LOGIC;
+
+      -- Active-high synchronous reset.
+      reset : IN STD_LOGIC;
+
+      --OP1 Input stream.
+      op1_valid : IN STD_LOGIC;
+      op1_last : IN STD_LOGIC;
+      op1_dvalid : IN STD_LOGIC := '1';
+      op1_data : IN STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
+      op1_ready : OUT STD_LOGIC;
+
+      --OP2 Input stream.
+      op2_valid : IN STD_LOGIC;
+      op2_last : IN STD_LOGIC;
+      op2_dvalid : IN STD_LOGIC := '1';
+      op2_data : IN STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
+      op2_ready : OUT STD_LOGIC;
+
+      -- Output stream.
+      out_valid : OUT STD_LOGIC;
+      out_last : OUT STD_LOGIC;
+      out_ready : IN STD_LOGIC;
+      out_data : OUT STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
+      out_dvalid : OUT STD_LOGIC
+    );
+  END COMPONENT;
+
+  COMPONENT SumOp IS
+    GENERIC (
+
+      -- Width of the stream data vector.
+      FIXED_LEFT_INDEX : INTEGER;
+      FIXED_RIGHT_INDEX : INTEGER;
+      DATA_WIDTH : NATURAL;
+      DATA_TYPE : STRING := ""
+    );
+    PORT (
+
+      -- Rising-edge sensitive clock.
+      clk : IN STD_LOGIC;
+
+      -- Active-high synchronous reset.
+      reset : IN STD_LOGIC;
+
+      --OP1 Input stream.
+      op1_valid : IN STD_LOGIC;
+      op1_dvalid : IN STD_LOGIC := '1';
+      op1_ready : OUT STD_LOGIC;
+      op1_data : IN STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
+
+      --OP2 Input stream.
+      op2_valid : IN STD_LOGIC;
+      op2_dvalid : IN STD_LOGIC := '1';
+      op2_ready : OUT STD_LOGIC;
+      op2_data : IN STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
+
+      -- Output stream.
+      out_valid : OUT STD_LOGIC;
+      out_ready : IN STD_LOGIC;
+      out_data : OUT STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
+      out_dvalid : OUT STD_LOGIC
+    );
+  END COMPONENT;
+
+  COMPONENT ReduceStage IS
+    GENERIC (
+      FIXED_LEFT_INDEX : INTEGER;
+      FIXED_RIGHT_INDEX : INTEGER;
+      INDEX_WIDTH : INTEGER := 32;
+      TAG_WIDTH : INTEGER := 1
+    );
+    PORT (
+      clk : IN STD_LOGIC;
+      reset : IN STD_LOGIC;
+
+      in_valid : IN STD_LOGIC;
+      in_dvalid : IN STD_LOGIC := '1';
+      in_ready : OUT STD_LOGIC;
+      in_last : IN STD_LOGIC;
+      in_data : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
+
+      out_valid : OUT STD_LOGIC;
+      out_ready : IN STD_LOGIC;
+      out_data : OUT STD_LOGIC_VECTOR(63 DOWNTO 0)
+
+    );
+  END COMPONENT;
+
+END Forecast_pkg;

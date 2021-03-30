@@ -18,198 +18,194 @@
 -- 
 ----------------------------------------------------------------------------------
 
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
-library ieee_proposed;
-use ieee_proposed.fixed_pkg.all;
+LIBRARY ieee_proposed;
+USE ieee_proposed.fixed_pkg.ALL;
 
-library work;
-use work.Stream_pkg.all;
-use work.ParallelPatterns_pkg.all; 
-use work.Forecast_pkg.all;
+LIBRARY work;
+USE work.Stream_pkg.ALL;
+USE work.ParallelPatterns_pkg.ALL;
+USE work.Forecast_pkg.ALL;
 --use work.fixed_generic_pkg_mod.all;
-
-
-entity MergeOp is
-  generic (
+ENTITY MergeOp IS
+  GENERIC (
 
     -- Width of the stream data vector.
-    FIXED_LEFT_INDEX            : INTEGER;
-    FIXED_RIGHT_INDEX           : INTEGER;
-    DATA_WIDTH                  : natural;
-    INPUT_MIN_DEPTH             : natural;
-    OUTPUT_MIN_DEPTH            : natural;
+    FIXED_LEFT_INDEX : INTEGER;
+    FIXED_RIGHT_INDEX : INTEGER;
+    DATA_WIDTH : NATURAL;
+    INPUT_MIN_DEPTH : NATURAL;
+    OUTPUT_MIN_DEPTH : NATURAL;
 
-    DATA_TYPE                   : string :="" 
+    DATA_TYPE : STRING := ""
 
   );
-  port (
+  PORT (
 
     -- Rising-edge sensitive clock.
-    clk                          : in  std_logic;
+    clk : IN STD_LOGIC;
 
     -- Active-high synchronous reset.
-    reset                        : in  std_logic;
+    reset : IN STD_LOGIC;
 
     --OP1 Input stream.
-    op1_valid                    : in  std_logic;
-    op1_last                     : in  std_logic;
-    op1_dvalid                   : in  std_logic := '1';
-    op1_data                     : in  std_logic_vector(DATA_WIDTH-1 downto 0);
-    op1_ready                    : out  std_logic;
-    
+    op1_valid : IN STD_LOGIC;
+    op1_last : IN STD_LOGIC;
+    op1_dvalid : IN STD_LOGIC := '1';
+    op1_data : IN STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
+    op1_ready : OUT STD_LOGIC;
+
     --OP2 Input stream.
-    op2_valid                    : in  std_logic;
-    op2_last                     : in  std_logic;
-    op2_dvalid                   : in  std_logic := '1';
-    op2_ready                    : out std_logic;
-    op2_data                     : in  std_logic_vector(DATA_WIDTH-1 downto 0);
+    op2_valid : IN STD_LOGIC;
+    op2_last : IN STD_LOGIC;
+    op2_dvalid : IN STD_LOGIC := '1';
+    op2_ready : OUT STD_LOGIC;
+    op2_data : IN STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
 
     -- Output stream.
-    out_valid                    : out std_logic;
-    out_last                     : out std_logic;
-    out_ready                    : in  std_logic;
-    out_data                     : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    out_dvalid                   : out std_logic
+    out_valid : OUT STD_LOGIC;
+    out_last : OUT STD_LOGIC;
+    out_ready : IN STD_LOGIC;
+    out_data : OUT STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
+    out_dvalid : OUT STD_LOGIC
   );
-end MergeOp;
+END MergeOp;
 
-architecture Behavioral of MergeOp is
+ARCHITECTURE Behavioral OF MergeOp IS
 
-  constant COUNT_MAX : integer := 6;
+  CONSTANT COUNT_MAX : INTEGER := 6;
 
--- Define the actual counter signal
+  -- Define the actual counter signal
 
-  constant dn: positive := 6;
-  signal delay: std_ulogic_vector(0 to dn - 1);
+  CONSTANT dn : POSITIVE := 6;
+  SIGNAL delay : STD_ULOGIC_VECTOR(0 TO dn - 1);
 
-  signal initial_count : integer range 0 to COUNT_MAX-1 := 0;
-  signal i_count : integer range 0 to COUNT_MAX-1 := 0;
-  signal start_count: std_logic;
+  SIGNAL initial_count : INTEGER RANGE 0 TO COUNT_MAX - 1 := 0;
+  SIGNAL i_count : INTEGER RANGE 0 TO COUNT_MAX - 1 := 0;
+  SIGNAL start_count : STD_LOGIC;
 
-  signal out_s_valid                : std_logic;
-  signal out_s_ready                : std_logic;
+  SIGNAL out_s_valid : STD_LOGIC;
+  SIGNAL out_s_ready : STD_LOGIC;
 
-  signal buf_op1_valid                : std_logic;
-  signal buf_op1_dvalid               : std_logic;
-  signal buf_op1_last                 : std_logic := '0';
-  signal buf_op1_ready                : std_logic;
-  signal buf_op1_data                 : std_logic_vector(DATA_WIDTH-1 downto 0);
+  SIGNAL buf_op1_valid : STD_LOGIC;
+  SIGNAL buf_op1_dvalid : STD_LOGIC;
+  SIGNAL buf_op1_last : STD_LOGIC := '0';
+  SIGNAL buf_op1_ready : STD_LOGIC;
+  SIGNAL buf_op1_data : STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
 
-  signal buf_op2_valid                : std_logic;
-  signal buf_op2_dvalid               : std_logic;
-  signal buf_op2_last                 : std_logic := '0';
-  signal buf_op2_ready                : std_logic;
-  signal buf_op2_data                 : std_logic_vector(DATA_WIDTH-1 downto 0);
+  SIGNAL buf_op2_valid : STD_LOGIC;
+  SIGNAL buf_op2_dvalid : STD_LOGIC;
+  SIGNAL buf_op2_last : STD_LOGIC := '0';
+  SIGNAL buf_op2_ready : STD_LOGIC;
+  SIGNAL buf_op2_data : STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
 
-  signal ops_valid                : std_logic;
-  signal ops_dvalid               : std_logic;
-  signal ops_last                 : std_logic := '0';
-  signal ops_ready                : std_logic;
-  signal ops_data                 : std_logic_vector(DATA_WIDTH-1 downto 0);
+  SIGNAL ops_valid : STD_LOGIC;
+  SIGNAL ops_dvalid : STD_LOGIC;
+  SIGNAL ops_last : STD_LOGIC := '0';
+  SIGNAL ops_ready : STD_LOGIC;
+  SIGNAL ops_data : STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
 
-begin
+BEGIN
 
-  op1_buf: StreamBuffer
-    generic map (
-     DATA_WIDTH                => DATA_WIDTH + 2,
-     MIN_DEPTH                 => INPUT_MIN_DEPTH
-    )
-    port map (
-      clk                               => clk,
-      reset                             => reset,
-      in_valid                          => op1_valid,
-      in_ready                          => op1_ready,
-      in_data(65)                       => op1_last,
-      in_data(64)                       => op1_dvalid,
-      in_data(63 downto 0)              => op1_data,
-      out_valid                         => buf_op1_valid,
-      out_ready                         => buf_op1_ready,
-      out_data(65)                      => buf_op1_last,
-      out_data(64)                      => buf_op1_dvalid,
-      out_data(63 downto 0)             => buf_op1_data
-    );
+  op1_buf : StreamBuffer
+  GENERIC MAP(
+    DATA_WIDTH => DATA_WIDTH + 2,
+    MIN_DEPTH => INPUT_MIN_DEPTH
+  )
+  PORT MAP(
+    clk => clk,
+    reset => reset,
+    in_valid => op1_valid,
+    in_ready => op1_ready,
+    in_data(65) => op1_last,
+    in_data(64) => op1_dvalid,
+    in_data(63 DOWNTO 0) => op1_data,
+    out_valid => buf_op1_valid,
+    out_ready => buf_op1_ready,
+    out_data(65) => buf_op1_last,
+    out_data(64) => buf_op1_dvalid,
+    out_data(63 DOWNTO 0) => buf_op1_data
+  );
 
-  op2_buf: StreamBuffer
-    generic map (
-     DATA_WIDTH                => DATA_WIDTH + 2,
-     MIN_DEPTH                 => INPUT_MIN_DEPTH
-    )
-    port map (
-      clk                               => clk,
-      reset                             => reset,
-      in_valid                          => op2_valid,
-      in_ready                          => op2_ready,
-      in_data(65)                       => op2_last,
-      in_data(64)                       => op2_dvalid,
-      in_data(63 downto 0)              => op2_data,
-      out_valid                         => buf_op2_valid,
-      out_ready                         => buf_op2_ready,
-      out_data(65)                      => buf_op2_last,
-      out_data(64)                      => buf_op2_dvalid,
-      out_data(63 downto 0)             => buf_op2_data
-    );
+  op2_buf : StreamBuffer
+  GENERIC MAP(
+    DATA_WIDTH => DATA_WIDTH + 2,
+    MIN_DEPTH => INPUT_MIN_DEPTH
+  )
+  PORT MAP(
+    clk => clk,
+    reset => reset,
+    in_valid => op2_valid,
+    in_ready => op2_ready,
+    in_data(65) => op2_last,
+    in_data(64) => op2_dvalid,
+    in_data(63 DOWNTO 0) => op2_data,
+    out_valid => buf_op2_valid,
+    out_ready => buf_op2_ready,
+    out_data(65) => buf_op2_last,
+    out_data(64) => buf_op2_dvalid,
+    out_data(63 DOWNTO 0) => buf_op2_data
+  );
 
-  out_buf: StreamBuffer
-    generic map (
-     DATA_WIDTH                => DATA_WIDTH + 2,
-     MIN_DEPTH                 => INPUT_MIN_DEPTH
-    )
-    port map (
-      clk                               => clk,
-      reset                             => reset,
-      in_valid                          => out_s_valid,
-      in_ready                          => out_s_ready,
-      in_data(65)                       => ops_last,
-      in_data(64)                       => ops_dvalid,
-      in_data(63 downto 0)              => ops_data,
-      out_valid                         => out_valid,
-      out_ready                         => out_ready,
-      out_data(65)                      => out_last,
-      out_data(64)                      => out_dvalid,
-      out_data(63 downto 0)             => out_data
-    );
-  discount_sync: StreamSync
-    generic map (
-      NUM_INPUTS                => 2,
-      NUM_OUTPUTS               => 1
-    )
-    port map (
-      clk                       => clk,
-      reset                     => reset,
+  out_buf : StreamBuffer
+  GENERIC MAP(
+    DATA_WIDTH => DATA_WIDTH + 2,
+    MIN_DEPTH => INPUT_MIN_DEPTH
+  )
+  PORT MAP(
+    clk => clk,
+    reset => reset,
+    in_valid => out_s_valid,
+    in_ready => out_s_ready,
+    in_data(65) => ops_last,
+    in_data(64) => ops_dvalid,
+    in_data(63 DOWNTO 0) => ops_data,
+    out_valid => out_valid,
+    out_ready => out_ready,
+    out_data(65) => out_last,
+    out_data(64) => out_dvalid,
+    out_data(63 DOWNTO 0) => out_data
+  );
+  discount_sync : StreamSync
+  GENERIC MAP(
+    NUM_INPUTS => 2,
+    NUM_OUTPUTS => 1
+  )
+  PORT MAP(
+    clk => clk,
+    reset => reset,
 
-      in_valid(0)               => buf_op1_valid,
-      in_valid(1)               => buf_op2_valid,
-      in_ready(0)               => buf_op1_ready,
-      in_ready(1)               => buf_op2_ready,
+    in_valid(0) => buf_op1_valid,
+    in_valid(1) => buf_op2_valid,
+    in_ready(0) => buf_op1_ready,
+    in_ready(1) => buf_op2_ready,
+    out_valid(0) => ops_valid,
+    out_ready(0) => ops_ready
+  );
 
-
-      out_valid(0)              => ops_valid,
-      out_ready(0)              => ops_ready
-    );
-
-  mult_process:
-  process(buf_op1_data, buf_op2_data,ops_valid,out_s_ready) is 
-    variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
-    variable temp_buffer_2: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);
-    variable temp_res     : sfixed(2*FIXED_LEFT_INDEX + 1 downto 2*FIXED_RIGHT_INDEX);
-  begin
+  mult_process :
+  PROCESS (buf_op1_data, buf_op2_data, ops_valid, out_s_ready) IS
+    VARIABLE temp_buffer_1 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
+    VARIABLE temp_buffer_2 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
+    VARIABLE temp_res : sfixed(2 * FIXED_LEFT_INDEX + 1 DOWNTO 2 * FIXED_RIGHT_INDEX);
+  BEGIN
     out_s_valid <= '0';
     ops_ready <= '0';
     ops_dvalid <= '0';
     --ops_last_s <= '0';
-    if ops_valid = '1' and out_s_ready = '1' then 
-      ops_dvalid <= buf_op1_dvalid and buf_op2_dvalid;
-      out_s_valid <= '1'; 
+    IF ops_valid = '1' AND out_s_ready = '1' THEN
+      ops_dvalid <= buf_op1_dvalid AND buf_op2_dvalid;
+      out_s_valid <= '1';
       ops_ready <= '1';
-      temp_buffer_1 := to_sfixed(buf_op1_data,temp_buffer_1'high,temp_buffer_1'low);
-      temp_buffer_2 := to_sfixed(buf_op2_data,temp_buffer_2'high,temp_buffer_2'low);
+      temp_buffer_1 := to_sfixed(buf_op1_data, temp_buffer_1'high, temp_buffer_1'low);
+      temp_buffer_2 := to_sfixed(buf_op2_data, temp_buffer_2'high, temp_buffer_2'low);
       temp_res := temp_buffer_1 * temp_buffer_2;
-      ops_data <= to_slv(resize( arg => temp_res,left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
-    end if;
-  end process;
-  ops_last <= buf_op1_last and buf_op2_last;
+      ops_data <= to_slv(resize(arg => temp_res, left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
+    END IF;
+  END PROCESS;
+  ops_last <= buf_op1_last AND buf_op2_last;
 
-end Behavioral;
+END Behavioral;
