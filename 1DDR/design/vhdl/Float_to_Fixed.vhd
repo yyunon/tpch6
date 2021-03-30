@@ -37,40 +37,19 @@ ENTITY Float_to_Fixed IS
 END Float_to_Fixed;
 
 ARCHITECTURE Behavioral OF Float_to_Fixed IS
-  -- Enumeration type for our state machine.
-  -- There is this hw delay of 7 for flopoco
-  -- and 9/2 for xilinx floating ip. Even though
-  -- the convention is not good, we should code a
-  -- state machine which will iterate those cycle counts
-  -- and control the converter datapath/ input-output streams.
-  -- TODO: Is there a better way though?
-  TYPE state_t IS (start,
-    busy_1,
-    busy_2,
-    busy_3,
-    busy_4,
-    busy_5,
-    busy_6,
-    busy_7,
-    busy_8,
-    busy_9,
-    done,
-    idle);
-
-  SIGNAL state_slv : STD_LOGIC_VECTOR(4 DOWNTO 0);
-  SIGNAL state, state_next : state_t;
-
   -- Floating  point IP used by xilinx
   COMPONENT floating_point_0
     PORT (
       aclk : IN STD_LOGIC;
       s_axis_a_tvalid : IN STD_LOGIC;
+      s_axis_a_tready : IN STD_LOGIC;
       s_axis_a_tdata : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
-      s_axis_a_tuser : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
+      s_axis_a_tuser : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       s_axis_a_tlast : IN STD_LOGIC;
       m_axis_result_tvalid : OUT STD_LOGIC;
+      m_axis_result_tready : IN STD_LOGIC;
       m_axis_result_tdata : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
-      m_axis_result_tuser : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
+      m_axis_result_tuser : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_axis_result_tlast : OUT STD_LOGIC
     );
   END COMPONENT;
@@ -112,20 +91,6 @@ ARCHITECTURE Behavioral OF Float_to_Fixed IS
   SIGNAL result_data : STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
 
 BEGIN
-  WITH state SELECT state_slv <=
-    "00000" WHEN start,
-    "00001" WHEN busy_1,
-    "00010" WHEN busy_2,
-    "00011" WHEN busy_3,
-    "00100" WHEN busy_4,
-    "00101" WHEN busy_5,
-    "00110" WHEN busy_6,
-    "00111" WHEN busy_7,
-    "01000" WHEN busy_8,
-    "01001" WHEN busy_9,
-    "01010" WHEN done,
-    "01011" WHEN idle,
-    "10000" WHEN OTHERS;
 
   op_in_sync : StreamBuffer
   GENERIC MAP(
@@ -164,77 +129,16 @@ BEGIN
     PORT MAP(
       aclk => clk,
       s_axis_a_tvalid => ops_valid,
+      s_axis_a_tready => ops_ready,
       s_axis_a_tdata => ops_data,
-      s_axis_a_tuser(1) => ops_dvalid,
-      s_axis_a_tuser(0) => '0',
+      s_axis_a_tuser(0) => ops_dvalid,
       s_axis_a_tlast => ops_last,
-      m_axis_result_tvalid => result_valid,
+      m_axis_result_tvalid => conv_data_valid,
+      m_axis_result_tready => conv_data_ready,
       m_axis_result_tdata => conv_data,
-      m_axis_result_tuser(1) => result_dvalid,
-      m_axis_result_tuser(0) => conv_data_dum,
-      m_axis_result_tlast => result_last
+      m_axis_result_tuser(0) => conv_data_dvalid,
+      m_axis_result_tlast => conv_data_last
     );
-    -- Xilinx ip clk cycles depends heavily on the configuration:
-    -- The current one uses sth around 2 clk cycles, not pipelined.
-    fsm_process :
-    PROCESS (state,
-      conv_data_ready,
-
-      result_data,
-      result_valid,
-
-      ops_data,
-      ops_last,
-      ops_valid
-      )
-    BEGIN
-      state_next <= state;
-
-      ops_ready <= '0';
-
-      conv_data_dvalid <= '0';
-      conv_data_valid <= '0';
-      conv_data_last <= '0';
-
-      CASE state IS
-        WHEN idle =>
-          IF (conv_data_ready = '1') AND (ops_valid = '1') THEN
-            state_next <= start;
-          END IF;
-        WHEN start =>
-          state_next <= busy_1;
-        WHEN busy_1 =>
-          state_next <= busy_2;
-        WHEN busy_2 =>
-          state_next <= busy_3;
-        WHEN busy_3 =>
-          state_next <= busy_4;
-        WHEN busy_4 =>
-          state_next <= busy_5;
-        WHEN busy_5 =>
-          state_next <= busy_6;
-        WHEN busy_6 =>
-          state_next <= done;
-        WHEN done =>
-          ops_ready <= '1';
-          conv_data_last <= ops_last; -- This propag. the last
-          conv_data_dvalid <= '1';
-          conv_data_valid <= result_valid;
-          state_next <= idle;
-        WHEN OTHERS =>
-          state_next <= idle;
-      END CASE;
-    END PROCESS;
-    clk_process :
-    PROCESS (clk)
-    BEGIN
-      IF clk'event AND clk = '1' THEN
-        state <= state_next;
-        IF reset = '1' THEN
-          state <= idle;
-        END IF;
-      END IF;
-    END PROCESS;
   END GENERATE;
 
   flopoco_converter :
@@ -259,66 +163,6 @@ BEGIN
       I => flopoco_data,
       O => conv_data
     );
-    -- Flopoco converter utilizes 5 clk cycles to finish.
-    fsm_process :
-    PROCESS (state,
-      conv_data_ready,
-
-      result_data,
-      result_valid,
-
-      ops_data,
-      ops_last,
-      ops_valid
-      )
-    BEGIN
-      state_next <= state;
-
-      ops_ready <= '0';
-
-      conv_data_dvalid <= '0';
-      conv_data_valid <= '0';
-      conv_data_last <= '0';
-
-      CASE state IS
-        WHEN idle =>
-          IF (conv_data_ready = '1') AND (ops_valid = '1') THEN
-            state_next <= start;
-          END IF;
-        WHEN start =>
-          state_next <= busy_1;
-        WHEN busy_1 =>
-          state_next <= busy_2;
-        WHEN busy_2 =>
-          state_next <= busy_3;
-        WHEN busy_3 =>
-          state_next <= busy_4;
-        WHEN busy_4 =>
-          state_next <= busy_5;
-        WHEN busy_5 =>
-          state_next <= busy_6;
-        WHEN busy_6 =>
-          state_next <= done;
-        WHEN done =>
-          ops_ready <= '1';
-          conv_data_last <= ops_last; -- This propag. the last
-          conv_data_dvalid <= '1';
-          conv_data_valid <= result_valid;
-          state_next <= idle;
-        WHEN OTHERS =>
-          state_next <= idle;
-      END CASE;
-    END PROCESS;
-    clk_process :
-    PROCESS (clk)
-    BEGIN
-      IF clk'event AND clk = '1' THEN
-        state <= state_next;
-        IF reset = '1' THEN
-          state <= idle;
-        END IF;
-      END IF;
-    END PROCESS;
   END GENERATE;
 
   out_buf : StreamBuffer
