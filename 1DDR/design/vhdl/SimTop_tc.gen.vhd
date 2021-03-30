@@ -387,7 +387,7 @@ begin
     SEED                        => 1337,
     RANDOM_REQUEST_TIMING       => false,
     RANDOM_RESPONSE_TIMING      => false,
-    SREC_FILE                   => "/home/yyunon/thesis_journals/resources/tpc-fletcher/tpch6/hardware/memory.srec"
+    SREC_FILE                   => "/home/yyunon/hardware/memory.srec"
   )
   port map (
     clk                         => bcd_clk,
