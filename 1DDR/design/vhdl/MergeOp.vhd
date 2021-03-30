@@ -173,7 +173,7 @@ BEGIN
     out_valid(0) => ops_valid,
     out_ready(0) => ops_ready
   );
-  operator :
+  operator_process :
   IF OPERATOR = "MULT_FLOAT64" GENERATE
     mult_process :
     PROCESS (buf_op1_data, buf_op2_data, ops_valid, out_s_ready) IS

@@ -193,57 +193,57 @@ ARCHITECTURE Behavioral OF PU IS
 BEGIN
   --Integrated Logic Analyzers (ILA): This module works 
   --for only one of the instances. 
-  logic_analyzer_gen :
-  IF ILA = "TRUE" GENERATE
-    CL_ILA_0 : ila_1
-    PORT MAP (
-          clk                   => clk,
-          probe0(0)             => sum_out_valid,
-          probe1                => sum_out_data,
-          probe2                => (others => '0'),
-          probe3(0)             => buf_filter_out_strb,
-          probe4(0)             => reduce_in_valid,
-          probe5                => reduce_in_data,
-          probe6(0)             => l_discount_ready,
-          probe7(0)             => l_extendedprice_ready,
-          probe8(0)             => l_quantity_ready,
-          probe9(0)             => l_shipdate_ready,
-          probe10(511 downto 0) => (511 downto 256 => '0') & l_discount & l_extendedprice & l_quantity & l_shipdate,
-          probe11(0)            => sync_1_data,
-          probe12(0)            => sync_2_data,
-          probe13               => (others => '0'),
-          probe14               => (511 downto 192 => '0') & conv_l_discount & conv_l_extendedprice & conv_l_quantity,
-          probe15               => (others => '0'),
-          probe16(0)            => sync_3_data,
-          probe17               => (others => '0'),
-          probe18               => (others => '0'),
-          probe19               => (others => '0'),
-          probe20               => (others => '0'),
-          probe21               => (others => '0'),
-          probe22(0)            => buf_filter_out_ready,
-          probe23               => (others => '0'),
-          probe24               => (others => '0'),
-          probe25               => (others => '0'),
-          probe26(0)            => buf_filter_out_valid,
-          probe27               => (others => '0'),
-          probe28               => (others => '0'),
-          probe29               => '0' & l_discount_last,
-          probe30(0)            => l_extendedprice_last,
-          probe31               => ZERO(3 downto 1) & l_quantity_last,
-          probe32               => ZERO(3 downto 1)& l_shipdate_last,
-          probe33               => ZERO(3 downto 1)& l_discount_valid,
-          probe34               => ZERO(3 downto 1)& l_extendedprice_valid,
-          probe35(0)            => l_quantity_valid,
-          probe36               => ZERO(3 downto 1) & l_shipdate_valid,
-          probe37               => (others => '0'),
-          probe38               => (others => '0'),
-          probe39               => (others => '0'),
-          probe40               => (others => '0'),
-          probe41               => (others => '0'),
-          probe42               => (others => '0'),
-          probe43(0)            => reduce_in_valid
-    );
-  END GENERATE;
+  --logic_analyzer_gen :
+  --IF ILA = "TRUE" GENERATE
+  --  CL_ILA_0 : ila_1
+  --  PORT MAP(
+  --    clk => clk,
+  --    probe0(0) => sum_out_valid,
+  --    probe1 => sum_out_data,
+  --    probe2 => (OTHERS => '0'),
+  --    probe3(0) => buf_filter_out_strb,
+  --    probe4(0) => reduce_in_valid,
+  --    probe5 => reduce_in_data,
+  --    probe6(0) => l_discount_ready,
+  --    probe7(0) => l_extendedprice_ready,
+  --    probe8(0) => l_quantity_ready,
+  --    probe9(0) => l_shipdate_ready,
+  --    probe10(511 DOWNTO 0) => (511 DOWNTO 256 => '0') & l_discount & l_extendedprice & l_quantity & l_shipdate,
+  --    probe11(0) => sync_1_data,
+  --    probe12(0) => sync_2_data,
+  --    probe13 => (OTHERS => '0'),
+  --    probe14 => (511 DOWNTO 192 => '0') & conv_l_discount & conv_l_extendedprice & conv_l_quantity,
+  --    probe15 => (OTHERS => '0'),
+  --    probe16(0) => sync_3_data,
+  --    probe17 => (OTHERS => '0'),
+  --    probe18 => (OTHERS => '0'),
+  --    probe19 => (OTHERS => '0'),
+  --    probe20 => (OTHERS => '0'),
+  --    probe21 => (OTHERS => '0'),
+  --    probe22(0) => buf_filter_out_ready,
+  --    probe23 => (OTHERS => '0'),
+  --    probe24 => (OTHERS => '0'),
+  --    probe25 => (OTHERS => '0'),
+  --    probe26(0) => buf_filter_out_valid,
+  --    probe27 => (OTHERS => '0'),
+  --    probe28 => (OTHERS => '0'),
+  --    probe29 => '0' & l_discount_last,
+  --    probe30(0) => l_extendedprice_last,
+  --    probe31 => ZERO(3 DOWNTO 1) & l_quantity_last,
+  --    probe32 => ZERO(3 DOWNTO 1) & l_shipdate_last,
+  --    probe33 => ZERO(3 DOWNTO 1) & l_discount_valid,
+  --    probe34 => ZERO(3 DOWNTO 1) & l_extendedprice_valid,
+  --    probe35(0) => l_quantity_valid,
+  --    probe36 => ZERO(3 DOWNTO 1) & l_shipdate_valid,
+  --    probe37 => (OTHERS => '0'),
+  --    probe38 => (OTHERS => '0'),
+  --    probe39 => (OTHERS => '0'),
+  --    probe40 => (OTHERS => '0'),
+  --    probe41 => (OTHERS => '0'),
+  --    probe42 => (OTHERS => '0'),
+  --    probe43(0) => reduce_in_valid
+  --  );
+  --END GENERATE;
 
   -- CONVERTERS
   discount_converter : Float_to_Fixed
@@ -420,7 +420,7 @@ BEGIN
     DATA_WIDTH => 64,
     INPUT_MIN_DEPTH => MERGER_IN_DEPTH, -- For output buffer.
     OUTPUT_MIN_DEPTH => MERGER_OUT_DEPTH, -- For output buffer.
-    DATA_TYPE => "MULT_FLOAT64"
+    OPERATOR => "MULT_FLOAT64"
   )
   PORT MAP(
     clk => clk,
