@@ -39,7 +39,6 @@ ENTITY MergeOp IS
     DATA_WIDTH : NATURAL;
     INPUT_MIN_DEPTH : NATURAL;
     OUTPUT_MIN_DEPTH : NATURAL;
-
     DATA_TYPE : STRING := ""
 
   );
@@ -75,17 +74,6 @@ ENTITY MergeOp IS
 END MergeOp;
 
 ARCHITECTURE Behavioral OF MergeOp IS
-
-  CONSTANT COUNT_MAX : INTEGER := 6;
-
-  -- Define the actual counter signal
-
-  CONSTANT dn : POSITIVE := 6;
-  SIGNAL delay : STD_ULOGIC_VECTOR(0 TO dn - 1);
-
-  SIGNAL initial_count : INTEGER RANGE 0 TO COUNT_MAX - 1 := 0;
-  SIGNAL i_count : INTEGER RANGE 0 TO COUNT_MAX - 1 := 0;
-  SIGNAL start_count : STD_LOGIC;
 
   SIGNAL out_s_valid : STD_LOGIC;
   SIGNAL out_s_ready : STD_LOGIC;
