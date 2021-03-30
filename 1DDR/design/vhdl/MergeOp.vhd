@@ -174,26 +174,29 @@ BEGIN
     out_ready(0) => ops_ready
   );
 
-  mult_process :
-  PROCESS (buf_op1_data, buf_op2_data, ops_valid, out_s_ready) IS
-    VARIABLE temp_buffer_1 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
-    VARIABLE temp_buffer_2 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
-    VARIABLE temp_res : sfixed(2 * FIXED_LEFT_INDEX + 1 DOWNTO 2 * FIXED_RIGHT_INDEX);
-  BEGIN
-    out_s_valid <= '0';
-    ops_ready <= '0';
-    ops_dvalid <= '0';
-    --ops_last_s <= '0';
-    IF ops_valid = '1' AND out_s_ready = '1' THEN
-      ops_dvalid <= buf_op1_dvalid AND buf_op2_dvalid;
-      out_s_valid <= '1';
-      ops_ready <= '1';
-      temp_buffer_1 := to_sfixed(buf_op1_data, temp_buffer_1'high, temp_buffer_1'low);
-      temp_buffer_2 := to_sfixed(buf_op2_data, temp_buffer_2'high, temp_buffer_2'low);
-      temp_res := temp_buffer_1 * temp_buffer_2;
-      ops_data <= to_slv(resize(arg => temp_res, left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
-    END IF;
-  END PROCESS;
+  mult_fixed_process :
+  IF OPERATOR = "MULT_FIXED" GENERATE
+    mult_process :
+    PROCESS (buf_op1_data, buf_op2_data, ops_valid, out_s_ready) IS
+      VARIABLE temp_buffer_1 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
+      VARIABLE temp_buffer_2 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
+      VARIABLE temp_res : sfixed(2 * FIXED_LEFT_INDEX + 1 DOWNTO 2 * FIXED_RIGHT_INDEX);
+    BEGIN
+      out_s_valid <= '0';
+      ops_ready <= '0';
+      ops_dvalid <= '0';
+      --ops_last_s <= '0';
+      IF ops_valid = '1' AND out_s_ready = '1' THEN
+        out_s_valid <= '1';
+        ops_ready <= '1';
+        temp_buffer_1 := to_sfixed(buf_op1_data, temp_buffer_1'high, temp_buffer_1'low);
+        temp_buffer_2 := to_sfixed(buf_op2_data, temp_buffer_2'high, temp_buffer_2'low);
+        temp_res := temp_buffer_1 * temp_buffer_2;
+        ops_data <= to_slv(resize(arg => temp_res, left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
+      END IF;
+    END PROCESS;
+  END GENERATE;
+  ops_dvalid <= buf_op1_dvalid AND buf_op2_dvalid;
   ops_last <= buf_op1_last AND buf_op2_last;
 
 END Behavioral;
