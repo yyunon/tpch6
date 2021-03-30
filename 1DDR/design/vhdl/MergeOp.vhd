@@ -32,16 +32,13 @@ USE work.Forecast_pkg.ALL;
 --use work.fixed_generic_pkg_mod.all;
 ENTITY MergeOp IS
   GENERIC (
-
     -- Width of the stream data vector.
     FIXED_LEFT_INDEX : INTEGER;
     FIXED_RIGHT_INDEX : INTEGER;
     DATA_WIDTH : NATURAL;
     INPUT_MIN_DEPTH : NATURAL;
     OUTPUT_MIN_DEPTH : NATURAL;
-
-    DATA_TYPE : STRING := ""
-
+    OPERATOR : STRING := ""
   );
   PORT (
 
@@ -77,15 +74,6 @@ END MergeOp;
 ARCHITECTURE Behavioral OF MergeOp IS
 
   CONSTANT COUNT_MAX : INTEGER := 6;
-
-  -- Define the actual counter signal
-
-  CONSTANT dn : POSITIVE := 6;
-  SIGNAL delay : STD_ULOGIC_VECTOR(0 TO dn - 1);
-
-  SIGNAL initial_count : INTEGER RANGE 0 TO COUNT_MAX - 1 := 0;
-  SIGNAL i_count : INTEGER RANGE 0 TO COUNT_MAX - 1 := 0;
-  SIGNAL start_count : STD_LOGIC;
 
   SIGNAL out_s_valid : STD_LOGIC;
   SIGNAL out_s_ready : STD_LOGIC;
@@ -133,7 +121,7 @@ BEGIN
   op2_buf : StreamBuffer
   GENERIC MAP(
     DATA_WIDTH => DATA_WIDTH + 2,
-    MIN_DEPTH => INPUT_MIN_DEPTH
+    MIN_DEPTH => OUTPUT_MIN_DEPTH
   )
   PORT MAP(
     clk => clk,
@@ -185,27 +173,29 @@ BEGIN
     out_valid(0) => ops_valid,
     out_ready(0) => ops_ready
   );
-
-  mult_process :
-  PROCESS (buf_op1_data, buf_op2_data, ops_valid, out_s_ready) IS
-    VARIABLE temp_buffer_1 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
-    VARIABLE temp_buffer_2 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
-    VARIABLE temp_res : sfixed(2 * FIXED_LEFT_INDEX + 1 DOWNTO 2 * FIXED_RIGHT_INDEX);
-  BEGIN
-    out_s_valid <= '0';
-    ops_ready <= '0';
-    ops_dvalid <= '0';
-    --ops_last_s <= '0';
-    IF ops_valid = '1' AND out_s_ready = '1' THEN
-      ops_dvalid <= buf_op1_dvalid AND buf_op2_dvalid;
-      out_s_valid <= '1';
-      ops_ready <= '1';
-      temp_buffer_1 := to_sfixed(buf_op1_data, temp_buffer_1'high, temp_buffer_1'low);
-      temp_buffer_2 := to_sfixed(buf_op2_data, temp_buffer_2'high, temp_buffer_2'low);
-      temp_res := temp_buffer_1 * temp_buffer_2;
-      ops_data <= to_slv(resize(arg => temp_res, left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
-    END IF;
-  END PROCESS;
+  operator :
+  IF OPERATOR = "MULT_FLOAT64" GENERATE
+    mult_process :
+    PROCESS (buf_op1_data, buf_op2_data, ops_valid, out_s_ready) IS
+      VARIABLE temp_buffer_1 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
+      VARIABLE temp_buffer_2 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
+      VARIABLE temp_res : sfixed(2 * FIXED_LEFT_INDEX + 1 DOWNTO 2 * FIXED_RIGHT_INDEX);
+    BEGIN
+      out_s_valid <= '0';
+      ops_ready <= '0';
+      ops_dvalid <= '0';
+      --ops_last_s <= '0';
+      IF ops_valid = '1' AND out_s_ready = '1' THEN
+        out_s_valid <= '1';
+        ops_ready <= '1';
+        temp_buffer_1 := to_sfixed(buf_op1_data, temp_buffer_1'high, temp_buffer_1'low);
+        temp_buffer_2 := to_sfixed(buf_op2_data, temp_buffer_2'high, temp_buffer_2'low);
+        temp_res := temp_buffer_1 * temp_buffer_2;
+        ops_data <= to_slv(resize(arg => temp_res, left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
+      END IF;
+    END PROCESS;
+  END GENERATE;
   ops_last <= buf_op1_last AND buf_op2_last;
+  ops_dvalid <= buf_op1_dvalid AND buf_op2_dvalid;
 
 END Behavioral;

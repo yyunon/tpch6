@@ -40,7 +40,6 @@ PACKAGE Forecast_pkg IS
       FIXED_RIGHT_INDEX : INTEGER;
       DATA_WIDTH : NATURAL;
       INDEX_WIDTH : INTEGER;
-      CONVERTERS : STRING := "";
       ILA : STRING := ""
 
     );
@@ -143,7 +142,7 @@ PACKAGE Forecast_pkg IS
       DATA_WIDTH : NATURAL;
       INPUT_MIN_DEPTH : NATURAL;
       OUTPUT_MIN_DEPTH : NATURAL;
-      DATA_TYPE : STRING := ""
+      OPERATOR : STRING := ""
     );
     PORT (
 
