@@ -1,4 +1,4 @@
-${CL_ROOT}/ip/floating_point_0/sim/floating_point_0.vhd
+${CL_ROOT}/ip/floating_point_0_1/sim/floating_point_0.vhd
 
 ${CL_ROOT}/design/vhdl/hardware/vhlib/util/UtilMisc_pkg.vhd
 ${CL_ROOT}/design/vhdl/hardware/vhlib/util/UtilInt_pkg.vhd
@@ -48,7 +48,6 @@ ${CL_ROOT}/design/vhdl/hardware/parallel_patterns/ReduceStream.vhd
 ${CL_ROOT}/design/vhdl/Forecast_pkg.vhd
 ${CL_ROOT}/design/vhdl/SumOp.vhd
 ${CL_ROOT}/design/vhdl/ReduceStage.vhd
-${CL_ROOT}/design/vhdl/flopoco.vhd
 ${CL_ROOT}/design/vhdl/PU.vhd
 ${CL_ROOT}/design/vhdl/ReduceMultiStreams.vhd
 ${CL_ROOT}/design/vhdl/hardware/vhlib/stream/StreamSync.vhd
