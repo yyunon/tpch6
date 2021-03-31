@@ -53,7 +53,7 @@ architecture Behavioral of StreamSlice is
 
   -- Internal "copies" of the in_ready and out_valid control output signals.
   signal in_ready_s             : std_logic;
-  signal out_valid_s            : std_logic;
+  signal out_valid_s            : std_logic := '1';
 
   -- Holding register for data, used when the output stream is blocked and the
   -- input stream is valid. This is needed to break the "ready" signal

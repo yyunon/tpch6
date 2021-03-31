@@ -71,7 +71,6 @@ ARCHITECTURE Behavioral OF Float_to_Fixed IS
 
   SIGNAL conv_data_valid : STD_LOGIC := '0';
   SIGNAL conv_data_ready : STD_LOGIC := '0';
-  SIGNAL conv_data_dum : STD_LOGIC := '0';
   SIGNAL conv_data_dvalid : STD_LOGIC := '0';
   SIGNAL conv_data_last : STD_LOGIC := '0';
   SIGNAL conv_data : STD_LOGIC_VECTOR(63 DOWNTO 0) := (OTHERS => '0');
@@ -83,13 +82,6 @@ ARCHITECTURE Behavioral OF Float_to_Fixed IS
   SIGNAL ops_data : STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
 
   SIGNAL flopoco_data : STD_LOGIC_VECTOR(DATA_WIDTH + 1 DOWNTO 0);
-  SIGNAL flopoco_input : STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
-
-  SIGNAL result_valid : STD_LOGIC;
-  SIGNAL result_dvalid : STD_LOGIC;
-  SIGNAL result_last : STD_LOGIC;
-  SIGNAL result_data : STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
-
 BEGIN
 
   op_in_sync : StreamBuffer

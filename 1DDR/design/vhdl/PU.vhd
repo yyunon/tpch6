@@ -59,24 +59,24 @@ ARCHITECTURE Behavioral OF PU IS
   CONSTANT FILTER_OUT_DEPTH : INTEGER := 0;
 
   -- Merger inout buffers 
-  CONSTANT MERGER_IN_DEPTH : INTEGER := 2;
-  CONSTANT MERGER_OUT_DEPTH : INTEGER := 2;
+  CONSTANT MERGER_IN_DEPTH : INTEGER := 8;
+  CONSTANT MERGER_OUT_DEPTH : INTEGER := 0;
 
   -- Converter inout buffers 
-  CONSTANT EXTENDEDPRICE_CONVERTER_IN_DEPTH : INTEGER := 8;
-  CONSTANT EXTENDEDPRICE_CONVERTER_OUT_DEPTH : INTEGER := 8;
-  CONSTANT DISCOUNT_CONVERTER_IN_DEPTH : INTEGER := 8;
-  CONSTANT DISCOUNT_CONVERTER_OUT_DEPTH : INTEGER := 8;
-  CONSTANT QUANTITY_CONVERTER_IN_DEPTH : INTEGER := 0;
-  CONSTANT QUANTITY_CONVERTER_OUT_DEPTH : INTEGER := 0;
+  CONSTANT EXTENDEDPRICE_CONVERTER_IN_DEPTH : INTEGER := 2;
+  CONSTANT EXTENDEDPRICE_CONVERTER_OUT_DEPTH : INTEGER := 2;
+  CONSTANT DISCOUNT_CONVERTER_IN_DEPTH : INTEGER := 2;
+  CONSTANT DISCOUNT_CONVERTER_OUT_DEPTH : INTEGER := 2;
+  CONSTANT QUANTITY_CONVERTER_IN_DEPTH : INTEGER := 2;
+  CONSTANT QUANTITY_CONVERTER_OUT_DEPTH : INTEGER := 2;
 
   -- Filter in out buffers2
-  CONSTANT BETWEEN_FILTER_IN_DEPTH : INTEGER := 8;
-  CONSTANT BETWEEN_FILTER_OUT_DEPTH : INTEGER := 8;
-  CONSTANT LESSTHAN_FILTER_IN_DEPTH : INTEGER := 8;
-  CONSTANT LESSTHAN_FILTER_OUT_DEPTH : INTEGER := 8;
-  CONSTANT COMPARE_FILTER_IN_DEPTH : INTEGER := 8; --DATE
-  CONSTANT COMPARE_FILTER_OUT_DEPTH : INTEGER := 8; --DATE
+  CONSTANT BETWEEN_FILTER_IN_DEPTH : INTEGER := 0;
+  CONSTANT BETWEEN_FILTER_OUT_DEPTH : INTEGER := 2;
+  CONSTANT LESSTHAN_FILTER_IN_DEPTH : INTEGER := 0;
+  CONSTANT LESSTHAN_FILTER_OUT_DEPTH : INTEGER := 2;
+  CONSTANT COMPARE_FILTER_IN_DEPTH : INTEGER := 2; --DATE
+  CONSTANT COMPARE_FILTER_OUT_DEPTH : INTEGER := 2; --DATE
 
   -- Outputs of converters
   SIGNAL conv_l_discount_valid : STD_LOGIC := '0';
@@ -96,6 +96,12 @@ ARCHITECTURE Behavioral OF PU IS
   SIGNAL conv_l_quantity_dvalid : STD_LOGIC := '0';
   SIGNAL conv_l_quantity_last : STD_LOGIC := '0';
   SIGNAL conv_l_quantity : STD_LOGIC_VECTOR(63 DOWNTO 0) := (OTHERS => '0');
+
+  SIGNAL dly_l_shipdate_valid : STD_LOGIC := '0';
+  SIGNAL dly_l_shipdate_ready : STD_LOGIC := '0';
+  SIGNAL dly_l_shipdate_dvalid : STD_LOGIC := '0';
+  SIGNAL dly_l_shipdate_last : STD_LOGIC := '0';
+  SIGNAL dly_l_shipdate : STD_LOGIC_VECTOR(63 DOWNTO 0) := (OTHERS => '0');
   --
   -- Discount synchronize signals
   SIGNAL between_in_valid : STD_LOGIC := '0';
@@ -103,6 +109,14 @@ ARCHITECTURE Behavioral OF PU IS
 
   SIGNAL merge_discount_in_valid : STD_LOGIC := '0';
   SIGNAL merge_discount_in_ready : STD_LOGIC := '0';
+  --
+  -- Sync inputs 
+  SIGNAL sync_1_in_valid : STD_LOGIC := '0';
+  SIGNAL sync_1_in_ready : STD_LOGIC := '0';
+  SIGNAL sync_2_in_valid : STD_LOGIC := '0';
+  SIGNAL sync_2_in_ready : STD_LOGIC := '0';
+  SIGNAL sync_3_in_valid : STD_LOGIC := '0';
+  SIGNAL sync_3_in_ready : STD_LOGIC := '0';
   --
   -- Sync inputs 
   SIGNAL sync_1_valid : STD_LOGIC := '0';
@@ -314,6 +328,29 @@ BEGIN
     out_data => conv_l_extendedprice
   );
 
+  dly_shipdate : StreamSliceArray
+  GENERIC MAP(
+    DATA_WIDTH => DATA_WIDTH + 2,
+    DEPTH => 9
+  )
+  PORT MAP(
+    clk => clk,
+    reset => reset,
+
+    in_valid => l_shipdate_valid,
+    in_ready => l_shipdate_ready,
+    in_data(DATA_WIDTH + 1) => l_shipdate_last,
+    in_data(DATA_WIDTH) => l_shipdate_dvalid,
+    in_data(DATA_WIDTH - 1 DOWNTO 0) => l_shipdate,
+
+    out_valid => dly_l_shipdate_valid,
+    out_ready => dly_l_shipdate_ready,
+    out_data(DATA_WIDTH + 1) => dly_l_shipdate_last,
+    out_data(DATA_WIDTH) => dly_l_shipdate_dvalid,
+    out_data(DATA_WIDTH - 1 DOWNTO 0) => dly_l_shipdate
+
+  );
+
   discount_sync : StreamSync
   GENERIC MAP(
     NUM_INPUTS => 1,
@@ -329,6 +366,30 @@ BEGIN
     out_valid(1) => merge_discount_in_valid,
     out_ready(0) => between_in_ready,
     out_ready(1) => merge_discount_in_ready
+  );
+
+  filter_in_sync : StreamSync
+  GENERIC MAP(
+    NUM_INPUTS => 3,
+    NUM_OUTPUTS => 3
+  )
+  PORT MAP(
+    clk => clk,
+    reset => reset,
+
+    in_valid(0) => conv_l_quantity_valid,
+    in_valid(1) => dly_l_shipdate_valid,
+    in_valid(2) => between_in_valid,
+    in_ready(0) => conv_l_quantity_ready,
+    in_ready(1) => dly_l_shipdate_ready,
+    in_ready(2) => between_in_ready,
+
+    out_valid(0) => sync_1_in_valid,
+    out_valid(1) => sync_2_in_valid,
+    out_valid(2) => sync_3_in_valid,
+    out_ready(0) => sync_1_in_ready,
+    out_ready(1) => sync_2_in_ready,
+    out_ready(2) => sync_3_in_ready
   );
 
   -- FILTERS
@@ -348,9 +409,9 @@ BEGIN
     clk => clk,
     reset => reset,
 
-    in_valid => conv_l_quantity_valid,
+    in_valid => sync_1_in_valid,
     in_dvalid => conv_l_quantity_dvalid,
-    in_ready => conv_l_quantity_ready,
+    in_ready => sync_1_in_ready,
     in_last => conv_l_quantity_last,
     in_data => conv_l_quantity,
 
@@ -371,9 +432,9 @@ BEGIN
     clk => clk,
     reset => reset,
 
-    in_valid => between_in_valid,
+    in_valid => sync_2_in_valid,
     in_dvalid => conv_l_discount_dvalid,
-    in_ready => between_in_ready,
+    in_ready => sync_2_in_ready,
     in_last => conv_l_discount_last,
     in_data => conv_l_discount,
 
@@ -394,16 +455,17 @@ BEGIN
     clk => clk,
     reset => reset,
 
-    in_valid => l_shipdate_valid,
-    in_dvalid => l_shipdate_dvalid,
-    in_ready => l_shipdate_ready,
-    in_last => l_shipdate_last,
-    in_data => l_shipdate,
+    in_valid => sync_3_in_valid,
+    in_dvalid => dly_l_shipdate_dvalid,
+    in_ready => sync_3_in_ready,
+    in_last => dly_l_shipdate_last,
+    in_data => dly_l_shipdate,
 
     out_valid => sync_3_valid,
     out_ready => sync_3_ready,
     out_data => sync_3_data
   );
+
   ---------
   -- This module merges the predicate stream with another stream
   -- The MIN_DEPTH is specified for both input and output buffer. There exists
@@ -439,7 +501,7 @@ BEGIN
     out_data => reduce_in_data,
     out_dvalid => reduce_in_dvalid
   );
-  filter_in_sync : StreamSync
+  filter_out_sync : StreamSync
   GENERIC MAP(
     NUM_INPUTS => 4,
     NUM_OUTPUTS => 1
