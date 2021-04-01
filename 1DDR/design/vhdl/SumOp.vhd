@@ -25,10 +25,10 @@ USE ieee.numeric_std.ALL;
 LIBRARY work;
 USE work.Stream_pkg.ALL;
 USE work.Forecast_pkg.ALL;
---USE work.fixed_generic_pkg_mod.ALL;
+USE work.fixed_generic_pkg_mod.ALL;
 
-LIBRARY ieee_proposed;
-USE ieee_proposed.fixed_pkg.ALL;
+--LIBRARY ieee_proposed;
+--USE ieee_proposed.fixed_pkg.ALL;
 ENTITY SumOp IS
   GENERIC (
 

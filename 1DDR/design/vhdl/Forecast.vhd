@@ -7,14 +7,14 @@ USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 USE ieee.std_logic_misc.ALL;
 
-LIBRARY ieee_proposed;
-USE ieee_proposed.fixed_pkg.ALL;
+--LIBRARY ieee_proposed;
+--USE ieee_proposed.fixed_pkg.ALL;
 
 LIBRARY work;
 USE work.Forecast_pkg.ALL;
 USE work.Stream_pkg.ALL;
 USE work.ParallelPatterns_pkg.ALL;
---use work.fixed_generic_pkg_mod.all;
+use work.fixed_generic_pkg_mod.all;
 
 ENTITY Forecast IS
   GENERIC (
@@ -28,26 +28,26 @@ ENTITY Forecast IS
     l_quantity_ready : OUT STD_LOGIC;
     l_quantity_dvalid : IN STD_LOGIC;
     l_quantity_last : IN STD_LOGIC;
-    l_quantity : IN STD_LOGIC_VECTOR(511 DOWNTO 0);
-    l_quantity_count : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    l_quantity : IN STD_LOGIC_VECTOR(1023 DOWNTO 0);
+    l_quantity_count : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
     l_extendedprice_valid : IN STD_LOGIC;
     l_extendedprice_ready : OUT STD_LOGIC;
     l_extendedprice_dvalid : IN STD_LOGIC;
     l_extendedprice_last : IN STD_LOGIC;
-    l_extendedprice : IN STD_LOGIC_VECTOR(511 DOWNTO 0);
-    l_extendedprice_count : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    l_extendedprice : IN STD_LOGIC_VECTOR(1023 DOWNTO 0);
+    l_extendedprice_count : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
     l_discount_valid : IN STD_LOGIC;
     l_discount_ready : OUT STD_LOGIC;
     l_discount_dvalid : IN STD_LOGIC;
     l_discount_last : IN STD_LOGIC;
-    l_discount : IN STD_LOGIC_VECTOR(511 DOWNTO 0);
-    l_discount_count : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    l_discount : IN STD_LOGIC_VECTOR(1023 DOWNTO 0);
+    l_discount_count : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
     l_shipdate_valid : IN STD_LOGIC;
     l_shipdate_ready : OUT STD_LOGIC;
     l_shipdate_dvalid : IN STD_LOGIC;
     l_shipdate_last : IN STD_LOGIC;
-    l_shipdate : IN STD_LOGIC_VECTOR(511 DOWNTO 0);
-    l_shipdate_count : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    l_shipdate : IN STD_LOGIC_VECTOR(1023 DOWNTO 0);
+    l_shipdate_count : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
     l_quantity_unl_valid : IN STD_LOGIC;
     l_quantity_unl_ready : OUT STD_LOGIC;
     l_quantity_unl_tag : IN STD_LOGIC_VECTOR(TAG_WIDTH - 1 DOWNTO 0);
@@ -89,10 +89,10 @@ ENTITY Forecast IS
     result : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
     l_firstidx : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     l_lastidx : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    status_1 : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
-    status_2 : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     rhigh : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     rlow : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+    status_1 : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+    status_2 : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     r1 : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
     r2 : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
     r3 : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
@@ -101,14 +101,13 @@ ENTITY Forecast IS
     r6 : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
     r7 : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
     r8 : OUT STD_LOGIC_VECTOR(63 DOWNTO 0)
-
   );
 END ENTITY;
 
 ARCHITECTURE Implementation OF Forecast IS
 
   CONSTANT DATA_WIDTH : INTEGER := 64;
-  CONSTANT EPC : INTEGER := 8;
+  CONSTANT EPC : INTEGER := 16;
   CONSTANT FIXED_LEFT_INDEX : INTEGER := 45;
   CONSTANT FIXED_RIGHT_INDEX : INTEGER := FIXED_LEFT_INDEX - (DATA_WIDTH - 1);
 
@@ -206,6 +205,7 @@ ARCHITECTURE Implementation OF Forecast IS
 
   SIGNAL result_out_valid : STD_LOGIC;
   SIGNAL result_out_ready : STD_LOGIC;
+
   SIGNAL temp_inp_1 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
   SIGNAL temp_inp_2 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
   SIGNAL temp_inp_3 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
@@ -214,6 +214,14 @@ ARCHITECTURE Implementation OF Forecast IS
   SIGNAL temp_inp_6 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
   SIGNAL temp_inp_7 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
   SIGNAL temp_inp_8 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
+  SIGNAL temp_inp_9 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
+  SIGNAL temp_inp_10 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
+  SIGNAL temp_inp_11 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
+  SIGNAL temp_inp_12 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
+  SIGNAL temp_inp_13 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
+  SIGNAL temp_inp_14 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
+  SIGNAL temp_inp_15 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
+  SIGNAL temp_inp_16 : sfixed(FIXED_LEFT_INDEX DOWNTO FIXED_RIGHT_INDEX);
 
   CONSTANT ONES : STD_LOGIC_VECTOR(EPC - 1 DOWNTO 0) := (OTHERS => '1');
 
@@ -557,6 +565,7 @@ BEGIN
     );
     -------------------------------------------------------------------------------
   END GENERATE;
+
   temp_inp_1 <= to_sfixed(sum_out_data_stages(DATA_WIDTH - 1 DOWNTO 0), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
   temp_inp_2 <= to_sfixed(sum_out_data_stages(2 * DATA_WIDTH - 1 DOWNTO DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
   temp_inp_3 <= to_sfixed(sum_out_data_stages(3 * DATA_WIDTH - 1 DOWNTO 2 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
@@ -565,6 +574,15 @@ BEGIN
   temp_inp_6 <= to_sfixed(sum_out_data_stages(6 * DATA_WIDTH - 1 DOWNTO 5 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
   temp_inp_7 <= to_sfixed(sum_out_data_stages(7 * DATA_WIDTH - 1 DOWNTO 6 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
   temp_inp_8 <= to_sfixed(sum_out_data_stages(8 * DATA_WIDTH - 1 DOWNTO 7 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+  temp_inp_9 <= to_sfixed(sum_out_data_stages(9 * DATA_WIDTH - 1 DOWNTO 8 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+  temp_inp_10 <= to_sfixed(sum_out_data_stages(10 * DATA_WIDTH - 1 DOWNTO 9 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+  temp_inp_11 <= to_sfixed(sum_out_data_stages(11 * DATA_WIDTH - 1 DOWNTO 10 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+  temp_inp_12 <= to_sfixed(sum_out_data_stages(12 * DATA_WIDTH - 1 DOWNTO 11 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+  temp_inp_13 <= to_sfixed(sum_out_data_stages(13 * DATA_WIDTH - 1 DOWNTO 12 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+  temp_inp_14 <= to_sfixed(sum_out_data_stages(14 * DATA_WIDTH - 1 DOWNTO 13 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+  temp_inp_15 <= to_sfixed(sum_out_data_stages(15 * DATA_WIDTH - 1 DOWNTO 14 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+  temp_inp_16 <= to_sfixed(sum_out_data_stages(16 * DATA_WIDTH - 1 DOWNTO 15 * DATA_WIDTH), FIXED_LEFT_INDEX, FIXED_RIGHT_INDEX);
+
   WITH state SELECT state_slv <=
     "000" WHEN STATE_COMMAND,
     "011" WHEN STATE_CALCULATING,
@@ -723,7 +741,7 @@ BEGIN
       temp_acc := (OTHERS => '0');
 
       IF sum_out_valid_stages = ONES THEN
-        temp_acc := temp_inp_1 + temp_inp_2 + temp_inp_3 + temp_inp_4 + temp_inp_5 + temp_inp_6 + temp_inp_7 + temp_inp_8;
+        temp_acc := temp_inp_1 + temp_inp_2 + temp_inp_3 + temp_inp_4 + temp_inp_5 + temp_inp_6 + temp_inp_7 + temp_inp_8 + temp_inp_9 + temp_inp_10 + temp_inp_11 + temp_inp_12 + temp_inp_13 + temp_inp_14 + temp_inp_15 + temp_inp_16;
         result_out_data := to_slv(resize(arg => temp_acc, left_index => FIXED_LEFT_INDEX, right_index => FIXED_RIGHT_INDEX, round_style => fixed_round_style, overflow_style => fixed_overflow_style));
         result <= result_out_data;
         rhigh <= result_out_data(63 DOWNTO 32);

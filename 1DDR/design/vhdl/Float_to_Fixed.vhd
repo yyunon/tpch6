@@ -4,14 +4,14 @@ USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_misc.ALL;
 USE ieee.numeric_std.ALL;
 
-LIBRARY ieee_proposed;
-USE ieee_proposed.fixed_pkg.ALL;
+--LIBRARY ieee_proposed;
+--USE ieee_proposed.fixed_pkg.ALL;
 
 LIBRARY work;
 USE work.Stream_pkg.ALL;
 USE work.ParallelPatterns_pkg.ALL;
 USE work.Forecast_pkg.ALL;
---use work.fixed_generic_pkg_mod.all;
+use work.fixed_generic_pkg_mod.all;
 ENTITY Float_to_Fixed IS
   GENERIC (
 
