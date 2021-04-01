@@ -1,4 +1,4 @@
-${CL_ROOT}/ip/floating_point_0_1/sim/floating_point_0.vhd
+${CL_ROOT}/ip/floating_point_0_2/sim/floating_point_0_2.vhd
 
 ${CL_ROOT}/design/vhdl/hardware/vhlib/util/UtilMisc_pkg.vhd
 ${CL_ROOT}/design/vhdl/hardware/vhlib/util/UtilInt_pkg.vhd

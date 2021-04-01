@@ -22,14 +22,14 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 
---LIBRARY ieee_proposed;
---USE ieee_proposed.fixed_pkg.ALL;
+LIBRARY ieee_proposed;
+USE ieee_proposed.fixed_pkg.ALL;
 
 LIBRARY work;
 USE work.Stream_pkg.ALL;
 USE work.ParallelPatterns_pkg.ALL;
 USE work.Forecast_pkg.ALL;
-USE work.fixed_generic_pkg_mod.ALL;
+--USE work.fixed_generic_pkg_mod.ALL;
 ENTITY MergeOp IS
   GENERIC (
 
