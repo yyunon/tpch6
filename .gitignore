@@ -1,5 +1,7 @@
 #Language servers
 .hdl_checker/
+.hdl_checker.config
+vhdltool-config.yaml
 #Vivado Waveform
 *.wcfg
 *.jou
