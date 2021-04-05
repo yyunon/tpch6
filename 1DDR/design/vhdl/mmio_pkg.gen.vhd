@@ -61,6 +61,44 @@ package mmio_pkg is
       f_l_shipdate_values_data : out std_logic_vector(63 downto 0)
           := (others => '0');
 
+      -- Interface for field rhigh: rhigh.
+      f_rhigh_write_data : in std_logic_vector(31 downto 0) := (others => '0');
+
+      -- Interface for field rlow: rlow.
+      f_rlow_write_data : in std_logic_vector(31 downto 0) := (others => '0');
+
+      -- Interface for field status_1: status_1.
+      f_status_1_write_data : in std_logic_vector(31 downto 0)
+          := (others => '0');
+
+      -- Interface for field status_2: status_2.
+      f_status_2_write_data : in std_logic_vector(31 downto 0)
+          := (others => '0');
+
+      -- Interface for field r1: r1.
+      f_r1_write_data : in std_logic_vector(63 downto 0) := (others => '0');
+
+      -- Interface for field r2: r2.
+      f_r2_write_data : in std_logic_vector(63 downto 0) := (others => '0');
+
+      -- Interface for field r3: r3.
+      f_r3_write_data : in std_logic_vector(63 downto 0) := (others => '0');
+
+      -- Interface for field r4: r4.
+      f_r4_write_data : in std_logic_vector(63 downto 0) := (others => '0');
+
+      -- Interface for field r5: r5.
+      f_r5_write_data : in std_logic_vector(63 downto 0) := (others => '0');
+
+      -- Interface for field r6: r6.
+      f_r6_write_data : in std_logic_vector(63 downto 0) := (others => '0');
+
+      -- Interface for field r7: r7.
+      f_r7_write_data : in std_logic_vector(63 downto 0) := (others => '0');
+
+      -- Interface for field r8: r8.
+      f_r8_write_data : in std_logic_vector(63 downto 0) := (others => '0');
+
       -- Interface for field Profile_enable: Profile_enable.
       f_Profile_enable_data : out std_logic := '0';
 

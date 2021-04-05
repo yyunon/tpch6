@@ -40,11 +40,7 @@ entity AxiTop is
     BUS_DATA_WIDTH              : natural := 512;
     BUS_LEN_WIDTH               : natural := 8;
     BUS_BURST_MAX_LEN           : natural := 64;
-    BUS_BURST_STEP_LEN          : natural := 1;
-      -- AXI4-lite bus properties for MMIO
-    MMIO_ADDR_WIDTH             : natural := 32;
-    MMIO_DATA_WIDTH             : natural := 32
-
+    BUS_BURST_STEP_LEN          : natural := 1
   );
 
   port (

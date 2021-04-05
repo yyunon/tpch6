@@ -30,7 +30,7 @@ extern "C" void test_main(uint32_t *exit_code) {
     strcpy(argv_data + 17, env);
     argc = 2;
     for (char *c = argv_data + 17; c < argv_data + argv_data_sz - 2; c++) {
-      if (*c == ':' || c == '\0') {
+      if (*c == ':' || *c == '\0') {
         argc++;
         *c = '\0';
       }

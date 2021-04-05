@@ -319,7 +319,7 @@ begin
     -- 4. Write any kernel-specific registers.
 
     -- 5. Start the kernel.
-    mmio_write32(14, X"00000001", mmio_source, mmio_sink, bcd_clk, bcd_reset); -- Start profiling.
+    mmio_write32(34, X"00000001", mmio_source, mmio_sink, bcd_clk, bcd_reset); -- Start profiling.
     mmio_write32(REG_CONTROL, CONTROL_START, mmio_source, mmio_sink, bcd_clk, bcd_reset);
 
     -- 6. Poll for completion
@@ -337,7 +337,7 @@ begin
       exit when read_data_masked = STATUS_DONE;
     end loop;
 
-    mmio_write32(14, X"00000000", mmio_source, mmio_sink, bcd_clk, bcd_reset); -- Stop profiling.
+    mmio_write32(34, X"00000000", mmio_source, mmio_sink, bcd_clk, bcd_reset); -- Stop profiling.
 
     -- 7. Read return register.
     mmio_read32(REG_RETURN0, read_data, mmio_source, mmio_sink, bcd_clk, bcd_reset);
@@ -387,7 +387,7 @@ begin
     SEED                        => 1337,
     RANDOM_REQUEST_TIMING       => false,
     RANDOM_RESPONSE_TIMING      => false,
-    SREC_FILE                   => "/home/yyunon/thesis_journals/resources/tpc-fletcher/tpch1/hardware/memory.srec"
+    SREC_FILE                   => "/home/yyunon/thesis_journals/resources/tpc-fletcher/tpch6/hardware/memory.srec"
   )
   port map (
     clk                         => bcd_clk,

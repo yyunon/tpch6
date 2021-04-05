@@ -41,8 +41,6 @@ puts "AWS FPGA: ([clock format [clock seconds] -format %T]) Reading developer's 
 
 # Reading the .sv and .v files, as proper designs would not require
 # reading .v, .vh, nor .inc files
-
-set_property library ieee [get_files ../../../fixed_pkg_2008.vhd]
 read_verilog -sv [glob $ENC_SRC_DIR/*.?v]
 read_vhdl -vhdl2008 [ glob $ENC_SRC_DIR/*.vhd ]
 
@@ -69,6 +67,11 @@ read_verilog -sv [ list \
 ]
 
 puts "AWS FPGA: Reading IP blocks";
+
+#Read floatino to fixed converter ip
+read_ip [ list \
+  $CL_DIR/ip/floating_point_0/floating_point_0.xci
+]
 
 #Read DDR IP
 read_ip [ list \
