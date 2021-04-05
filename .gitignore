@@ -1,3 +1,6 @@
+#IDEs
+.metals
+workspace.code-workspace
 #Language servers
 .hdl_checker/
 .hdl_checker.config
