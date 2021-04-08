@@ -124,7 +124,7 @@ entity Forecast_l is
     l_shipdate_ready               : in  std_logic;
     l_shipdate_dvalid              : out std_logic;
     l_shipdate_last                : out std_logic;
-    l_shipdate                     : out std_logic_vector(511 downto 0);
+    l_shipdate                     : out std_logic_vector(255 downto 0);
     l_shipdate_count               : out std_logic_vector(3 downto 0);
     l_shipdate_bus_rreq_valid      : out std_logic;
     l_shipdate_bus_rreq_ready      : in  std_logic;
@@ -247,7 +247,7 @@ architecture Implementation of Forecast_l is
 
   signal shipdate_inst_out_valid           : std_logic_vector(0 downto 0);
   signal shipdate_inst_out_ready           : std_logic_vector(0 downto 0);
-  signal shipdate_inst_out_data            : std_logic_vector(515 downto 0);
+  signal shipdate_inst_out_data            : std_logic_vector(259 downto 0);
   signal shipdate_inst_out_dvalid          : std_logic_vector(0 downto 0);
   signal shipdate_inst_out_last            : std_logic_vector(0 downto 0);
 
@@ -383,7 +383,7 @@ begin
       BUS_BURST_STEP_LEN => L_SHIPDATE_BUS_BURST_STEP_LEN,
       BUS_BURST_MAX_LEN  => L_SHIPDATE_BUS_BURST_MAX_LEN,
       INDEX_WIDTH        => INDEX_WIDTH,
-      CFG                => "prim(64;epc=8)",
+      CFG                => "prim(32;epc=8)",
       CMD_TAG_ENABLE     => true,
       CMD_TAG_WIDTH      => TAG_WIDTH
     )
@@ -480,8 +480,8 @@ begin
   shipdate_inst_out_ready(0)        <= l_shipdate_ready;
   l_shipdate_dvalid                 <= shipdate_inst_out_dvalid(0);
   l_shipdate_last                   <= shipdate_inst_out_last(0);
-  l_shipdate                        <= shipdate_inst_out_data(511 downto 0);
-  l_shipdate_count                  <= shipdate_inst_out_data(515 downto 512);
+  l_shipdate                        <= shipdate_inst_out_data(255 downto 0);
+  l_shipdate_count                  <= shipdate_inst_out_data(259 downto 256);
 
   l_shipdate_bus_rreq_valid         <= shipdate_inst_bus_rreq_valid;
   shipdate_inst_bus_rreq_ready      <= l_shipdate_bus_rreq_ready;

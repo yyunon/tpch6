@@ -45,7 +45,7 @@ ENTITY PU IS
     l_shipdate_ready : OUT STD_LOGIC;
     l_shipdate_dvalid : IN STD_LOGIC;
     l_shipdate_last : IN STD_LOGIC;
-    l_shipdate : IN STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
+    l_shipdate : IN STD_LOGIC_VECTOR(DATA_WIDTH/2 - 1 DOWNTO 0); --32 bits 
 
     sum_out_valid : OUT STD_LOGIC;
     sum_out_ready : IN STD_LOGIC;
@@ -101,7 +101,7 @@ ARCHITECTURE Behavioral OF PU IS
   SIGNAL dly_l_shipdate_ready : STD_LOGIC := '0';
   SIGNAL dly_l_shipdate_dvalid : STD_LOGIC := '0';
   SIGNAL dly_l_shipdate_last : STD_LOGIC := '0';
-  SIGNAL dly_l_shipdate : STD_LOGIC_VECTOR(63 DOWNTO 0) := (OTHERS => '0');
+  SIGNAL dly_l_shipdate : STD_LOGIC_VECTOR(31 DOWNTO 0) := (OTHERS => '0');
   --
   -- Discount synchronize signals
   SIGNAL between_in_valid : STD_LOGIC := '0';
@@ -336,7 +336,7 @@ BEGIN
 
   dly_shipdate : StreamSliceArray
   GENERIC MAP(
-    DATA_WIDTH => DATA_WIDTH + 2,
+    DATA_WIDTH => DATA_WIDTH/2 + 2,
     DEPTH => 9
   )
   PORT MAP(
@@ -345,15 +345,15 @@ BEGIN
 
     in_valid => l_shipdate_valid,
     in_ready => l_shipdate_ready,
-    in_data(DATA_WIDTH + 1) => l_shipdate_last,
-    in_data(DATA_WIDTH) => l_shipdate_dvalid,
-    in_data(DATA_WIDTH - 1 DOWNTO 0) => l_shipdate,
+    in_data(DATA_WIDTH /2 + 1) => l_shipdate_last,
+    in_data(DATA_WIDTH /2) => l_shipdate_dvalid,
+    in_data(DATA_WIDTH /2 - 1 DOWNTO 0) => l_shipdate,
 
     out_valid => dly_l_shipdate_valid,
     out_ready => dly_l_shipdate_ready,
-    out_data(DATA_WIDTH + 1) => dly_l_shipdate_last,
-    out_data(DATA_WIDTH) => dly_l_shipdate_dvalid,
-    out_data(DATA_WIDTH - 1 DOWNTO 0) => dly_l_shipdate
+    out_data(DATA_WIDTH/2 + 1) => dly_l_shipdate_last,
+    out_data(DATA_WIDTH/2) => dly_l_shipdate_dvalid,
+    out_data(DATA_WIDTH/2 - 1 DOWNTO 0) => dly_l_shipdate
 
   );
 
@@ -454,7 +454,7 @@ BEGIN
     FIXED_RIGHT_INDEX => FIXED_RIGHT_INDEX,
     INPUT_MIN_DEPTH => COMPARE_FILTER_IN_DEPTH,
     OUTPUT_MIN_DEPTH => COMPARE_FILTER_OUT_DEPTH,
-    DATA_WIDTH => DATA_WIDTH,
+    DATA_WIDTH => DATA_WIDTH/2,
     FILTERTYPE => "DATE"
   )
   PORT MAP(

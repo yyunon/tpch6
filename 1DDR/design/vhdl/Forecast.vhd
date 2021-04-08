@@ -46,7 +46,7 @@ ENTITY Forecast IS
     l_shipdate_ready : OUT STD_LOGIC;
     l_shipdate_dvalid : IN STD_LOGIC;
     l_shipdate_last : IN STD_LOGIC;
-    l_shipdate : IN STD_LOGIC_VECTOR(511 DOWNTO 0);
+    l_shipdate : IN STD_LOGIC_VECTOR(255 DOWNTO 0);
     l_shipdate_count : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     l_quantity_unl_valid : IN STD_LOGIC;
     l_quantity_unl_ready : OUT STD_LOGIC;
@@ -89,10 +89,10 @@ ENTITY Forecast IS
     result : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
     l_firstidx : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     l_lastidx : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    status_1 : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
-    status_2 : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     rhigh : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     rlow : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+    status_1 : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+    status_2 : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     r1 : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
     r2 : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
     r3 : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
@@ -101,7 +101,6 @@ ENTITY Forecast IS
     r6 : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
     r7 : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
     r8 : OUT STD_LOGIC_VECTOR(63 DOWNTO 0)
-
   );
 END ENTITY;
 
@@ -149,7 +148,7 @@ ARCHITECTURE Implementation OF Forecast IS
   SIGNAL buf_l_shipdate_ready : STD_LOGIC;
   SIGNAL buf_l_shipdate_dvalid : STD_LOGIC;
   SIGNAL buf_l_shipdate_last : STD_LOGIC;
-  SIGNAL buf_l_shipdate : STD_LOGIC_VECTOR(DATA_WIDTH * EPC - 1 DOWNTO 0);
+  SIGNAL buf_l_shipdate : STD_LOGIC_VECTOR(DATA_WIDTH * EPC / 2 - 1 DOWNTO 0);
 
   -- Buffered and decoded inputs
   SIGNAL dec_l_quantity_valid : STD_LOGIC_VECTOR(EPC - 1 DOWNTO 0);
@@ -173,7 +172,7 @@ ARCHITECTURE Implementation OF Forecast IS
   SIGNAL dec_l_shipdate_ready : STD_LOGIC_VECTOR(EPC - 1 DOWNTO 0);
   SIGNAL dec_l_shipdate_dvalid : STD_LOGIC_VECTOR(EPC - 1 DOWNTO 0);
   SIGNAL dec_l_shipdate_last : STD_LOGIC_VECTOR(EPC - 1 DOWNTO 0);
-  SIGNAL dec_l_shipdate : STD_LOGIC_VECTOR(DATA_WIDTH * EPC - 1 DOWNTO 0);
+  SIGNAL dec_l_shipdate : STD_LOGIC_VECTOR(DATA_WIDTH * EPC / 2 - 1 DOWNTO 0);
 
   --Stage valid ready signals
   SIGNAL quantity_valid : STD_LOGIC_VECTOR(EPC - 1 DOWNTO 0);
@@ -317,7 +316,7 @@ BEGIN
 
   shipdate_buffer : StreamBuffer
   GENERIC MAP(
-    DATA_WIDTH => 64 * EPC + 2,
+    DATA_WIDTH => 32 * EPC + 2,
     MIN_DEPTH => SYNC_IN_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
   )
   PORT MAP(
@@ -325,14 +324,14 @@ BEGIN
     reset => kcd_reset OR reset,
     in_valid => l_shipdate_valid,
     in_ready => l_shipdate_ready,
-    in_data(DATA_WIDTH * EPC + 1) => l_shipdate_last,
-    in_data(DATA_WIDTH * EPC) => l_shipdate_dvalid,
-    in_data(DATA_WIDTH * EPC - 1 DOWNTO 0) => l_shipdate,
+    in_data(DATA_WIDTH * EPC/2 + 1) => l_shipdate_last,
+    in_data(DATA_WIDTH * EPC/2) => l_shipdate_dvalid,
+    in_data(DATA_WIDTH * EPC/2 - 1 DOWNTO 0) => l_shipdate,
     out_valid => buf_l_shipdate_valid,
     out_ready => buf_l_shipdate_ready,
-    out_data(DATA_WIDTH * EPC + 1) => buf_l_shipdate_last,
-    out_data(DATA_WIDTH * EPC) => buf_l_shipdate_dvalid,
-    out_data(DATA_WIDTH * EPC - 1 DOWNTO 0) => buf_l_shipdate
+    out_data(DATA_WIDTH * EPC/2 + 1) => buf_l_shipdate_last,
+    out_data(DATA_WIDTH * EPC/2) => buf_l_shipdate_dvalid,
+    out_data(DATA_WIDTH * EPC/2 - 1 DOWNTO 0) => buf_l_shipdate
 
   );
 
@@ -493,7 +492,7 @@ BEGIN
     );
     shipdate_buffer_pu_0 : StreamBuffer
     GENERIC MAP(
-      DATA_WIDTH => 64 + 2,
+      DATA_WIDTH => 32 + 2,
       MIN_DEPTH => SYNC_OUT_BUFFER_DEPTH -- plus last and dvalid : Maybe later count 
     )
     PORT MAP(
@@ -501,14 +500,14 @@ BEGIN
       reset => kcd_reset OR reset,
       in_valid => shipdate_valid(I),
       in_ready => shipdate_ready(I),
-      in_data(DATA_WIDTH + 1) => shipdate_last(I),
-      in_data(DATA_WIDTH) => shipdate_dvalid(I),
-      in_data(DATA_WIDTH - 1 DOWNTO 0) => buf_l_shipdate((I + 1) * 64 - 1 DOWNTO I * 64),
+      in_data(DATA_WIDTH/2 + 1) => shipdate_last(I),
+      in_data(DATA_WIDTH/2) => shipdate_dvalid(I),
+      in_data(DATA_WIDTH/2 - 1 DOWNTO 0) => buf_l_shipdate((I + 1) * 32 - 1 DOWNTO I * 32),
       out_valid => dec_l_shipdate_valid(I),
       out_ready => dec_l_shipdate_ready(I),
-      out_data(DATA_WIDTH + 1) => dec_l_shipdate_last(I),
-      out_data(DATA_WIDTH) => dec_l_shipdate_dvalid(I),
-      out_data(DATA_WIDTH - 1 DOWNTO 0) => dec_l_shipdate((I + 1) * 64 - 1 DOWNTO I * 64)
+      out_data(DATA_WIDTH/2 + 1) => dec_l_shipdate_last(I),
+      out_data(DATA_WIDTH/2) => dec_l_shipdate_dvalid(I),
+      out_data(DATA_WIDTH/2 - 1 DOWNTO 0) => dec_l_shipdate((I + 1) * 32 - 1 DOWNTO I * 32)
     );
   END GENERATE;
 
@@ -549,7 +548,7 @@ BEGIN
       l_shipdate_ready => dec_l_shipdate_ready(I),
       l_shipdate_dvalid => dec_l_shipdate_dvalid(I),
       l_shipdate_last => dec_l_shipdate_last(I),
-      l_shipdate => dec_l_shipdate((I + 1) * 64 - 1 DOWNTO I * 64),
+      l_shipdate => dec_l_shipdate((I + 1) * 32 - 1 DOWNTO I * 32),
 
       sum_out_valid => sum_out_valid_stages(I),
       sum_out_ready => sum_out_ready_stages(I),

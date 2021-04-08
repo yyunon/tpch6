@@ -70,7 +70,7 @@ PACKAGE Forecast_pkg IS
       l_shipdate_ready : OUT STD_LOGIC;
       l_shipdate_dvalid : IN STD_LOGIC;
       l_shipdate_last : IN STD_LOGIC;
-      l_shipdate : IN STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
+      l_shipdate : IN STD_LOGIC_VECTOR(DATA_WIDTH/2 - 1 DOWNTO 0);
 
       sum_out_valid : OUT STD_LOGIC;
       sum_out_ready : IN STD_LOGIC;
@@ -127,7 +127,7 @@ PACKAGE Forecast_pkg IS
       in_dvalid : IN STD_LOGIC := '1';
       in_ready : OUT STD_LOGIC;
       in_last : IN STD_LOGIC;
-      in_data : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
+      in_data : IN STD_LOGIC_VECTOR(DATA_WIDTH-1 DOWNTO 0);
 
       out_valid : OUT STD_LOGIC;
       out_ready : IN STD_LOGIC;

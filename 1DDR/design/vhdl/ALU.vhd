@@ -35,7 +35,7 @@ ENTITY FILTER IS
     in_dvalid : IN STD_LOGIC := '1';
     in_ready : OUT STD_LOGIC;
     in_last : IN STD_LOGIC;
-    in_data : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
+    in_data : IN STD_LOGIC_VECTOR(DATA_WIDTH - 1 DOWNTO 0);
 
     out_valid : OUT STD_LOGIC;
     out_ready : IN STD_LOGIC;
@@ -75,13 +75,13 @@ BEGIN
 
     in_valid => in_valid,
     in_ready => in_ready,
-    in_data(64) => in_last,
-    in_data(63 DOWNTO 0) => in_data,
+    in_data(DATA_WIDTH) => in_last,
+    in_data(DATA_WIDTH - 1 DOWNTO 0) => in_data,
 
     out_valid => ops_valid,
     out_ready => ops_ready,
-    out_data(64) => ops_last,
-    out_data(63 DOWNTO 0) => ops_data
+    out_data(DATA_WIDTH) => ops_last,
+    out_data(DATA_WIDTH - 1 DOWNTO 0) => ops_data
   );
 
   -- Synchronize the operand stream
@@ -161,7 +161,7 @@ BEGIN
   END GENERATE;
 
   shipdate_proc :
-  IF FILTERTYPE = "DATE" GENERATE
+  IF FILTERTYPE = "DATE" GENERATE --date32[days]
     --process(ops_data) is 
     --  --variable temp_float_1 : float64; -- float(11 downto -52);
     --  variable temp_buffer_1: sfixed(FIXED_LEFT_INDEX downto FIXED_RIGHT_INDEX);

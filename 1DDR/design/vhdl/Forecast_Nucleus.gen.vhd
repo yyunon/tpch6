@@ -73,7 +73,7 @@ entity Forecast_Nucleus is
     l_shipdate_ready             : out std_logic;
     l_shipdate_dvalid            : in  std_logic;
     l_shipdate_last              : in  std_logic;
-    l_shipdate                   : in  std_logic_vector(511 downto 0);
+    l_shipdate                   : in  std_logic_vector(255 downto 0);
     l_shipdate_count             : in  std_logic_vector(3 downto 0);
     l_quantity_unl_valid         : in  std_logic;
     l_quantity_unl_ready         : out std_logic;
@@ -145,7 +145,7 @@ architecture Implementation of Forecast_Nucleus is
       l_shipdate_ready             : out std_logic;
       l_shipdate_dvalid            : in  std_logic;
       l_shipdate_last              : in  std_logic;
-      l_shipdate                   : in  std_logic_vector(511 downto 0);
+      l_shipdate                   : in  std_logic_vector(255 downto 0);
       l_shipdate_count             : in  std_logic_vector(3 downto 0);
       l_quantity_unl_valid         : in  std_logic;
       l_quantity_unl_ready         : out std_logic;
@@ -228,7 +228,7 @@ architecture Implementation of Forecast_Nucleus is
   signal Forecast_inst_l_shipdate_ready                     : std_logic;
   signal Forecast_inst_l_shipdate_dvalid                    : std_logic;
   signal Forecast_inst_l_shipdate_last                      : std_logic;
-  signal Forecast_inst_l_shipdate                           : std_logic_vector(511 downto 0);
+  signal Forecast_inst_l_shipdate                           : std_logic_vector(255 downto 0);
   signal Forecast_inst_l_shipdate_count                     : std_logic_vector(3 downto 0);
 
   signal Forecast_inst_l_quantity_unl_valid                 : std_logic;
